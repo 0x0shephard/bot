@@ -1,0 +1,64 @@
+{
+  "timestamp": "2025-08-05 21:29:12",
+  "providers": {
+    "HyperStack": {
+      "H100 SXM": "$2.40",
+      "H100 NVLink": "$1.95",
+      "H100 (Standard)": "$1.90"
+    },
+    "CoreWeave": {
+      "HGX H100 (8x GPUs)": "$49.24"
+    },
+    "CUDO Compute": {
+      "H100 PCIe (On-Demand)": "$2.47",
+      "H100 PCIe (Reserved)": "$1.73",
+      "H100 SXM (On-Demand)": "$2.25",
+      "H100 SXM (Reserved)": "$1.80"
+    },
+    "Sesterce": {
+      "H200 (Related)": "$2"
+    },
+    "Atlantic.Net": {
+      "H100NVL (1x GPU)": "$3.941",
+      "H100NVL (4x GPUs)": "$15.765",
+      "H100NVL (8x GPUs)": "$31.531",
+      "H100NVL": "$2648.4"
+    },
+    "Civo": {
+      "H100 SXM (1x GPU) Standard": "$2.99",
+      "H100 SXM (1x GPU) Discounted": "$2.49",
+      "H100 SXM (8x GPUs) Standard": "$23.92",
+      "H100 SXM (8x GPUs) Discounted": "$19.92",
+      "H100 PCI (1x GPU) Standard": "$2.49",
+      "H100 PCI (1x GPU) Discounted": "$1.99",
+      "H100 PCI (2x GPUs) Standard": "$4.98",
+      "H100 PCI (2x GPUs) Discounted": "$3.98",
+      "H100 PCI (4x GPUs) Standard": "$9.96",
+      "H100 PCI (4x GPUs) Discounted": "$7.96",
+      "H100 PCI (8x GPUs) Standard": "$19.92",
+      "H100 PCI (8x GPUs) Discounted": "$15.92"
+    }
+  },
+  "summary": {
+    "total_providers": 6,
+    "total_h100_variants": 25,
+    "providers_with_data": [
+      "HyperStack",
+      "CoreWeave",
+      "CUDO Compute",
+      "Sesterce",
+      "Atlantic.Net",
+      "Civo"
+    ],
+    "cheapest": {
+      "provider": "CUDO Compute",
+      "variant": "H100 PCIe (Reserved)",
+      "price": "$1.73"
+    },
+    "most_expensive": {
+      "provider": "Atlantic.Net",
+      "variant": "H100NVL",
+      "price": "$2648.4"
+    }
+  }
+}
