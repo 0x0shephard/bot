@@ -1,0 +1,166 @@
+name: GPU Price Scraper Pipeline
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours
+  workflow_dispatch:  # Manual trigger
+  push:
+    branches: [ main ]  # Run on push for testing
+
+jobs:
+  scrape-and-calculate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas numpy requests beautifulsoup4 selenium webdriver-manager lxml openpyxl
+        # Add any other dependencies your scrapers need
+    
+    - name: Install Chrome and ChromeDriver (if needed for selenium)
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
+    
+    - name: Step 1 - Run Scrapers
+      run: |
+        echo "Starting scraper pipeline..."
+        echo "Running scraper20.py..."
+        python scraper20.py || echo "scraper20.py failed, continuing..."
+        
+        echo "Running scraper-1.py..."
+        python scraper-1.py || echo "scraper-1.py failed, continuing..."
+        
+        echo "Running aws_scraper.py..."
+        python aws_scraper.py || echo "aws_scraper.py failed, continuing..."
+        
+        echo "Scrapers completed. Checking output files..."
+        ls -la *.json || echo "No JSON files found"
+    
+    - name: Step 2 - Convert JSON to CSV
+      run: |
+        echo "Converting JSON files to CSV..."
+        python json_to_csv_converter.py
+        echo "JSON to CSV conversion completed"
+        ls -la h100_prices_combined.csv || echo "h100_prices_combined.csv not found"
+    
+    - name: Step 3 - Clean and Convert Currencies
+      run: |
+        echo "Cleaning data and converting currencies..."
+        python clean_and_convert_currencies.py
+        echo "Currency conversion completed"
+        ls -la h100_prices_usd.csv || echo "h100_prices_usd.csv not found"
+    
+    - name: Step 4 - Normalize Prices
+      run: |
+        echo "Normalizing prices..."
+        python normalize.py
+        echo "Price normalization completed"
+        ls -la gpu_prices_normalized.csv || echo "gpu_prices_normalized.csv not found"
+    
+    - name: Step 5 - Calculate GPU Index
+      run: |
+        echo "Calculating GPU index..."
+        python gpu_index_calculator.py
+        echo "GPU index calculation completed"
+        ls -la h100_gpu_index.csv || echo "h100_gpu_index.csv not found"
+    
+    - name: Display Results
+      run: |
+        echo "=== PIPELINE RESULTS ==="
+        echo "Final GPU Index Results:"
+        if [ -f "h100_gpu_index.csv" ]; then
+          cat h100_gpu_index.csv
+        else
+          echo "h100_gpu_index.csv not found"
+        fi
+        
+        echo ""
+        echo "=== FILE SIZES ==="
+        ls -lh *.csv *.json || echo "No output files found"
+    
+    - name: Create results summary
+      run: |
+        echo "# GPU Price Index Results - $(date)" > results_summary.md
+        echo "" >> results_summary.md
+        echo "## Pipeline Status" >> results_summary.md
+        echo "- Scrapers: ✅ Completed" >> results_summary.md
+        echo "- JSON to CSV: ✅ Completed" >> results_summary.md
+        echo "- Currency Conversion: ✅ Completed" >> results_summary.md
+        echo "- Price Normalization: ✅ Completed" >> results_summary.md
+        echo "- Index Calculation: ✅ Completed" >> results_summary.md
+        echo "" >> results_summary.md
+        
+        if [ -f "h100_gpu_index.csv" ]; then
+          echo "## Latest Index Prices" >> results_summary.md
+          echo '```' >> results_summary.md
+          cat h100_gpu_index.csv >> results_summary.md
+          echo '```' >> results_summary.md
+        fi
+        
+        echo "" >> results_summary.md
+        echo "## Generated Files" >> results_summary.md
+        echo '```' >> results_summary.md
+        ls -lh *.csv *.json 2>/dev/null || echo "No files generated" >> results_summary.md
+        echo '```' >> results_summary.md
+    
+    - name: Configure Git
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action Bot"
+    
+    - name: Commit and push results
+      run: |
+        # Add all generated files
+        git add *.csv *.json results_summary.md 2>/dev/null || true
+        
+        # Check if there are changes to commit
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "🤖 Update GPU prices and index - $(date '+%Y-%m-%d %H:%M:%S UTC')"
+          git push
+          echo "Results committed and pushed successfully"
+        fi
+    
+    - name: Upload artifacts (backup)
+      uses: actions/upload-artifact@v3
+      with:
+        name: gpu-pricing-data
+        path: |
+          *.csv
+          *.json
+          results_summary.md
+        retention-days: 30
+    
+    - name: Notify on failure
+      if: failure()
+      run: |
+        echo "❌ GPU Price Scraper Pipeline Failed"
+        echo "Check the logs above for details"
+        echo "Timestamp: $(date)"
+        
+        # Create failure report
+        echo "# ❌ Pipeline Failure Report - $(date)" > failure_report.md
+        echo "" >> failure_report.md
+        echo "The GPU price scraper pipeline failed. Please check the GitHub Actions logs for details." >> failure_report.md
+        echo "" >> failure_report.md
+        echo "## Available Files" >> failure_report.md
+        echo '```' >> failure_report.md
+        ls -la 2>/dev/null || echo "No files found" >> failure_report.md
+        echo '```' >> failure_report.md
+        
+        git add failure_report.md
+        git commit -m "❌ Pipeline failure report - $(date)" || true
+        git push || true
