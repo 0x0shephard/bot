@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-08-05 21:29:12",
+  "timestamp": "2025-08-19 09:23:13",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -37,23 +37,79 @@
       "H100 PCI (4x GPUs) Discounted": "$7.96",
       "H100 PCI (8x GPUs) Standard": "$19.92",
       "H100 PCI (8x GPUs) Discounted": "$15.92"
+    },
+    "GPU-Mart": {
+      "H100 Dedicated Server (Hourly)": "$4.16/hr"
+    },
+    "Hostkey": {
+      "H100 (Hourly)": "\u20ac2.00"
+    },
+    "JarvisLabs": {
+      "H100": "$0.39/hr",
+      "H100 (Line Context)": "$0.39/hr"
+    },
+    "Google Cloud": {
+      "H100 (A3 Machine Type)": "$88.9272/hr (8x GPUs)",
+      "H100 (Per GPU from H100 (A3 Machine Type))": "$11.12/hr",
+      "H100 (A3 Integration)": "$84.806908493/hr (8x GPUs)",
+      "H100 (Per GPU from H100 (A3 Integration))": "$10.60/hr"
+    },
+    "Genesis Cloud": {
+      "H100 (HGX)": "$1.60/hr",
+      "H200 (HGX)": "$1.60/hr",
+      "B200 (HGX)": "$1.60/hr",
+      "H100 (HGX Line)": "$1.60/hr"
+    },
+    "Vast.ai": {
+      "H200 (API)": "$13.74/hr",
+      "H200 NVL (API)": "$5.02/hr",
+      "H100 SXM (API)": "$14.40/hr",
+      "H100 NVL (API)": "$4.14/hr"
+    },
+    "RunPod": {
+      "Error": "Unable to fetch live pricing from RunPod APIs"
+    },
+    "Microsoft Azure": {
+      "H100 (Azure)": "$18.846/hr",
+      "H100 (ND96isr - 8x GPUs)": "$33.642358/hr",
+      "H100 (Per GPU from ND96isr)": "$4.21/hr"
+    },
+    "Amazon Web Services": {
+      "H100 (p5.48xlarge - 8x GPUs - us-east-1)": "$55.04/hr",
+      "H100 (p5.48xlarge - 8x GPUs - us-west-2)": "$55.04/hr",
+      "H100 (p5.48xlarge - 8x GPUs - eu-west-1)": "$55.04/hr",
+      "H100 (p5.24xlarge - 4x GPUs - us-east-1)": "$27.52/hr",
+      "H100 (p5.24xlarge - 4x GPUs - us-west-2)": "$27.52/hr",
+      "H100 (p5.12xlarge - 2x GPUs - us-east-1)": "$13.76/hr",
+      "H100 (p5.12xlarge - 2x GPUs - us-west-2)": "$13.76/hr",
+      "H100 (p5.6xlarge - 1x GPU - us-east-1)": "$6.88/hr",
+      "H100 (p5.6xlarge - 1x GPU - us-west-2)": "$6.88/hr"
     }
   },
   "summary": {
-    "total_providers": 6,
-    "total_h100_variants": 25,
+    "total_providers": 15,
+    "total_h100_variants": 45,
     "providers_with_data": [
       "HyperStack",
       "CoreWeave",
       "CUDO Compute",
       "Sesterce",
       "Atlantic.Net",
-      "Civo"
+      "Civo",
+      "GPU-Mart",
+      "Hostkey",
+      "JarvisLabs",
+      "Google Cloud",
+      "Genesis Cloud",
+      "Vast.ai",
+      "RunPod",
+      "Microsoft Azure",
+      "Amazon Web Services"
     ],
     "cheapest": {
-      "provider": "CUDO Compute",
-      "variant": "H100 PCIe (Reserved)",
-      "price": "$1.73"
+      "provider": "JarvisLabs",
+      "variant": "H100",
+      "price": "$0.39/hr"
     },
     "most_expensive": {
       "provider": "Atlantic.Net",

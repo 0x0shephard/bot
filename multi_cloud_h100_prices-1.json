@@ -1,0 +1,136 @@
+{
+  "timestamp": "2025-08-15 01:42:08",
+  "providers": {
+    "HyperStack": {
+      "H100 SXM": "$2.40",
+      "H100 NVLink": "$1.95",
+      "H100 (Standard)": "$1.90"
+    },
+    "CoreWeave": {
+      "HGX H100 (8x GPUs)": "$49.24"
+    },
+    "CUDO Compute": {
+      "H100 PCIe (On-Demand)": "$2.47",
+      "H100 PCIe (Reserved)": "$1.73",
+      "H100 SXM (On-Demand)": "$2.25",
+      "H100 SXM (Reserved)": "$1.80"
+    },
+    "Sesterce": {
+      "H200 (Related)": "$2"
+    },
+    "Atlantic.Net": {
+      "H100NVL (1x GPU)": "$3.941",
+      "H100NVL (4x GPUs)": "$15.765",
+      "H100NVL (8x GPUs)": "$31.531",
+      "H100NVL": "$2648.4"
+    },
+    "Civo": {
+      "H100 SXM (1x GPU) Standard": "$2.99",
+      "H100 SXM (1x GPU) Discounted": "$2.49",
+      "H100 SXM (8x GPUs) Standard": "$23.92",
+      "H100 SXM (8x GPUs) Discounted": "$19.92",
+      "H100 PCI (1x GPU) Standard": "$2.49",
+      "H100 PCI (1x GPU) Discounted": "$1.99",
+      "H100 PCI (2x GPUs) Standard": "$4.98",
+      "H100 PCI (2x GPUs) Discounted": "$3.98",
+      "H100 PCI (4x GPUs) Standard": "$9.96",
+      "H100 PCI (4x GPUs) Discounted": "$7.96",
+      "H100 PCI (8x GPUs) Standard": "$19.92",
+      "H100 PCI (8x GPUs) Discounted": "$15.92"
+    },
+    "GPU-Mart": {
+      "H100 Dedicated Server": "$3.61/hr",
+      "H100 Plan": "$3.61/hr"
+    },
+    "Hostkey": {
+      "H100 (Hourly \u00e2\u201a\u00ac)": "\u00e2\u201a\u00ac2.00",
+      "A100 (Hourly \u00e2\u201a\u00ac)": "\u00e2\u201a\u00ac1.53"
+    },
+    "Scaleway": {
+      "H100 (Hourly)": "\u00e2\u201a\u00ac2.73",
+      "H100 (Monthly Estimate)": "\u00e2\u201a\u00ac1,992",
+      "H100 (2x GPUs)": "\u00e2\u201a\u00ac5.04",
+      "L40S (Hourly)": "\u00e2\u201a\u00ac2.73",
+      "L40S Multi-GPU (2x GPUs)": "\u00e2\u201a\u00ac1.4",
+      "L4 (Hourly)": "\u00e2\u201a\u00ac2.73",
+      "L4 Multi-GPU (2x GPUs)": "\u00e2\u201a\u00ac0.75",
+      "P100 (Hourly)": "\u00e2\u201a\u00ac2.73",
+      "H200 (Hourly)": "\u00e2\u201a\u00ac5.04"
+    },
+    "JarvisLabs": {
+      "H100": "$0.39/hr",
+      "H100 (Line Context)": "$0.39/hr"
+    },
+    "Google Cloud": {
+      "H100 (A3 Machine Type)": "$88.9272/hr (8x GPUs)",
+      "H100 (Per GPU from H100 (A3 Machine Type))": "$11.12/hr",
+      "H100 (A3 Integration)": "$84.806908493/hr (8x GPUs)",
+      "H100 (Per GPU from H100 (A3 Integration))": "$10.60/hr"
+    },
+    "Genesis Cloud": {
+      "H100 (HGX)": "$1.60/hr",
+      "H200 (HGX)": "$1.60/hr",
+      "B200 (HGX)": "$1.60/hr",
+      "H100 (HGX Line)": "$1.60/hr"
+    },
+    "Vast.ai": {
+      "H200 (API)": "$3.44/hr",
+      "H100 NVL (API)": "$1.98/hr",
+      "H100 SXM (API)": "$7.20/hr",
+      "H200 NVL (API)": "$2.52/hr"
+    },
+    "RunPod": {
+      "H100 (Alt Page)": "$2.00/hr"
+    },
+    "Latitude.sh": {
+      "H100 (Standard)": "$1.00/hr",
+      "H100 (Accelerate Small - 1x GPU)": "$1.79/hr",
+      "H100 (Accelerate Medium - 4x GPU)": "$7.17/hr",
+      "H100 (Accelerate Large - 8x GPU)": "$12.91/hr",
+      "H100 (VM Small - 1x GPU)": "$1.60/hr"
+    },
+    "Microsoft Azure": {
+      "H100 (Azure)": "$18.846/hr",
+      "H100 (ND96isr - 8x GPUs)": "$33.642358/hr",
+      "H100 (Per GPU from ND96isr)": "$4.21/hr"
+    },
+    "Amazon Web Services": {
+      "H100 (p5.48xlarge - 8x GPUs - us-east-1)": "$55.04/hr",
+      "H100 (p5.48xlarge - 8x GPUs - us-west-2)": "$55.04/hr",
+      "H100 (p5.48xlarge - 8x GPUs - eu-west-1)": "$55.04/hr"
+    }
+  },
+  "summary": {
+    "total_providers": 17,
+    "total_h100_variants": 61,
+    "providers_with_data": [
+      "HyperStack",
+      "CoreWeave",
+      "CUDO Compute",
+      "Sesterce",
+      "Atlantic.Net",
+      "Civo",
+      "GPU-Mart",
+      "Hostkey",
+      "Scaleway",
+      "JarvisLabs",
+      "Google Cloud",
+      "Genesis Cloud",
+      "Vast.ai",
+      "RunPod",
+      "Latitude.sh",
+      "Microsoft Azure",
+      "Amazon Web Services"
+    ],
+    "cheapest": {
+      "provider": "JarvisLabs",
+      "variant": "H100",
+      "price": "$0.39/hr"
+    },
+    "most_expensive": {
+      "provider": "Atlantic.Net",
+      "variant": "H100NVL",
+      "price": "$2648.4"
+    }
+  }
+}

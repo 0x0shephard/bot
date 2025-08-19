@@ -1,0 +1,11 @@
+{
+  "H100 (p5.48xlarge - 8x GPUs - us-east-1)": "$55.04/hr",
+  "H100 (p5.48xlarge - 8x GPUs - us-west-2)": "$55.04/hr",
+  "H100 (p5.48xlarge - 8x GPUs - eu-west-1)": "$55.04/hr",
+  "H100 (p5.24xlarge - 4x GPUs - us-east-1)": "$27.52/hr",
+  "H100 (p5.24xlarge - 4x GPUs - us-west-2)": "$27.52/hr",
+  "H100 (p5.12xlarge - 2x GPUs - us-east-1)": "$13.76/hr",
+  "H100 (p5.12xlarge - 2x GPUs - us-west-2)": "$13.76/hr",
+  "H100 (p5.6xlarge - 1x GPU - us-east-1)": "$6.88/hr",
+  "H100 (p5.6xlarge - 1x GPU - us-west-2)": "$6.88/hr"
+}

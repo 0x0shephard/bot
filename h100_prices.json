@@ -1,9 +1,0 @@
-{
-  "timestamp": "2025-08-05 20:26:28",
-  "source": "https://www.hyperstack.cloud/gpu-pricing",
-  "prices": {
-    "H100 SXM": "$2.40",
-    "H100 NVLink": "$1.95",
-    "H100 (Standard)": "$1.90"
-  }
-}
