@@ -7,6 +7,10 @@ on:
   push:
     branches: [ main ]  # Run on push for testing
 
+permissions:
+  contents: write  # Allow writing to repository
+  actions: read    # Allow reading actions
+
 jobs:
   scrape-and-calculate:
     runs-on: ubuntu-latest
@@ -16,6 +20,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0  # Fetch full history for proper git operations
     
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -117,10 +122,12 @@ jobs:
     
     - name: Configure Git
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action Bot"
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "github-actions[bot]"
     
     - name: Commit and push results
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         # Add all generated files
         git add *.csv *.json results_summary.md 2>/dev/null || true
@@ -130,7 +137,7 @@ jobs:
           echo "No changes to commit"
         else
           git commit -m "🤖 Update GPU prices and index - $(date '+%Y-%m-%d %H:%M:%S UTC')"
-          git push
+          git push origin main
           echo "Results committed and pushed successfully"
         fi
     
@@ -146,6 +153,8 @@ jobs:
     
     - name: Notify on failure
       if: failure()
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         echo "❌ GPU Price Scraper Pipeline Failed"
         echo "Check the logs above for details"
@@ -163,4 +172,4 @@ jobs:
         
         git add failure_report.md
         git commit -m "❌ Pipeline failure report - $(date)" || true
-        git push || true
+        git push origin main || true
