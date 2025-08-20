@@ -153,8 +153,8 @@ def main():
     print("=" * 45)
     
     # File paths
-    input_file = '/home/jonraza15/root/scraper/h100_prices_combined.csv'
-    output_file = '/home/jonraza15/root/scraper/h100_prices_usd.csv'
+    input_file = 'h100_prices_combined.csv'
+    output_file = 'h100_prices_usd.csv'
     
     try:
         # Convert currencies
