@@ -129,12 +129,12 @@ def main():
     """Main function to convert both JSON files"""
     
     # Convert first JSON file (newer one with 36 providers)
-    json_file1 = '/home/jonraza15/root/scraper/multi_cloud_h100_prices-Jon.json'
-    csv_file1 = '/home/jonraza15/root/scraper/h100_prices_36_providers.csv'
+    json_file1 = 'multi_cloud_h100_prices-Jon.json'
+    csv_file1 = 'h100_prices_36_providers.csv'
     
     # Convert second JSON file (older one with 14 providers)
-    json_file2 = '/home/jonraza15/root/scraper/multi_cloud_h100_prices.json'
-    csv_file2 = '/home/jonraza15/root/scraper/h100_prices_14_providers.csv'
+    json_file2 = 'multi_cloud_h100_prices.json'
+    csv_file2 = 'h100_prices_14_providers.csv'
     
     try:
         # Convert first file
@@ -148,7 +148,7 @@ def main():
         print(f"   Total rows: {rows2}")
         
         # Create combined CSV file
-        combined_csv = '/home/jonraza15/root/scraper/h100_prices_combined.csv'
+        combined_csv = 'h100_prices_combined.csv'
         
         with open(combined_csv, 'w', newline='', encoding='utf-8') as combined_file:
             writer = csv.writer(combined_file)
