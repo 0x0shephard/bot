@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-08-21 01:49:04",
+  "timestamp": "2025-08-21 12:48:16",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -65,15 +65,6 @@
       "H100 SXM (Monthly Commitment)": "$2.55",
       "H100 SXM (80GB)": "$4.59"
     },
-    "ShaktiCloud": {
-      "H100 VM (per hour)": "\u20b9403.92",
-      "H100 Bare Metal (per GPU)": "\u20b9325",
-      "H100 SLURM (per GPU)": "\u20b9325",
-      "H100 Kubernetes (per GPU)": "\u20b9325",
-      "H100 Serverless 80GB (per hour)": "\u20b9432.00",
-      "H100 Serverless 40GB (per hour)": "\u20b9216.00",
-      "H100 Azure ML (per GPU)": "\u20b9264"
-    },
     "GMICloud": {
       "H100 (per GPU)": "$2.10"
     },
@@ -103,9 +94,9 @@
       "H100 PCIe": "$2.35"
     },
     "DataCrunch": {
-      "H100 SXM5 (Dynamic Pricing)": "$1.91",
+      "H100 SXM5 (Dynamic Pricing)": "$1.90",
       "H100 SXM5 (Pay As You Go)": "$1.77",
-      "H100 SXM5 (Spot Price)": "$0.96",
+      "H100 SXM5 (Spot Price)": "$0.95",
       "H100 SXM5 (Fixed Pricing)": "$3.637"
     },
     "LeaderGPU": {
@@ -177,8 +168,8 @@
     }
   },
   "summary": {
-    "total_providers": 36,
-    "total_h100_variants": 102,
+    "total_providers": 35,
+    "total_h100_variants": 95,
     "providers_with_data": [
       "HyperStack",
       "CoreWeave",
@@ -193,7 +184,6 @@
       "Nebius",
       "TaigaCloud",
       "Neysa.ai",
-      "ShaktiCloud",
       "GMICloud",
       "Lambda Labs",
       "Qubrid",
@@ -307,13 +297,6 @@
       ],
       "INR": [
         "OVHcloud: H100 (AI Training/Notebooks)",
-        "ShaktiCloud: H100 VM (per hour)",
-        "ShaktiCloud: H100 Bare Metal (per GPU)",
-        "ShaktiCloud: H100 SLURM (per GPU)",
-        "ShaktiCloud: H100 Kubernetes (per GPU)",
-        "ShaktiCloud: H100 Serverless 80GB (per hour)",
-        "ShaktiCloud: H100 Serverless 40GB (per hour)",
-        "ShaktiCloud: H100 Azure ML (per GPU)",
         "AceCloud: H100 GPU",
         "E2E Networks: 1\u00d7H100 SXM (80GB) - Regular",
         "E2E Networks: 2\u00d7H100 SXM (80GB) - Regular",
