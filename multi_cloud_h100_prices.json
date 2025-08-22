@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-08-22 03:13:23",
+  "timestamp": "2025-08-22 12:47:51",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -63,15 +63,15 @@
     "Vast.ai": {
       "H200 (API)": "$10.35/hr",
       "H200 NVL (API)": "$1.51/hr",
-      "H100 SXM (API)": "$3.84/hr",
-      "H100 NVL (API)": "$2.23/hr"
+      "H100 SXM (API)": "$7.58/hr",
+      "H100 NVL (API)": "$4.03/hr"
     },
     "RunPod": {
       "Error": "Unable to fetch live pricing from RunPod APIs"
     },
     "Latitude.sh": {
       "H100 (Standard)": "$1.00/hr",
-      "H100 (Accelerate Small - 1x GPU)": "$1.79/hr",
+      "H100 (Accelerate Small - 1x GPU)": "$1.88/hr",
       "H100 (Accelerate Medium - 4x GPU)": "$7.17/hr",
       "H100 (Accelerate Large - 8x GPU)": "$12.91/hr",
       "H100 (VM Small - 1x GPU)": "$1.60/hr"
