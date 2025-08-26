@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-08-25 12:49:45",
+  "timestamp": "2025-08-26 01:50:49",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -161,8 +161,7 @@
     "VoltagePark": {
       "H100 (On-Demand Ethernet)": "$1.99",
       "H100 (On-Demand InfiniBand)": "$2.49",
-      "H100": "$1.99",
-      "H100 (Starting Price)": "$1.99"
+      "H100": "$1.99"
     },
     "SharonAI": {
       "H100 NVL": "$0.50",
@@ -174,7 +173,7 @@
   },
   "summary": {
     "total_providers": 35,
-    "total_h100_variants": 100,
+    "total_h100_variants": 99,
     "providers_with_data": [
       "HyperStack",
       "CoreWeave",
@@ -294,7 +293,6 @@
         "VoltagePark: H100 (On-Demand Ethernet)",
         "VoltagePark: H100 (On-Demand InfiniBand)",
         "VoltagePark: H100",
-        "VoltagePark: H100 (Starting Price)",
         "SharonAI: H100 NVL",
         "SharonAI: H100",
         "Ori: H100 (On-Demand)"
