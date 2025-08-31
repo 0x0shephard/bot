@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-08-30 15:12:17",
+  "timestamp": "2025-08-31 01:51:39",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -99,9 +99,9 @@
       "H100 PCIe": "$2.35"
     },
     "DataCrunch": {
-      "H100 SXM5 (Dynamic Pricing)": "$1.86",
+      "H100 SXM5 (Dynamic Pricing)": "$1.78",
       "H100 SXM5 (Pay As You Go)": "$1.99",
-      "H100 SXM5 (Spot Price)": "$0.93",
+      "H100 SXM5 (Spot Price)": "$0.89",
       "H100 SXM5 (Fixed Pricing)": "$3.990"
     },
     "LeaderGPU": {
