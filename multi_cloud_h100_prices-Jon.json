@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-09-11 12:44:00",
+  "timestamp": "2025-09-11 16:37:32",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -99,10 +99,10 @@
       "H100 PCIe": "$2.35"
     },
     "DataCrunch": {
-      "H100 SXM5 (Dynamic Pricing)": "$1.47",
       "H100 SXM5 (Pay As You Go)": "$1.99",
       "H100 SXM5 (Spot Price)": "$0.73",
-      "H100 SXM5 (Fixed Pricing)": "$3.990"
+      "H100 SXM5 (Dynamic Pricing)": "$1.47",
+      "H100 SXM5 (Fixed Pricing)": "$4.95"
     },
     "LeaderGPU": {
       "H100 (8x GPUs - NVLink)": "\u20ac22.04",
@@ -271,9 +271,9 @@
         "Massed Compute: H100 SXM5",
         "Massed Compute: H100 NVL",
         "Massed Compute: H100 PCIe",
-        "DataCrunch: H100 SXM5 (Dynamic Pricing)",
         "DataCrunch: H100 SXM5 (Pay As You Go)",
         "DataCrunch: H100 SXM5 (Spot Price)",
+        "DataCrunch: H100 SXM5 (Dynamic Pricing)",
         "DataCrunch: H100 SXM5 (Fixed Pricing)",
         "Baseten: H100 (80GB VRAM)",
         "Baseten: H100 MIG (40GB VRAM)",
