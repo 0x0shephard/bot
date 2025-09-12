@@ -1,5 +1,8 @@
 import pandas as pd
 import numpy as np
+import os
+import subprocess
+from typing import Tuple, Optional, List
 
 # Load provider averages data
 df = pd.read_csv("provider_averages.csv")
@@ -324,5 +327,191 @@ def calculate_weighted_index():
     
     return final_index_price, hyperscaler_only_price, non_hyperscaler_only_price
 
+HISTORY_FILE = "gpu_index_history.csv"
+HISTORY_COLUMNS = [
+    'timestamp',
+    'full_index_price',
+    'hyperscalers_only_price',
+    'non_hyperscalers_only_price',
+    'source'  # calculated | rerun | fallback_avg
+]
+
+def load_price_history(n: Optional[int] = None) -> pd.DataFrame:
+    """Load the price history file if it exists.
+
+    Args:
+        n: If provided, return only the last n rows.
+    """
+    if not os.path.exists(HISTORY_FILE):
+        return pd.DataFrame(columns=HISTORY_COLUMNS)
+    df_hist = pd.read_csv(HISTORY_FILE)
+    # Ensure columns (in case of older format)
+    for col in HISTORY_COLUMNS:
+        if col not in df_hist.columns:
+            df_hist[col] = np.nan
+    if n is not None:
+        return df_hist.tail(n).reset_index(drop=True)
+    return df_hist
+
+def append_price_history(full_price: float, hyperscaler_price: float, non_hyperscaler_price: float, source: str):
+    """Append a new record to the history file."""
+    record = {
+        'timestamp': pd.Timestamp.now().isoformat(),
+        'full_index_price': full_price,
+        'hyperscalers_only_price': hyperscaler_price,
+        'non_hyperscalers_only_price': non_hyperscaler_price,
+        'source': source
+    }
+    mode = 'a' if os.path.exists(HISTORY_FILE) else 'w'
+    header = not os.path.exists(HISTORY_FILE)
+    pd.DataFrame([record]).to_csv(HISTORY_FILE, mode=mode, header=header, index=False)
+
+def get_last_price() -> Optional[float]:
+    hist = load_price_history()
+    if hist.empty:
+        return None
+    val = hist['full_index_price'].dropna()
+    if val.empty:
+        return None
+    return float(val.iloc[-1])
+
+def average_last_n_prices(n: int = 10) -> Tuple[Optional[float], Optional[float], Optional[float]]:
+    hist = load_price_history(n)
+    if hist.empty:
+        return None, None, None
+    return (
+        float(hist['full_index_price'].dropna().mean()) if not hist['full_index_price'].dropna().empty else None,
+        float(hist['hyperscalers_only_price'].dropna().mean()) if not hist['hyperscalers_only_price'].dropna().empty else None,
+        float(hist['non_hyperscalers_only_price'].dropna().mean()) if not hist['non_hyperscalers_only_price'].dropna().empty else None,
+    )
+
+def significant_change(new: float, old: float, threshold: float = 0.5) -> bool:
+    if old is None:
+        return False
+    if old == 0:
+        return False
+    change = abs(new - old) / old
+    return change >= threshold
+
+def run_cmd(cmd: list) -> Tuple[int, str, str]:
+    """Run a shell command and return (code, stdout, stderr)."""
+    try:
+        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        out, err = proc.communicate()
+        return proc.returncode, out.strip(), err.strip()
+    except Exception as e:
+        return 1, '', str(e)
+
+def ensure_git_identity():
+    """Ensure git user identity is configured (actions bot fallback)."""
+    code, out, _ = run_cmd(["git", "config", "user.email"])
+    if code != 0 or not out:
+        run_cmd(["git", "config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com"]) 
+    code, out, _ = run_cmd(["git", "config", "user.name"])
+    if code != 0 or not out:
+        run_cmd(["git", "config", "user.name", "github-actions[bot]"]) 
+
+TRIGGER_MARKER = ".price_change_triggered"
+
+def already_triggered_this_run() -> bool:
+    return os.path.exists(TRIGGER_MARKER)
+
+def mark_triggered():
+    with open(TRIGGER_MARKER, 'w') as f:
+        f.write(pd.Timestamp.now().isoformat())
+
+def attempt_trigger_commit(last_price: float, new_price: float):
+    """
+    Commit & push a marker + updated history to trigger workflow re-run when
+    a significant move (>=50%) is confirmed via rerun. Safeguards:
+      - Only inside GitHub Actions (env GITHUB_ACTIONS == 'true')
+      - Only once per run (marker file)
+    """
+    if os.environ.get('GITHUB_ACTIONS') != 'true':
+        return False
+    if not significant_change(new_price, last_price):
+        return False
+    if already_triggered_this_run():
+        return False
+
+    ensure_git_identity()
+    # Create a human-readable log
+    msg_lines = [
+        f"Timestamp: {pd.Timestamp.now().isoformat()}",
+        f"Previous full index price: {last_price}",
+        f"New full index price: {new_price}",
+        f"Relative change: {abs(new_price - last_price)/last_price:.2%}",
+        "Reason: >=50% movement detected; committing to trigger follow-up run."
+    ]
+    with open('significant_change.log', 'w') as f:
+        f.write('\n'.join(msg_lines) + '\n')
+
+    mark_triggered()
+
+    # Stage files (history + marker + log)
+    run_cmd(["git", "add", HISTORY_FILE, "significant_change.log", TRIGGER_MARKER])
+    commit_message = f"trigger: significant GPU index move {pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S UTC')}"
+    code, _, err = run_cmd(["git", "commit", "-m", commit_message])
+    if code != 0:
+        # Probably nothing changed beyond history that was already committed earlier
+        return False
+    # Push
+    run_cmd(["git", "push", "origin", "main"])  # Relying on GITHUB_TOKEN credentials injected by Actions
+    print("Pushed trigger commit to remote (significant change detected).")
+    return True
+
 if __name__ == "__main__":
+    # First calculation
     full_price, hyperscaler_price, non_hyperscaler_price = calculate_weighted_index()
+    last_price = get_last_price()
+    reran = False
+    final_source = 'calculated'
+
+    # If the first pass produced zero/NaN, attempt an immediate rerun before other logic
+    if (full_price is None) or pd.isna(full_price) or full_price == 0:
+        print("First pass produced zero/NaN full index price. Re-running calculation for recovery...")
+        full_price2, hyperscaler_price2, non_hyperscaler_price2 = calculate_weighted_index()
+        if full_price2 and not pd.isna(full_price2) and full_price2 != 0:
+            full_price = full_price2
+            hyperscaler_price = hyperscaler_price2
+            non_hyperscaler_price = non_hyperscaler_price2
+            final_source = 'rerun'  # Mark as rerun since second attempt succeeded
+            reran = True
+        else:
+            print("Immediate rerun still invalid (zero/NaN). Proceeding to fallback/threshold checks.")
+
+    if last_price is not None and significant_change(full_price, last_price):
+        print(f"Detected >=50% change from last stored price ({last_price:.4f} -> {full_price:.4f}). Re-running calculation to confirm...")
+        # Rerun once to confirm
+        full_price2, hyperscaler_price2, non_hyperscaler_price2 = calculate_weighted_index()
+        reran = True
+        if full_price2 and not pd.isna(full_price2):
+            full_price = full_price2
+            hyperscaler_price = hyperscaler_price2
+            non_hyperscaler_price = non_hyperscaler_price2
+            final_source = 'rerun'
+        else:
+            print("Rerun produced empty/zero price. Considering fallback average.")
+
+    # Fallback if price is 0/NaN or empty after rerun attempt
+    if (full_price is None or pd.isna(full_price) or full_price == 0):
+        avg_full, avg_hyp, avg_non = average_last_n_prices(10)
+        if avg_full is not None:
+            print(f"Using fallback average of last prices (n<=10): full={avg_full:.4f}")
+            full_price = avg_full if avg_full is not None else full_price
+            hyperscaler_price = avg_hyp if avg_hyp is not None else hyperscaler_price
+            non_hyperscaler_price = avg_non if avg_non is not None else non_hyperscaler_price
+            final_source = 'fallback_avg'
+        else:
+            print("No history available for fallback average; keeping current value.")
+
+    append_price_history(full_price, hyperscaler_price, non_hyperscaler_price, final_source)
+    print(f"Appended price record (source={final_source}) to {HISTORY_FILE}")
+
+    # Attempt trigger commit only if rerun confirmed large change (avoid noise on fallback avg)
+    if last_price is not None and final_source == 'rerun':
+        triggered = attempt_trigger_commit(last_price, full_price)
+        if triggered:
+            print("Workflow re-trigger commit created.")
+        else:
+            print("Trigger conditions not met or commit skipped.")
