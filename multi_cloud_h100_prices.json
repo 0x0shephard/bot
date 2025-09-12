@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-09-12 08:03:45",
+  "timestamp": "2025-09-12 08:15:54",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -41,9 +41,6 @@
     "GPU-Mart": {
       "H100 Dedicated Server (Hourly)": "$4.16/hr"
     },
-    "Hostkey": {
-      "H100 (Hourly)": "\u20ac2.00"
-    },
     "JarvisLabs": {
       "H100": "$0.39/hr",
       "H100 (Line Context)": "$0.39/hr"
@@ -59,8 +56,8 @@
     },
     "Vast.ai": {
       "H200 (API)": "$9.41/hr",
-      "H200 NVL (API)": "$1.64/hr",
-      "H100 SXM (API)": "$14.93/hr"
+      "H100 SXM (API)": "$7.47/hr",
+      "H200 NVL (API)": "$9.92/hr"
     },
     "RunPod": {
       "Error": "Unable to fetch live pricing from RunPod APIs"
@@ -90,8 +87,8 @@
     }
   },
   "summary": {
-    "total_providers": 16,
-    "total_h100_variants": 46,
+    "total_providers": 15,
+    "total_h100_variants": 45,
     "providers_with_data": [
       "HyperStack",
       "CoreWeave",
@@ -100,7 +97,6 @@
       "Atlantic.Net",
       "Civo",
       "GPU-Mart",
-      "Hostkey",
       "JarvisLabs",
       "Google Cloud",
       "Genesis Cloud",
