@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-09-12 08:15:54",
+  "timestamp": "2025-09-12 08:45:00",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -41,12 +41,18 @@
     "GPU-Mart": {
       "H100 Dedicated Server (Hourly)": "$4.16/hr"
     },
+    "Hostkey": {
+      "H100 (Hourly)": "\u20ac2.00"
+    },
     "JarvisLabs": {
       "H100": "$0.39/hr",
       "H100 (Line Context)": "$0.39/hr"
     },
     "Google Cloud": {
-      "Error": "Unable to fetch live pricing from Google Cloud"
+      "H100 (A3 Machine Type)": "$88.9272/hr (8x GPUs)",
+      "H100 (Per GPU from H100 (A3 Machine Type))": "$11.12/hr",
+      "H100 (A3 Integration)": "$84.806908493/hr (8x GPUs)",
+      "H100 (Per GPU from H100 (A3 Integration))": "$10.60/hr"
     },
     "Genesis Cloud": {
       "H100 (HGX)": "$1.60/hr",
@@ -55,9 +61,10 @@
       "H100 (HGX Line)": "$1.60/hr"
     },
     "Vast.ai": {
-      "H200 (API)": "$9.41/hr",
-      "H100 SXM (API)": "$7.47/hr",
-      "H200 NVL (API)": "$9.92/hr"
+      "H200 (API)": "$10.35/hr",
+      "H200 NVL (API)": "$1.64/hr",
+      "H100 SXM (API)": "$14.93/hr",
+      "H100 NVL (API)": "$3.68/hr"
     },
     "RunPod": {
       "Error": "Unable to fetch live pricing from RunPod APIs"
@@ -87,8 +94,8 @@
     }
   },
   "summary": {
-    "total_providers": 15,
-    "total_h100_variants": 45,
+    "total_providers": 16,
+    "total_h100_variants": 50,
     "providers_with_data": [
       "HyperStack",
       "CoreWeave",
@@ -97,6 +104,7 @@
       "Atlantic.Net",
       "Civo",
       "GPU-Mart",
+      "Hostkey",
       "JarvisLabs",
       "Google Cloud",
       "Genesis Cloud",
