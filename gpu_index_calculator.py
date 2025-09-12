@@ -174,30 +174,49 @@ def calculate_weighted_index():
         provider_data = df[df['Provider'] == provider]
         
         if not provider_data.empty:
-            csv_price = provider_data['AvgNormalizedPrice'].iloc[0]
+            raw_price = provider_data['AvgNormalizedPrice'].iloc[0]
             weight = data['weight']
             buyers_discount_pct = data['buyers_getting_discount'] / 100
             discount_pct = data['discount'] / 100
-            
-            # Use CSV price as base price
-            base_price = csv_price
-            
-            # Calculate effective price using hyperscaler equation:
-            # (weight * %Buyers getting discount * %Discount * Price) + ((weight - %Buyers getting Discount) * Price)
+
+            # Fallback hierarchy: CSV price -> website_price -> research_price
+            base_price = raw_price
+            used_fallback = None
+            if pd.isna(base_price):
+                if data.get('website_price') is not None:
+                    base_price = data['website_price']
+                    used_fallback = 'website_price'
+                elif data.get('research_price') is not None:
+                    base_price = data['research_price']
+                    used_fallback = 'research_price'
+
+            # If still NaN or None, skip to avoid poisoning totals
+            if base_price is None or pd.isna(base_price):
+                print(f"{provider:20} | Weight: {weight:6.2f}% | Price: NaN | SKIPPED (no usable price)")
+                continue
+
+            # Calculate effective discounted weighted contribution
             discounted_portion = weight * buyers_discount_pct * (1 - discount_pct) * base_price
             non_discounted_portion = (weight - (weight * buyers_discount_pct)) * base_price
-            
             effective_weighted_price = discounted_portion + non_discounted_portion
-            
+
+            # Guard against accidental NaN after math
+            if pd.isna(effective_weighted_price):
+                print(f"{provider:20} | Weight: {weight:6.2f}% | Price produced NaN after calc | SKIPPED")
+                continue
+
             total_weighted_price += effective_weighted_price
             total_weight += weight
-            
-            # Add to hyperscaler-only calculations
+
             hyperscaler_weighted_price += effective_weighted_price
             hyperscaler_weight += weight
-            
-            print(f"{provider:20} | Weight: {weight:6.2f}% | Price: ${base_price:6.4f} | "
-                  f"Discount: {data['discount']:2d}% | Weighted: ${effective_weighted_price:8.4f}")
+
+            if used_fallback:
+                print(f"{provider:20} | Weight: {weight:6.2f}% | Price: ${base_price:6.4f} (fallback:{used_fallback}) | "
+                      f"Discount: {data['discount']:2d}% | Weighted: ${effective_weighted_price:8.4f}")
+            else:
+                print(f"{provider:20} | Weight: {weight:6.2f}% | Price: ${base_price:6.4f} | "
+                      f"Discount: {data['discount']:2d}% | Weighted: ${effective_weighted_price:8.4f}")
         else:
             print(f"{provider:20} | NOT FOUND IN DATA")
     
