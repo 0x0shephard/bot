@@ -464,54 +464,35 @@ if __name__ == "__main__":
     # First calculation
     full_price, hyperscaler_price, non_hyperscaler_price = calculate_weighted_index()
     last_price = get_last_price()
-    reran = False
     final_source = 'calculated'
 
-    # If the first pass produced zero/NaN, attempt an immediate rerun before other logic
+    # Contingency 1: If first pass price is zero/NaN, carry forward previous price (no rerun)
     if (full_price is None) or pd.isna(full_price) or full_price == 0:
-        print("First pass produced zero/NaN full index price. Re-running calculation for recovery...")
-        full_price2, hyperscaler_price2, non_hyperscaler_price2 = calculate_weighted_index()
-        if full_price2 and not pd.isna(full_price2) and full_price2 != 0:
-            full_price = full_price2
-            hyperscaler_price = hyperscaler_price2
-            non_hyperscaler_price = non_hyperscaler_price2
-            final_source = 'rerun'  # Mark as rerun since second attempt succeeded
-            reran = True
+        print("First pass produced zero/NaN full index price. Carrying forward previous stored price.")
+        hist = load_price_history(1)
+        if not hist.empty and not hist['full_index_price'].dropna().empty:
+            prev_full = float(hist['full_index_price'].dropna().iloc[-1])
+            prev_hyp = float(hist['hyperscalers_only_price'].dropna().iloc[-1]) if not hist['hyperscalers_only_price'].dropna().empty else hyperscaler_price
+            prev_non = float(hist['non_hyperscalers_only_price'].dropna().iloc[-1]) if not hist['non_hyperscalers_only_price'].dropna().empty else non_hyperscaler_price
+            full_price = prev_full
+            hyperscaler_price = prev_hyp
+            non_hyperscaler_price = prev_non
+            final_source = 'carry_forward_prev'
         else:
-            print("Immediate rerun still invalid (zero/NaN). Proceeding to fallback/threshold checks.")
+            print("No previous history available to carry forward. Keeping calculated value.")
 
-    if last_price is not None and significant_change(full_price, last_price):
-        print(f"Detected >=50% change from last stored price ({last_price:.4f} -> {full_price:.4f}). Re-running calculation to confirm...")
-        # Rerun once to confirm
-        full_price2, hyperscaler_price2, non_hyperscaler_price2 = calculate_weighted_index()
-        reran = True
-        if full_price2 and not pd.isna(full_price2):
-            full_price = full_price2
-            hyperscaler_price = hyperscaler_price2
-            non_hyperscaler_price = non_hyperscaler_price2
-            final_source = 'rerun'
-        else:
-            print("Rerun produced empty/zero price. Considering fallback average.")
-
-    # Fallback if price is 0/NaN or empty after rerun attempt
-    if (full_price is None or pd.isna(full_price) or full_price == 0):
-        avg_full, avg_hyp, avg_non = average_last_n_prices(10)
-        if avg_full is not None:
-            print(f"Using fallback average of last prices (n<=10): full={avg_full:.4f}")
-            full_price = avg_full if avg_full is not None else full_price
-            hyperscaler_price = avg_hyp if avg_hyp is not None else hyperscaler_price
-            non_hyperscaler_price = avg_non if avg_non is not None else non_hyperscaler_price
-            final_source = 'fallback_avg'
-        else:
-            print("No history available for fallback average; keeping current value.")
+    # Contingency 2: If change >= 50% vs last stored price, carry forward last stored price (no averaging)
+    elif last_price is not None and significant_change(full_price, last_price):
+        print(f"Detected >=50% change from last stored price ({last_price:.4f} -> {full_price:.4f}). Carrying forward last stored price.")
+        full_price = last_price
+        # Carry forward last component prices if available
+        hist = load_price_history(1)
+        if not hist.empty:
+            if 'hyperscalers_only_price' in hist.columns and not hist['hyperscalers_only_price'].dropna().empty:
+                hyperscaler_price = float(hist['hyperscalers_only_price'].dropna().iloc[-1])
+            if 'non_hyperscalers_only_price' in hist.columns and not hist['non_hyperscalers_only_price'].dropna().empty:
+                non_hyperscaler_price = float(hist['non_hyperscalers_only_price'].dropna().iloc[-1])
+        final_source = 'carry_forward_prev'
 
     append_price_history(full_price, hyperscaler_price, non_hyperscaler_price, final_source)
     print(f"Appended price record (source={final_source}) to {HISTORY_FILE}")
-
-    # Attempt trigger commit only if rerun confirmed large change (avoid noise on fallback avg)
-    if last_price is not None and final_source == 'rerun':
-        triggered = attempt_trigger_commit(last_price, full_price)
-        if triggered:
-            print("Workflow re-trigger commit created.")
-        else:
-            print("Trigger conditions not met or commit skipped.")
