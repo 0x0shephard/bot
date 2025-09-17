@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-09-17 01:41:49",
+  "timestamp": "2025-09-17 12:46:13",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -100,14 +100,14 @@
     },
     "DataCrunch": {
       "H100 SXM5 (Pay As You Go)": "$1.99",
-      "H100 SXM5 (Spot Price)": "$0.77",
-      "H100 SXM5 (Dynamic Pricing)": "$1.55",
+      "H100 SXM5 (Spot Price)": "$0.82",
+      "H100 SXM5 (Dynamic Pricing)": "$1.64",
       "H100 SXM5 (Fixed Pricing)": "$4.95"
     },
     "LeaderGPU": {
       "H100 (8x GPUs - NVLink)": "\u20ac22.04",
-      "H100 (2x GPUs - Summer Promo)": "\u20ac4.19",
-      "H100 (2x GPUs - Regular)": "\u20ac4.19",
+      "H100 (2x GPUs - Summer Promo)": "\u20ac6.98",
+      "H100 (2x GPUs - Regular)": "\u20ac6.98",
       "H100 (2x GPUs - per hour)": "\u20ac22.20",
       "H100 (8x GPUs - per hour)": "\u20ac22.20"
     },
