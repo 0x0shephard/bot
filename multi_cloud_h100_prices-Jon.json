@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-09-17 12:46:13",
+  "timestamp": "2025-09-18 01:42:06",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -76,7 +76,7 @@
     "Lambda Labs": {
       "H100 SXM (On-Demand per GPU)": "$2.99",
       "H100 1-Click Clusters (On-Demand)": "$3.79",
-      "H100 1-Click Clusters (Reserved)": "$2.00",
+      "H100 1-Click Clusters (Reserved)": "$2.40",
       "H100": "$3.79",
       "H100 SXM": "$2.99"
     },
@@ -100,8 +100,8 @@
     },
     "DataCrunch": {
       "H100 SXM5 (Pay As You Go)": "$1.99",
-      "H100 SXM5 (Spot Price)": "$0.82",
-      "H100 SXM5 (Dynamic Pricing)": "$1.64",
+      "H100 SXM5 (Spot Price)": "$0.87",
+      "H100 SXM5 (Dynamic Pricing)": "$1.74",
       "H100 SXM5 (Fixed Pricing)": "$4.95"
     },
     "LeaderGPU": {
