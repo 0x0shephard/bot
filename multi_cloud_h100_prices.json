@@ -1,10 +1,13 @@
 {
-  "timestamp": "2025-09-24 00:56:30",
+  "timestamp": "2025-09-24 12:25:14",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
       "H100 NVLink": "$1.95",
       "H100 (Standard)": "$1.90"
+    },
+    "CoreWeave": {
+      "HGX H100 (8x GPUs)": "$49.24"
     },
     "CUDO Compute": {
       "H100 PCIe (On-Demand)": "$2.47",
@@ -55,8 +58,9 @@
       "H100 (HGX Line)": "$1.60/hr"
     },
     "Vast.ai": {
-      "H200 (API)": "$9.41/hr",
-      "H200 NVL (API)": "$2.44/hr",
+      "H200 (API)": "$2.65/hr",
+      "H200 NVL (API)": "$2.20/hr",
+      "H100 NVL (API)": "$2.23/hr",
       "H100 SXM (API)": "$3.60/hr"
     },
     "RunPod": {
@@ -83,10 +87,11 @@
     }
   },
   "summary": {
-    "total_providers": 14,
-    "total_h100_variants": 43,
+    "total_providers": 15,
+    "total_h100_variants": 45,
     "providers_with_data": [
       "HyperStack",
+      "CoreWeave",
       "CUDO Compute",
       "Atlantic.Net",
       "Civo",
