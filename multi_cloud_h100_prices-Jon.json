@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-09-30 11:15:10",
+  "timestamp": "2025-09-30 23:15:45",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -98,7 +98,7 @@
     "DataCrunch": {
       "H100 SXM5 (Pay As You Go)": "$1.99",
       "H100 SXM5 (Spot Price)": "$0.98",
-      "H100 SXM5 (Dynamic Pricing)": "$1.96",
+      "H100 SXM5 (Dynamic Pricing)": "$1.95",
       "H100 SXM5 (Fixed Pricing)": "$4.95"
     },
     "LeaderGPU": {
