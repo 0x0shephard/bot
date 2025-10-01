@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-09-30 23:16:58",
+  "timestamp": "2025-10-01 11:16:55",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -58,9 +58,10 @@
       "H100 (HGX Line)": "$1.60/hr"
     },
     "Vast.ai": {
-      "H200 (API)": "$2.59/hr",
       "H200 NVL (API)": "$1.64/hr",
-      "H100 SXM (API)": "$1.87/hr"
+      "H200 (API)": "$5.65/hr",
+      "H100 NVL (API)": "$2.23/hr",
+      "H100 SXM (API)": "$7.47/hr"
     },
     "RunPod": {
       "Error": "Unable to fetch live pricing from RunPod APIs"
@@ -69,9 +70,9 @@
       "Error": "Unable to fetch live pricing from Latitude.sh"
     },
     "Microsoft Azure": {
-      "H100 (Azure)": "$10.121/hr",
-      "H100 (ND96isr - 8x GPUs)": "$25.371953/hr",
-      "H100 (Per GPU from ND96isr)": "$3.17/hr"
+      "H100 (Azure)": "$4.955932/hr",
+      "H100 (ND96isr - 8x GPUs)": "$115.034/hr",
+      "H100 (Per GPU from ND96isr)": "$14.38/hr"
     },
     "Amazon Web Services": {
       "H100 (p5.48xlarge - 8x GPUs - us-east-1)": "$55.04/hr",
@@ -87,7 +88,7 @@
   },
   "summary": {
     "total_providers": 15,
-    "total_h100_variants": 44,
+    "total_h100_variants": 45,
     "providers_with_data": [
       "HyperStack",
       "CoreWeave",
