@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-10-02 11:13:59",
+  "timestamp": "2025-10-02 23:15:17",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -72,7 +72,6 @@
     },
     "Lambda Labs": {
       "H100 SXM (On-Demand per GPU)": "$2.99",
-      "H100 1-Click Clusters (On-Demand)": "$3.79",
       "H100 1-Click Clusters (Reserved)": "$2.40",
       "H100": "$3.79",
       "H100 SXM": "$2.99"
@@ -97,8 +96,8 @@
     },
     "DataCrunch": {
       "H100 SXM5 (Pay As You Go)": "$1.99",
-      "H100 SXM5 (Spot Price)": "$1.02",
-      "H100 SXM5 (Dynamic Pricing)": "$2.04",
+      "H100 SXM5 (Spot Price)": "$1.04",
+      "H100 SXM5 (Dynamic Pricing)": "$2.07",
       "H100 SXM5 (Fixed Pricing)": "$4.95"
     },
     "LeaderGPU": {
@@ -168,7 +167,7 @@
   },
   "summary": {
     "total_providers": 34,
-    "total_h100_variants": 96,
+    "total_h100_variants": 95,
     "providers_with_data": [
       "HyperStack",
       "CoreWeave",
@@ -253,7 +252,6 @@
         "Neysa.ai: H100 SXM (Monthly Commitment)",
         "Neysa.ai: H100 SXM (80GB)",
         "Lambda Labs: H100 SXM (On-Demand per GPU)",
-        "Lambda Labs: H100 1-Click Clusters (On-Demand)",
         "Lambda Labs: H100 1-Click Clusters (Reserved)",
         "Lambda Labs: H100",
         "Lambda Labs: H100 SXM",
