@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-10-02 23:15:17",
+  "timestamp": "2025-10-03 11:14:32",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -97,7 +97,7 @@
     "DataCrunch": {
       "H100 SXM5 (Pay As You Go)": "$1.99",
       "H100 SXM5 (Spot Price)": "$1.04",
-      "H100 SXM5 (Dynamic Pricing)": "$2.07",
+      "H100 SXM5 (Dynamic Pricing)": "$2.09",
       "H100 SXM5 (Fixed Pricing)": "$4.95"
     },
     "LeaderGPU": {
@@ -119,13 +119,13 @@
     "E2E Networks": {
       "1\u00d7H100 SXM (80GB) - Regular": "\u20b9450",
       "2\u00d7H100 SXM (80GB) - Regular": "\u20b9816",
-      "4\u00d7H100 SXM (80GB) - Regular": "\u20b91",
-      "8\u00d7H100 SXM (80GB) - Regular": "\u20b93",
-      "1\u00d7H100 - Spot": "\u20b970",
-      "2\u00d7H100 - Spot": "\u20b9141",
-      "4\u00d7H100 - Spot": "\u20b9282",
-      "8\u00d7H100 HGX": "\u20b988",
-      "4\u00d7H100 HGX": "\u20b988"
+      "4\u00d7H100 SXM (80GB) - Regular": "\u20b91,560",
+      "8\u00d7H100 SXM (80GB) - Regular": "\u20b93,040",
+      "1\u00d7H100 - Spot": "\u20b9175",
+      "2\u00d7H100 - Spot": "\u20b9350",
+      "4\u00d7H100 - Spot": "\u20b9700",
+      "8\u00d7H100 HGX": "\u20b93,152",
+      "4\u00d7H100 HGX": "\u20b91,576"
     },
     "Seeweb": {
       "H100 SXM (80GB)": "\u20ac1.60"
