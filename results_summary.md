@@ -1,4 +1,4 @@
-# GPU Price Index Results - Thu Oct  9 20:23:44 UTC 2025
+# GPU Price Index Results - Thu Oct  9 23:17:20 UTC 2025
 
 ## Pipeline Status
 - Scrapers: ✅ Completed
@@ -10,7 +10,7 @@
 ## Latest Index Prices
 ```
 Total_Weight_Percent,Total_Weighted_Price,Full_Index_Price,Hyperscalers_Only_Price,Non_Hyperscalers_Only_Price,Hyperscaler_Weight,Non_Hyperscaler_Weight,Calculation_Date
-88.88350000000001,252.87948498500006,2.8450666882492253,2.688398137267192,3.1098198738027154,55.84,33.043499999999995,2025-10-09 20:23:44
+83.9435,1226.085207755,14.606076798739629,20.376195840884666,3.141189958546089,55.84,28.1035,2025-10-09 23:17:20
 ```
 
 ## Generated Files
