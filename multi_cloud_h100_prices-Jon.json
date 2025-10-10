@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-10-09 23:15:46",
+  "timestamp": "2025-10-10 11:15:03",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -50,6 +50,9 @@
       "H100 SXM (per GPU)": "$2.10",
       "H100 (per GPU)": "$2.10"
     },
+    "Nebius": {
+      "HGX H100 (On-Demand)": "$2.95"
+    },
     "TaigaCloud": {
       "H100 SXM (1x GPU)": "$11.20",
       "H100 SXM (4x GPUs)": "$11.20",
@@ -93,8 +96,8 @@
     },
     "DataCrunch": {
       "H100 SXM5 (Pay As You Go)": "$1.99",
-      "H100 SXM5 (Spot Price)": "$1.00",
-      "H100 SXM5 (Dynamic Pricing)": "$2.01",
+      "H100 SXM5 (Spot Price)": "$0.99",
+      "H100 SXM5 (Dynamic Pricing)": "$1.97",
       "H100 SXM5 (Fixed Pricing)": "$4.95"
     },
     "LeaderGPU": {
@@ -165,8 +168,8 @@
     }
   },
   "summary": {
-    "total_providers": 33,
-    "total_h100_variants": 96,
+    "total_providers": 34,
+    "total_h100_variants": 97,
     "providers_with_data": [
       "HyperStack",
       "CoreWeave",
@@ -177,6 +180,7 @@
       "Gcore",
       "Koyeb",
       "FluidStack",
+      "Nebius",
       "TaigaCloud",
       "Neysa.ai",
       "ShaktiCloud",
@@ -243,6 +247,7 @@
         "Koyeb: H100 (4x GPUs)",
         "FluidStack: H100 SXM (per GPU)",
         "FluidStack: H100 (per GPU)",
+        "Nebius: HGX H100 (On-Demand)",
         "TaigaCloud: H100 SXM (1x GPU)",
         "TaigaCloud: H100 SXM (4x GPUs)",
         "TaigaCloud: H100 SXM (8x GPUs)",
