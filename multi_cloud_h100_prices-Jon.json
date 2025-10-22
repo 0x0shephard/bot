@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-10-22 11:15:47",
+  "timestamp": "2025-10-22 23:14:37",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -96,8 +96,8 @@
     },
     "DataCrunch": {
       "H100 SXM5 (Pay As You Go)": "$1.99",
-      "H100 SXM5 (Spot Price)": "$0.93",
-      "H100 SXM5 (Dynamic Pricing)": "$1.86",
+      "H100 SXM5 (Spot Price)": "$0.95",
+      "H100 SXM5 (Dynamic Pricing)": "$1.90",
       "H100 SXM5 (Fixed Pricing)": "$4.95"
     },
     "LeaderGPU": {
@@ -117,6 +117,17 @@
     },
     "Modal": {
       "H100": "$3.95"
+    },
+    "E2E Networks": {
+      "1\u00d7H100 SXM (80GB) - Regular": "\u20b9450",
+      "2\u00d7H100 SXM (80GB) - Regular": "\u20b9816",
+      "4\u00d7H100 SXM (80GB) - Regular": "\u20b91,560",
+      "8\u00d7H100 SXM (80GB) - Regular": "\u20b93,040",
+      "1\u00d7H100 - Spot": "\u20b9175",
+      "2\u00d7H100 - Spot": "\u20b9350",
+      "4\u00d7H100 - Spot": "\u20b9700",
+      "8\u00d7H100 HGX": "\u20b93,152",
+      "4\u00d7H100 HGX": "\u20b91,576"
     },
     "Seeweb": {
       "H100 SXM (80GB)": "\u20ac1.60"
@@ -157,8 +168,8 @@
     }
   },
   "summary": {
-    "total_providers": 33,
-    "total_h100_variants": 88,
+    "total_providers": 34,
+    "total_h100_variants": 97,
     "providers_with_data": [
       "HyperStack",
       "CoreWeave",
@@ -184,6 +195,7 @@
       "Baseten",
       "Fal.AI",
       "Modal",
+      "E2E Networks",
       "Seeweb",
       "TensorDock",
       "AtlasCloud",
@@ -286,7 +298,16 @@
         "ShaktiCloud: H100 Serverless 80GB (per hour)",
         "ShaktiCloud: H100 Serverless 40GB (per hour)",
         "ShaktiCloud: H100 Azure ML (per GPU)",
-        "AceCloud: H100 GPU"
+        "AceCloud: H100 GPU",
+        "E2E Networks: 1\u00d7H100 SXM (80GB) - Regular",
+        "E2E Networks: 2\u00d7H100 SXM (80GB) - Regular",
+        "E2E Networks: 4\u00d7H100 SXM (80GB) - Regular",
+        "E2E Networks: 8\u00d7H100 SXM (80GB) - Regular",
+        "E2E Networks: 1\u00d7H100 - Spot",
+        "E2E Networks: 2\u00d7H100 - Spot",
+        "E2E Networks: 4\u00d7H100 - Spot",
+        "E2E Networks: 8\u00d7H100 HGX",
+        "E2E Networks: 4\u00d7H100 HGX"
       ],
       "EUR": [
         "Gcore: H100 SXM (8x GPUs - GPU Cloud)",
