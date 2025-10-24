@@ -43,12 +43,12 @@ Latitude.sh,Error,Unable to fetch live pricing from Latitude.sh,,Unknown,1,H100,
 Microsoft Azure,H100 (Azure),$10.121/hr,10.121,USD,1,H100,On-Demand,2025-10-23 23:16:48
 Microsoft Azure,H100 (ND96isr - 8x GPUs),$22.348603/hr,22.348603,USD,8,H100,On-Demand,2025-10-23 23:16:48
 Microsoft Azure,H100 (Per GPU from ND96isr),$2.79/hr,2.79,USD,1,H100,On-Demand,2025-10-23 23:16:48
-Amazon Web Services,H100 (p5.48xlarge - 8x GPUs - us-east-1),$55.04/hr,55.04,USD,48,H100,On-Demand,2025-10-23 23:16:48
-Amazon Web Services,H100 (p5.48xlarge - 8x GPUs - us-west-2),$55.04/hr,55.04,USD,48,H100,On-Demand,2025-10-23 23:16:48
-Amazon Web Services,H100 (p5.48xlarge - 8x GPUs - eu-west-1),$55.04/hr,55.04,USD,48,H100,On-Demand,2025-10-23 23:16:48
-Amazon Web Services,H100 (p5.24xlarge - 4x GPUs - us-east-1),$27.52/hr,27.52,USD,24,H100,On-Demand,2025-10-23 23:16:48
-Amazon Web Services,H100 (p5.24xlarge - 4x GPUs - us-west-2),$27.52/hr,27.52,USD,24,H100,On-Demand,2025-10-23 23:16:48
-Amazon Web Services,H100 (p5.12xlarge - 2x GPUs - us-east-1),$13.76/hr,13.76,USD,12,H100,On-Demand,2025-10-23 23:16:48
-Amazon Web Services,H100 (p5.12xlarge - 2x GPUs - us-west-2),$13.76/hr,13.76,USD,12,H100,On-Demand,2025-10-23 23:16:48
-Amazon Web Services,H100 (p5.6xlarge - 1x GPU - us-east-1),$6.88/hr,6.88,USD,6,H100,On-Demand,2025-10-23 23:16:48
-Amazon Web Services,H100 (p5.6xlarge - 1x GPU - us-west-2),$6.88/hr,6.88,USD,6,H100,On-Demand,2025-10-23 23:16:48
+Amazon Web Services,H100 (p5.48xlarge - 8x GPUs - us-east-1),$55.04/hr,55.04,USD,8,H100,On-Demand,2025-10-23 23:16:48
+Amazon Web Services,H100 (p5.48xlarge - 8x GPUs - us-west-2),$55.04/hr,55.04,USD,8,H100,On-Demand,2025-10-23 23:16:48
+Amazon Web Services,H100 (p5.48xlarge - 8x GPUs - eu-west-1),$55.04/hr,55.04,USD,8,H100,On-Demand,2025-10-23 23:16:48
+Amazon Web Services,H100 (p5.24xlarge - 4x GPUs - us-east-1),$27.52/hr,27.52,USD,4,H100,On-Demand,2025-10-23 23:16:48
+Amazon Web Services,H100 (p5.24xlarge - 4x GPUs - us-west-2),$27.52/hr,27.52,USD,4,H100,On-Demand,2025-10-23 23:16:48
+Amazon Web Services,H100 (p5.12xlarge - 2x GPUs - us-east-1),$13.76/hr,13.76,USD,2,H100,On-Demand,2025-10-23 23:16:48
+Amazon Web Services,H100 (p5.12xlarge - 2x GPUs - us-west-2),$13.76/hr,13.76,USD,2,H100,On-Demand,2025-10-23 23:16:48
+Amazon Web Services,H100 (p5.6xlarge - 1x GPU - us-east-1),$6.88/hr,6.88,USD,1,H100,On-Demand,2025-10-23 23:16:48
+Amazon Web Services,H100 (p5.6xlarge - 1x GPU - us-west-2),$6.88/hr,6.88,USD,1,H100,On-Demand,2025-10-23 23:16:48

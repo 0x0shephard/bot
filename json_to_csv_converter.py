@@ -63,19 +63,13 @@ def convert_json_to_csv(json_file_path, csv_file_path):
             gpu_type = 'H100'
             pricing_model = 'On-Demand'
             
-            # Parse GPU count
-            if 'x GPU' in variant_name or 'x H100' in variant_name:
-                count_match = re.search(r'(\d+)x', variant_name)
-                if count_match:
-                    gpu_count = int(count_match.group(1))
-            elif '8x GPUs' in variant_name:
-                gpu_count = 8
-            elif '4x GPUs' in variant_name:
-                gpu_count = 4
-            elif '2x GPUs' in variant_name:
-                gpu_count = 2
-            elif '1x GPU' in variant_name:
-                gpu_count = 1
+            # Parse GPU count - prioritize "Xx GPU(s)" pattern to avoid matching instance types like p5.48xlarge
+            count_match = re.search(r'(\d+)x\s+GPUs?', variant_name, re.IGNORECASE)
+            if count_match:
+                gpu_count = int(count_match.group(1))
+            elif re.search(r'(\d+)x\s+H100', variant_name, re.IGNORECASE):
+                count_match = re.search(r'(\d+)x\s+H100', variant_name, re.IGNORECASE)
+                gpu_count = int(count_match.group(1))
             
             # Parse GPU type
             if 'H200' in variant_name:
