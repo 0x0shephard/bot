@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-10-28 11:16:24",
+  "timestamp": "2025-10-28 22:32:21",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -39,7 +39,7 @@
       "H100 Dedicated Server (Hourly)": "$4.16/hr"
     },
     "Hostkey": {
-      "H100 (Hourly)": "\u20ac2.00"
+      "H100 (Hourly)": "€2.00"
     },
     "JarvisLabs": {
       "H100": "$0.39/hr",
@@ -58,20 +58,17 @@
       "H100 (HGX Line)": "$1.60/hr"
     },
     "Vast.ai": {
-      "H200 (API)": "$11.30/hr",
-      "H200 NVL (API)": "$8.54/hr",
-      "H100 SXM (API)": "$1.62/hr"
+      "H200 (API)": "$8.94/hr",
+      "H200 NVL (API)": "$4.27/hr",
+      "H100 SXM (API)": "$3.23/hr"
     },
     "RunPod": {
-      "Error": "Unable to fetch live pricing from RunPod APIs"
+      "H100 PCIe": "USD 1.99/hr",
+      "H100 SXM": "USD 2.69/hr",
+      "H100 NVL": "USD 2.59/hr"
     },
     "Latitude.sh": {
       "Error": "Unable to fetch live pricing from Latitude.sh"
-    },
-    "Microsoft Azure": {
-      "H100 (ND96isr - 8x GPUs)": "$34.485158/hr",
-      "H100 (Per GPU from ND96isr)": "$4.31/hr",
-      "H100 (ND12s - 1x GPU)": "$129.8/hr"
     },
     "Amazon Web Services": {
       "H100 (p5.48xlarge - 8x GPUs - us-east-1)": "$55.04/hr",
@@ -83,11 +80,14 @@
       "H100 (p5.12xlarge - 2x GPUs - us-west-2)": "$13.76/hr",
       "H100 (p5.6xlarge - 1x GPU - us-east-1)": "$6.88/hr",
       "H100 (p5.6xlarge - 1x GPU - us-west-2)": "$6.88/hr"
+    },
+    "Microsoft Azure": {
+      "H100 (ND96isr - 8x GPUs)": "$6.22/hr"
     }
   },
   "summary": {
     "total_providers": 15,
-    "total_h100_variants": 44,
+    "total_h100_variants": 53,
     "providers_with_data": [
       "HyperStack",
       "CoreWeave",
@@ -102,7 +102,6 @@
       "Vast.ai",
       "RunPod",
       "Latitude.sh",
-      "Microsoft Azure",
       "Amazon Web Services"
     ],
     "cheapest": {
@@ -113,7 +112,8 @@
     "most_expensive": {
       "provider": "Atlantic.Net",
       "variant": "H100NVL",
-      "price": "$2648.4"
-    }
+      "price": "$2648.4/hr"
+    },
+    "last_updated": "2025-10-28T22:32:39.415025"
   }
 }
