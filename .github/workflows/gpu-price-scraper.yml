@@ -2,7 +2,7 @@ name: GPU Price Scraper Pipeline
 
 on:
   schedule:
-    - cron: '0 11,23 * * *'  # Runs at 11:00 and 23:00 UTC daily (one hour before autorun)
+    - cron: '0 0,12 * * *'  # Runs at 0:00 and 12:00 UTC daily (every 12 hours)
   workflow_dispatch:  # Manual trigger
   push:
     branches: [ main ]  # Run on push for testing
@@ -50,6 +50,12 @@ jobs:
         echo "Running aws_scraper.py..."
         python aws_scraper.py || echo "aws_scraper.py failed, continuing..."
         
+        echo "Running azure_scraper_fixed.py..."
+        python azure_scraper_fixed.py || echo "azure_scraper_fixed.py failed, continuing..."
+        
+        echo "Running runpod_scraper.py..."
+        python runpod_scraper.py || echo "runpod_scraper.py failed, continuing..."
+        
         echo "Scrapers completed. Checking output files..."
         ls -la *.json || echo "No JSON files found"
     
@@ -59,6 +65,13 @@ jobs:
         python json_to_csv_converter.py
         echo "JSON to CSV conversion completed"
         ls -la h100_prices_combined.csv || echo "h100_prices_combined.csv not found"
+    
+    - name: Step 2.5 - Run Combined Script
+      run: |
+        echo "Running combined.py to merge all data sources..."
+        python combined.py || echo "combined.py failed, continuing..."
+        echo "Combined script completed"
+        ls -la *.csv || echo "No CSV files found"
     
     - name: Step 3 - Clean and Convert Currencies
       run: |

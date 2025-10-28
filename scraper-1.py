@@ -3476,476 +3476,476 @@ class LatitudeScraper(CloudProviderScraper):
 
 
 
-class AzureScraper(CloudProviderScraper):
-    def __init__(self):
-        super().__init__("Microsoft Azure", "https://azure.microsoft.com/en-us/pricing/details/virtual-machines/")
+# class AzureScraper(CloudProviderScraper):
+#     def __init__(self):
+#         super().__init__("Microsoft Azure", "https://azure.microsoft.com/en-us/pricing/details/virtual-machines/")
 
-    def extract_h100_prices(self, soup: BeautifulSoup) -> Dict[str, str]:
-        """Extract H100 prices from Microsoft Azure with live API-based pricing"""
-        h100_prices = {}
+#     def extract_h100_prices(self, soup: BeautifulSoup) -> Dict[str, str]:
+#         """Extract H100 prices from Microsoft Azure with live API-based pricing"""
+#         h100_prices = {}
         
-        # Try multiple methods to get real pricing from Azure
-        print("  Method 1: Trying Azure Retail Pricing API...")
-        h100_prices = self._try_azure_retail_api()
+#         # Try multiple methods to get real pricing from Azure
+#         print("  Method 1: Trying Azure Retail Pricing API...")
+#         h100_prices = self._try_azure_retail_api()
         
-        if h100_prices:
-            return h100_prices
+#         if h100_prices:
+#             return h100_prices
             
-        print("  Method 2: Trying Azure Resource Manager API...")
-        h100_prices = self._try_azure_arm_api()
+#         print("  Method 2: Trying Azure Resource Manager API...")
+#         h100_prices = self._try_azure_arm_api()
         
-        if h100_prices:
-            return h100_prices
+#         if h100_prices:
+#             return h100_prices
             
-        print("  Method 3: Trying ND H100 v5 series extraction...")
-        h100_prices = self._try_nd_h100_series_extraction()
+#         print("  Method 3: Trying ND H100 v5 series extraction...")
+#         h100_prices = self._try_nd_h100_series_extraction()
         
-        if h100_prices:
-            return h100_prices
+#         if h100_prices:
+#             return h100_prices
             
-        print("  Method 4: Trying Azure pricing calculator...")
-        h100_prices = self._try_azure_calculator()
+#         print("  Method 4: Trying Azure pricing calculator...")
+#         h100_prices = self._try_azure_calculator()
         
-        if h100_prices:
-            return h100_prices
+#         if h100_prices:
+#             return h100_prices
         
-        # Final fallback - return error instead of static values
-        print("  All live methods failed - unable to extract real-time pricing")
-        return {
-            'Error': 'Unable to fetch live pricing from Microsoft Azure'
-        }
+#         # Final fallback - return error instead of static values
+#         print("  All live methods failed - unable to extract real-time pricing")
+#         return {
+#             'Error': 'Unable to fetch live pricing from Microsoft Azure'
+#         }
 
-    def _try_azure_retail_api(self) -> Dict[str, str]:
-        """Try Azure Retail Pricing API for live H100 pricing"""
-        h100_prices = {}
+#     def _try_azure_retail_api(self) -> Dict[str, str]:
+#         """Try Azure Retail Pricing API for live H100 pricing"""
+#         h100_prices = {}
         
-        # Azure Retail Pricing API endpoints
-        api_urls = [
-            # H100 specific queries
-            "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=serviceName eq 'Virtual Machines' and contains(productName, 'H100')",
-            "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=serviceName eq 'Virtual Machines' and contains(productName, 'ND H100 v5')",
-            "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=serviceName eq 'Virtual Machines' and contains(skuName, 'ND')",
-            # General VM pricing for ND series
-            "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=serviceName eq 'Virtual Machines' and contains(armSkuName, 'Standard_ND')",
-            "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=contains(productName, 'ND') and contains(productName, 'v5')",
-        ]
+#         # Azure Retail Pricing API endpoints
+#         api_urls = [
+#             # H100 specific queries
+#             "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=serviceName eq 'Virtual Machines' and contains(productName, 'H100')",
+#             "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=serviceName eq 'Virtual Machines' and contains(productName, 'ND H100 v5')",
+#             "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=serviceName eq 'Virtual Machines' and contains(skuName, 'ND')",
+#             # General VM pricing for ND series
+#             "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=serviceName eq 'Virtual Machines' and contains(armSkuName, 'Standard_ND')",
+#             "https://prices.azure.com/api/retail/prices?api-version=2023-01-01-preview&$filter=contains(productName, 'ND') and contains(productName, 'v5')",
+#         ]
         
-        for api_url in api_urls:
-            try:
-                print(f"    Trying: {api_url[:80]}...")
+#         for api_url in api_urls:
+#             try:
+#                 print(f"    Trying: {api_url[:80]}...")
                 
-                headers = {
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                    'Accept': 'application/json',
-                    'Accept-Language': 'en-US,en;q=0.9',
-                }
+#                 headers = {
+#                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+#                     'Accept': 'application/json',
+#                     'Accept-Language': 'en-US,en;q=0.9',
+#                 }
                 
-                response = requests.get(api_url, headers=headers, timeout=20)
+#                 response = requests.get(api_url, headers=headers, timeout=20)
                 
-                if response.status_code == 200:
-                    try:
-                        data = response.json()
-                        print(f"      Azure Retail API success! Got {len(data.get('Items', []))} items")
+#                 if response.status_code == 200:
+#                     try:
+#                         data = response.json()
+#                         print(f"      Azure Retail API success! Got {len(data.get('Items', []))} items")
                         
-                        # Extract H100 pricing from Azure retail API
-                        found_prices = self._extract_prices_from_azure_retail_api(data)
-                        if found_prices:
-                            h100_prices.update(found_prices)
-                            print(f"      Extracted {len(found_prices)} H100 prices!")
-                            return h100_prices
+#                         # Extract H100 pricing from Azure retail API
+#                         found_prices = self._extract_prices_from_azure_retail_api(data)
+#                         if found_prices:
+#                             h100_prices.update(found_prices)
+#                             print(f"      Extracted {len(found_prices)} H100 prices!")
+#                             return h100_prices
                                 
-                    except json.JSONDecodeError:
-                        print(f"      Not JSON response")
+#                     except json.JSONDecodeError:
+#                         print(f"      Not JSON response")
                         
-                elif response.status_code == 429:
-                    print(f"      Rate limited - waiting...")
-                    time.sleep(2)
-                else:
-                    print(f"      Status {response.status_code}")
+#                 elif response.status_code == 429:
+#                     print(f"      Rate limited - waiting...")
+#                     time.sleep(2)
+#                 else:
+#                     print(f"      Status {response.status_code}")
                     
-            except Exception as e:
-                print(f"      Error: {str(e)[:50]}...")
-                continue
+#             except Exception as e:
+#                 print(f"      Error: {str(e)[:50]}...")
+#                 continue
         
-        return h100_prices
+#         return h100_prices
 
-    def _try_azure_arm_api(self) -> Dict[str, str]:
-        """Try Azure Resource Manager API endpoints"""
-        h100_prices = {}
+#     def _try_azure_arm_api(self) -> Dict[str, str]:
+#         """Try Azure Resource Manager API endpoints"""
+#         h100_prices = {}
         
-        # Azure ARM API endpoints (some may require auth, but worth trying)
-        arm_apis = [
-            "https://management.azure.com/subscriptions/providers/Microsoft.Compute/skus",
-            "https://management.azure.com/providers/Microsoft.Commerce/RateCard",
-            "https://azure.microsoft.com/api/pricing/virtual-machines",
-            "https://azure.microsoft.com/api/v2/pricing/virtual-machines/calculator",
-        ]
+#         # Azure ARM API endpoints (some may require auth, but worth trying)
+#         arm_apis = [
+#             "https://management.azure.com/subscriptions/providers/Microsoft.Compute/skus",
+#             "https://management.azure.com/providers/Microsoft.Commerce/RateCard",
+#             "https://azure.microsoft.com/api/pricing/virtual-machines",
+#             "https://azure.microsoft.com/api/v2/pricing/virtual-machines/calculator",
+#         ]
         
-        for api_url in arm_apis:
-            try:
-                print(f"    Trying ARM API: {api_url}")
+#         for api_url in arm_apis:
+#             try:
+#                 print(f"    Trying ARM API: {api_url}")
                 
-                headers = {
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                }
+#                 headers = {
+#                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+#                     'Accept': 'application/json',
+#                     'Content-Type': 'application/json',
+#                 }
                 
-                response = requests.get(api_url, headers=headers, timeout=15)
+#                 response = requests.get(api_url, headers=headers, timeout=15)
                 
-                if response.status_code == 200:
-                    try:
-                        data = response.json()
-                        print(f"      ARM API success!")
+#                 if response.status_code == 200:
+#                     try:
+#                         data = response.json()
+#                         print(f"      ARM API success!")
                         
-                        # Extract H100 pricing from ARM API
-                        found_prices = self._extract_prices_from_azure_arm(data)
-                        if found_prices:
-                            h100_prices.update(found_prices)
-                            return h100_prices
+#                         # Extract H100 pricing from ARM API
+#                         found_prices = self._extract_prices_from_azure_arm(data)
+#                         if found_prices:
+#                             h100_prices.update(found_prices)
+#                             return h100_prices
                                 
-                    except json.JSONDecodeError:
-                        print(f"      Not JSON response")
+#                     except json.JSONDecodeError:
+#                         print(f"      Not JSON response")
                         
-                elif response.status_code == 401:
-                    print(f"      Unauthorized - needs authentication")
-                elif response.status_code == 403:
-                    print(f"      Forbidden")
-                else:
-                    print(f"      Status {response.status_code}")
+#                 elif response.status_code == 401:
+#                     print(f"      Unauthorized - needs authentication")
+#                 elif response.status_code == 403:
+#                     print(f"      Forbidden")
+#                 else:
+#                     print(f"      Status {response.status_code}")
                     
-            except Exception as e:
-                print(f"      Error: {str(e)[:50]}...")
-                continue
+#             except Exception as e:
+#                 print(f"      Error: {str(e)[:50]}...")
+#                 continue
         
-        return h100_prices
+#         return h100_prices
 
-    def _try_nd_h100_series_extraction(self) -> Dict[str, str]:
-        """Extract H100 pricing from ND H100 v5 series VMs"""
-        h100_prices = {}
+#     def _try_nd_h100_series_extraction(self) -> Dict[str, str]:
+#         """Extract H100 pricing from ND H100 v5 series VMs"""
+#         h100_prices = {}
         
-        # Azure ND H100 v5 series pages
-        nd_urls = [
-            "https://azure.microsoft.com/en-us/pricing/details/virtual-machines/",
-            "https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/",
-            "https://azure.microsoft.com/en-us/pricing/details/virtual-machines/windows/",
-            "https://azure.microsoft.com/pricing/calculator/",
-        ]
+#         # Azure ND H100 v5 series pages
+#         nd_urls = [
+#             "https://azure.microsoft.com/en-us/pricing/details/virtual-machines/",
+#             "https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/",
+#             "https://azure.microsoft.com/en-us/pricing/details/virtual-machines/windows/",
+#             "https://azure.microsoft.com/pricing/calculator/",
+#         ]
         
-        for url in nd_urls:
-            try:
-                print(f"    Trying: {url}")
-                response = requests.get(url, headers=self.headers, timeout=25)
+#         for url in nd_urls:
+#             try:
+#                 print(f"    Trying: {url}")
+#                 response = requests.get(url, headers=self.headers, timeout=25)
                 
-                if response.status_code == 200:
-                    soup = BeautifulSoup(response.content, 'html.parser')
-                    text_content = soup.get_text()
+    #             if response.status_code == 200:
+    #                 soup = BeautifulSoup(response.content, 'html.parser')
+    #                 text_content = soup.get_text()
                     
-                    print(f"      Got content length: {len(text_content)}")
+    #                 print(f"      Got content length: {len(text_content)}")
                     
-                    # Look for ND H100 v5 series pricing
-                    if ('ND' in text_content and 'H100' in text_content) or 'ND96' in text_content:
-                        print(f"      Contains ND H100 data!")
+    #                 # Look for ND H100 v5 series pricing
+    #                 if ('ND' in text_content and 'H100' in text_content) or 'ND96' in text_content:
+    #                     print(f"      Contains ND H100 data!")
                         
-                        # ND H100 v5 series patterns
-                        nd_h100_patterns = [
-                            # ND96isr H100 v5 (8x H100)
-                            (r'ND96isr H100 v5[^$]*\$([0-9.,]+)(?:/hour|/hr|per hour)', 'H100 (ND96isr - 8x GPUs)'),
-                            (r'Standard_ND96isr_H100_v5[^$]*\$([0-9.,]+)', 'H100 (ND96isr)'),
-                            # ND48s H100 v5 (4x H100) 
-                            (r'ND48s H100 v5[^$]*\$([0-9.,]+)(?:/hour|/hr|per hour)', 'H100 (ND48s - 4x GPUs)'),
-                            (r'Standard_ND48s_H100_v5[^$]*\$([0-9.,]+)', 'H100 (ND48s)'),
-                            # ND24s H100 v5 (2x H100)
-                            (r'ND24s H100 v5[^$]*\$([0-9.,]+)(?:/hour|/hr|per hour)', 'H100 (ND24s - 2x GPUs)'),
-                            (r'Standard_ND24s_H100_v5[^$]*\$([0-9.,]+)', 'H100 (ND24s)'),
-                            # ND12s H100 v5 (1x H100)
-                            (r'ND12s H100 v5[^$]*\$([0-9.,]+)(?:/hour|/hr|per hour)', 'H100 (ND12s - 1x GPU)'),
-                            (r'Standard_ND12s_H100_v5[^$]*\$([0-9.,]+)', 'H100 (ND12s)'),
-                            # General H100 patterns
-                            (r'H100.*?v5[^$]*\$([0-9.,]+)', 'H100 (v5 Series)'),
-                            (r'ND.*?H100[^$]*\$([0-9.,]+)', 'H100 (ND Series)'),
-                        ]
+    #                     # ND H100 v5 series patterns
+    #                     nd_h100_patterns = [
+    #                         # ND96isr H100 v5 (8x H100)
+    #                         (r'ND96isr H100 v5[^$]*\$([0-9.,]+)(?:/hour|/hr|per hour)', 'H100 (ND96isr - 8x GPUs)'),
+    #                         (r'Standard_ND96isr_H100_v5[^$]*\$([0-9.,]+)', 'H100 (ND96isr)'),
+    #                         # ND48s H100 v5 (4x H100) 
+    #                         (r'ND48s H100 v5[^$]*\$([0-9.,]+)(?:/hour|/hr|per hour)', 'H100 (ND48s - 4x GPUs)'),
+    #                         (r'Standard_ND48s_H100_v5[^$]*\$([0-9.,]+)', 'H100 (ND48s)'),
+    #                         # ND24s H100 v5 (2x H100)
+    #                         (r'ND24s H100 v5[^$]*\$([0-9.,]+)(?:/hour|/hr|per hour)', 'H100 (ND24s - 2x GPUs)'),
+    #                         (r'Standard_ND24s_H100_v5[^$]*\$([0-9.,]+)', 'H100 (ND24s)'),
+    #                         # ND12s H100 v5 (1x H100)
+    #                         (r'ND12s H100 v5[^$]*\$([0-9.,]+)(?:/hour|/hr|per hour)', 'H100 (ND12s - 1x GPU)'),
+    #                         (r'Standard_ND12s_H100_v5[^$]*\$([0-9.,]+)', 'H100 (ND12s)'),
+    #                         # General H100 patterns
+    #                         (r'H100.*?v5[^$]*\$([0-9.,]+)', 'H100 (v5 Series)'),
+    #                         (r'ND.*?H100[^$]*\$([0-9.,]+)', 'H100 (ND Series)'),
+    #                     ]
                         
-                        for pattern, name in nd_h100_patterns:
-                            matches = re.findall(pattern, text_content, re.IGNORECASE | re.DOTALL)
-                            for match in matches:
-                                try:
-                                    # Clean price (remove commas)
-                                    price_str = match.replace(',', '')
-                                    price = float(price_str)
+    #                     for pattern, name in nd_h100_patterns:
+    #                         matches = re.findall(pattern, text_content, re.IGNORECASE | re.DOTALL)
+    #                         for match in matches:
+    #                             try:
+    #                                 # Clean price (remove commas)
+    #                                 price_str = match.replace(',', '')
+    #                                 price = float(price_str)
                                     
-                                    # Calculate per-GPU pricing for multi-GPU VMs
-                                    if '8x GPUs' in name or 'ND96' in name:
-                                        per_gpu_price = price / 8
-                                        h100_prices[name] = f"${price}/hr (8x GPUs)"
-                                        h100_prices[f'H100 (Per GPU from {name.split("(")[1].split(")")[0]})'] = f"${per_gpu_price:.2f}/hr"
-                                        print(f"        Found: {name} = ${price}/hr for 8 GPUs")
-                                    elif '4x GPUs' in name or 'ND48' in name:
-                                        per_gpu_price = price / 4
-                                        h100_prices[name] = f"${price}/hr (4x GPUs)"
-                                        h100_prices[f'H100 (Per GPU from {name.split("(")[1].split(")")[0]})'] = f"${per_gpu_price:.2f}/hr"
-                                        print(f"        Found: {name} = ${price}/hr for 4 GPUs")
-                                    elif '2x GPUs' in name or 'ND24' in name:
-                                        per_gpu_price = price / 2
-                                        h100_prices[name] = f"${price}/hr (2x GPUs)"
-                                        h100_prices[f'H100 (Per GPU from {name.split("(")[1].split(")")[0]})'] = f"${per_gpu_price:.2f}/hr"
-                                        print(f"        Found: {name} = ${price}/hr for 2 GPUs")
-                                    elif '1x GPU' in name or 'ND12' in name:
-                                        h100_prices[name] = f"${price}/hr"
-                                        print(f"        Found: {name} = ${price}/hr")
-                                    else:
-                                        if 5 < price < 200:  # Reasonable range for Azure ND series
-                                            h100_prices[name] = f"${price}/hr"
-                                            print(f"        Found: {name} = ${price}/hr")
-                                except (ValueError, TypeError):
-                                    continue
+    #                                 # Calculate per-GPU pricing for multi-GPU VMs
+    #                                 if '8x GPUs' in name or 'ND96' in name:
+    #                                     per_gpu_price = price / 8
+    #                                     h100_prices[name] = f"${price}/hr (8x GPUs)"
+    #                                     h100_prices[f'H100 (Per GPU from {name.split("(")[1].split(")")[0]})'] = f"${per_gpu_price:.2f}/hr"
+    #                                     print(f"        Found: {name} = ${price}/hr for 8 GPUs")
+    #                                 elif '4x GPUs' in name or 'ND48' in name:
+    #                                     per_gpu_price = price / 4
+    #                                     h100_prices[name] = f"${price}/hr (4x GPUs)"
+    #                                     h100_prices[f'H100 (Per GPU from {name.split("(")[1].split(")")[0]})'] = f"${per_gpu_price:.2f}/hr"
+    #                                     print(f"        Found: {name} = ${price}/hr for 4 GPUs")
+    #                                 elif '2x GPUs' in name or 'ND24' in name:
+    #                                     per_gpu_price = price / 2
+    #                                     h100_prices[name] = f"${price}/hr (2x GPUs)"
+    #                                     h100_prices[f'H100 (Per GPU from {name.split("(")[1].split(")")[0]})'] = f"${per_gpu_price:.2f}/hr"
+    #                                     print(f"        Found: {name} = ${price}/hr for 2 GPUs")
+    #                                 elif '1x GPU' in name or 'ND12' in name:
+    #                                     h100_prices[name] = f"${price}/hr"
+    #                                     print(f"        Found: {name} = ${price}/hr")
+    #                                 else:
+    #                                     if 5 < price < 200:  # Reasonable range for Azure ND series
+    #                                         h100_prices[name] = f"${price}/hr"
+    #                                         print(f"        Found: {name} = ${price}/hr")
+    #                             except (ValueError, TypeError):
+    #                                 continue
                         
-                        # Look for pricing in tables
-                        tables = soup.find_all('table')
-                        for table in tables:
-                            table_text = table.get_text()
-                            if ('ND' in table_text and 'H100' in table_text) or any(vm in table_text for vm in ['ND96', 'ND48', 'ND24', 'ND12']):
-                                rows = table.find_all('tr')
-                                for row in rows:
-                                    cells = row.find_all(['td', 'th'])
-                                    if len(cells) >= 2:
-                                        row_text = ' '.join([cell.get_text().strip() for cell in cells])
+    #                     # Look for pricing in tables
+    #                     tables = soup.find_all('table')
+    #                     for table in tables:
+    #                         table_text = table.get_text()
+    #                         if ('ND' in table_text and 'H100' in table_text) or any(vm in table_text for vm in ['ND96', 'ND48', 'ND24', 'ND12']):
+    #                             rows = table.find_all('tr')
+    #                             for row in rows:
+    #                                 cells = row.find_all(['td', 'th'])
+    #                                 if len(cells) >= 2:
+    #                                     row_text = ' '.join([cell.get_text().strip() for cell in cells])
                                         
-                                        if any(vm in row_text for vm in ['ND96', 'ND48', 'ND24', 'ND12']) and '$' in row_text:
-                                            price_matches = re.findall(r'\$([0-9.,]+)', row_text)
-                                            if price_matches:
-                                                try:
-                                                    price = float(price_matches[0].replace(',', ''))
+    #                                     if any(vm in row_text for vm in ['ND96', 'ND48', 'ND24', 'ND12']) and '$' in row_text:
+    #                                         price_matches = re.findall(r'\$([0-9.,]+)', row_text)
+    #                                         if price_matches:
+    #                                             try:
+    #                                                 price = float(price_matches[0].replace(',', ''))
                                                     
-                                                    vm_type = 'Unknown ND'
-                                                    gpu_count = 1
-                                                    if 'ND96' in row_text:
-                                                        vm_type = 'ND96isr'
-                                                        gpu_count = 8
-                                                    elif 'ND48' in row_text:
-                                                        vm_type = 'ND48s'
-                                                        gpu_count = 4
-                                                    elif 'ND24' in row_text:
-                                                        vm_type = 'ND24s'
-                                                        gpu_count = 2
-                                                    elif 'ND12' in row_text:
-                                                        vm_type = 'ND12s'
-                                                        gpu_count = 1
+    #                                                 vm_type = 'Unknown ND'
+    #                                                 gpu_count = 1
+    #                                                 if 'ND96' in row_text:
+    #                                                     vm_type = 'ND96isr'
+    #                                                     gpu_count = 8
+    #                                                 elif 'ND48' in row_text:
+    #                                                     vm_type = 'ND48s'
+    #                                                     gpu_count = 4
+    #                                                 elif 'ND24' in row_text:
+    #                                                     vm_type = 'ND24s'
+    #                                                     gpu_count = 2
+    #                                                 elif 'ND12' in row_text:
+    #                                                     vm_type = 'ND12s'
+    #                                                     gpu_count = 1
                                                     
-                                                    if 5 < price < 500:  # Reasonable for Azure ND
-                                                        h100_prices[f'H100 ({vm_type} - Table)'] = f"${price}/hr"
-                                                        if gpu_count > 1:
-                                                            per_gpu = price / gpu_count
-                                                            h100_prices[f'H100 (Per GPU from {vm_type})'] = f"${per_gpu:.2f}/hr"
-                                                        print(f"        Table: {vm_type} = ${price}/hr")
-                                                except ValueError:
-                                                    continue
+    #                                                 if 5 < price < 500:  # Reasonable for Azure ND
+    #                                                     h100_prices[f'H100 ({vm_type} - Table)'] = f"${price}/hr"
+    #                                                     if gpu_count > 1:
+    #                                                         per_gpu = price / gpu_count
+    #                                                         h100_prices[f'H100 (Per GPU from {vm_type})'] = f"${per_gpu:.2f}/hr"
+    #                                                     print(f"        Table: {vm_type} = ${price}/hr")
+    #                                             except ValueError:
+    #                                                 continue
                         
-                        if h100_prices:
-                            print(f"      Found {len(h100_prices)} prices from {url}")
-                            return h100_prices
+    #                     if h100_prices:
+    #                         print(f"      Found {len(h100_prices)} prices from {url}")
+    #                         return h100_prices
                     
-            except requests.RequestException as e:
-                print(f"      Error: {str(e)[:50]}...")
-                continue
+    #         except requests.RequestException as e:
+    #             print(f"      Error: {str(e)[:50]}...")
+    #             continue
         
-        return h100_prices
+    #     return h100_prices
 
-    def _try_azure_calculator(self) -> Dict[str, str]:
-        """Try Azure pricing calculator for H100 pricing"""
-        h100_prices = {}
+    # def _try_azure_calculator(self) -> Dict[str, str]:
+    #     """Try Azure pricing calculator for H100 pricing"""
+    #     h100_prices = {}
         
-        calculator_urls = [
-            "https://azure.microsoft.com/en-us/pricing/calculator/",
-            "https://azure.microsoft.com/api/pricing/calculator",
-            "https://azure.microsoft.com/api/v3/pricing/calculator/virtual-machines",
-        ]
+    #     calculator_urls = [
+    #         "https://azure.microsoft.com/en-us/pricing/calculator/",
+    #         "https://azure.microsoft.com/api/pricing/calculator",
+    #         "https://azure.microsoft.com/api/v3/pricing/calculator/virtual-machines",
+    #     ]
         
-        for url in calculator_urls:
-            try:
-                print(f"    Trying calculator: {url}")
-                response = requests.get(url, headers=self.headers, timeout=20)
+    #     for url in calculator_urls:
+    #         try:
+    #             print(f"    Trying calculator: {url}")
+    #             response = requests.get(url, headers=self.headers, timeout=20)
                 
-                if response.status_code == 200:
-                    if 'json' in response.headers.get('content-type', '').lower():
-                        try:
-                            data = response.json()
-                            print(f"      Calculator API success!")
+    #             if response.status_code == 200:
+    #                 if 'json' in response.headers.get('content-type', '').lower():
+    #                     try:
+    #                         data = response.json()
+    #                         print(f"      Calculator API success!")
                             
-                            # Extract H100 pricing from calculator API
-                            found_prices = self._extract_prices_from_azure_calculator(data)
-                            if found_prices:
-                                h100_prices.update(found_prices)
-                                return h100_prices
+    #                         # Extract H100 pricing from calculator API
+    #                         found_prices = self._extract_prices_from_azure_calculator(data)
+    #                         if found_prices:
+    #                             h100_prices.update(found_prices)
+    #                             return h100_prices
                                     
-                        except json.JSONDecodeError:
-                            print(f"      Not valid JSON")
-                    else:
-                        # Parse HTML for embedded pricing data
-                        soup = BeautifulSoup(response.content, 'html.parser')
+    #                     except json.JSONDecodeError:
+    #                         print(f"      Not valid JSON")
+    #                 else:
+    #                     # Parse HTML for embedded pricing data
+    #                     soup = BeautifulSoup(response.content, 'html.parser')
                         
-                        # Look for JavaScript pricing data
-                        scripts = soup.find_all('script')
-                        for script in scripts:
-                            if script.string and ('H100' in script.string or 'ND' in script.string):
-                                script_text = script.string
+    #                     # Look for JavaScript pricing data
+    #                     scripts = soup.find_all('script')
+    #                     for script in scripts:
+    #                         if script.string and ('H100' in script.string or 'ND' in script.string):
+    #                             script_text = script.string
                                 
-                                # Look for pricing in JavaScript
-                                js_patterns = [
-                                    r'"price":\s*([0-9.]+)',
-                                    r'"hourlyPrice":\s*([0-9.]+)',
-                                    r'"cost":\s*([0-9.]+)',
-                                    r'price:\s*([0-9.]+)',
-                                ]
+    #                             # Look for pricing in JavaScript
+    #                             js_patterns = [
+    #                                 r'"price":\s*([0-9.]+)',
+    #                                 r'"hourlyPrice":\s*([0-9.]+)',
+    #                                 r'"cost":\s*([0-9.]+)',
+    #                                 r'price:\s*([0-9.]+)',
+    #                             ]
                                 
-                                for pattern in js_patterns:
-                                    matches = re.findall(pattern, script_text)
-                                    for match in matches:
-                                        try:
-                                            price = float(match)
-                                            if 1 < price < 100:  # Reasonable range
-                                                h100_prices['H100 (Calculator JS)'] = f"${price}/hr"
-                                                print(f"        JS Calculator: H100 = ${price}/hr")
-                                        except ValueError:
-                                            continue
+    #                             for pattern in js_patterns:
+    #                                 matches = re.findall(pattern, script_text)
+    #                                 for match in matches:
+    #                                     try:
+    #                                         price = float(match)
+    #                                         if 1 < price < 100:  # Reasonable range
+    #                                             h100_prices['H100 (Calculator JS)'] = f"${price}/hr"
+    #                                             print(f"        JS Calculator: H100 = ${price}/hr")
+    #                                     except ValueError:
+    #                                         continue
                     
-            except requests.RequestException as e:
-                print(f"      Error: {str(e)[:50]}...")
-                continue
+    #         except requests.RequestException as e:
+    #             print(f"      Error: {str(e)[:50]}...")
+    #             continue
         
-        return h100_prices
+    #     return h100_prices
 
-    def _extract_prices_from_azure_retail_api(self, data) -> Dict[str, str]:
-        """Extract H100 prices from Azure Retail Pricing API response"""
-        prices = {}
+    # def _extract_prices_from_azure_retail_api(self, data) -> Dict[str, str]:
+    #     """Extract H100 prices from Azure Retail Pricing API response"""
+    #     prices = {}
         
-        if isinstance(data, dict) and 'Items' in data:
-            for item in data['Items']:
-                product_name = item.get('productName', '').upper()
-                sku_name = item.get('skuName', '').upper()
-                arm_sku_name = item.get('armSkuName', '').upper()
-                service_name = item.get('serviceName', '').upper()
+    #     if isinstance(data, dict) and 'Items' in data:
+    #         for item in data['Items']:
+    #             product_name = item.get('productName', '').upper()
+    #             sku_name = item.get('skuName', '').upper()
+    #             arm_sku_name = item.get('armSkuName', '').upper()
+    #             service_name = item.get('serviceName', '').upper()
                 
-                # Check if this is an H100 related SKU
-                if (any(h100_term in product_name for h100_term in ['H100', 'ND96', 'ND48', 'ND24', 'ND12']) or
-                    any(h100_term in sku_name for h100_term in ['H100', 'ND96', 'ND48', 'ND24', 'ND12']) or
-                    any(h100_term in arm_sku_name for h100_term in ['ND96', 'ND48', 'ND24', 'ND12'])):
+    #             # Check if this is an H100 related SKU
+    #             if (any(h100_term in product_name for h100_term in ['H100', 'ND96', 'ND48', 'ND24', 'ND12']) or
+    #                 any(h100_term in sku_name for h100_term in ['H100', 'ND96', 'ND48', 'ND24', 'ND12']) or
+    #                 any(h100_term in arm_sku_name for h100_term in ['ND96', 'ND48', 'ND24', 'ND12'])):
                     
-                    unit_price = item.get('unitPrice', 0)
-                    currency_code = item.get('currencyCode', 'USD')
-                    unit_of_measure = item.get('unitOfMeasure', 'Hour')
+    #                 unit_price = item.get('unitPrice', 0)
+    #                 currency_code = item.get('currencyCode', 'USD')
+    #                 unit_of_measure = item.get('unitOfMeasure', 'Hour')
                     
-                    if unit_price and currency_code == 'USD' and 'Hour' in unit_of_measure:
-                        try:
-                            price = float(unit_price)
-                            if 1 < price < 500:  # Reasonable range for Azure ND series
+    #                 if unit_price and currency_code == 'USD' and 'Hour' in unit_of_measure:
+    #                     try:
+    #                         price = float(unit_price)
+    #                         if 1 < price < 500:  # Reasonable range for Azure ND series
                                 
-                                # Determine VM type and GPU count
-                                vm_info = self._determine_azure_vm_type(product_name, sku_name, arm_sku_name)
+    #                             # Determine VM type and GPU count
+    #                             vm_info = self._determine_azure_vm_type(product_name, sku_name, arm_sku_name)
                                 
-                                prices[vm_info['name']] = f"${price}/hr"
+    #                             prices[vm_info['name']] = f"${price}/hr"
                                 
-                                # Calculate per-GPU price if multi-GPU
-                                if vm_info['gpu_count'] > 1:
-                                    per_gpu_price = price / vm_info['gpu_count']
-                                    prices[f"H100 (Per GPU from {vm_info['type']})"] = f"${per_gpu_price:.2f}/hr"
+    #                             # Calculate per-GPU price if multi-GPU
+    #                             if vm_info['gpu_count'] > 1:
+    #                                 per_gpu_price = price / vm_info['gpu_count']
+    #                                 prices[f"H100 (Per GPU from {vm_info['type']})"] = f"${per_gpu_price:.2f}/hr"
                                 
-                                print(f"        API: {vm_info['name']} = ${price}/hr")
-                        except (ValueError, TypeError):
-                            continue
+    #                             print(f"        API: {vm_info['name']} = ${price}/hr")
+    #                     except (ValueError, TypeError):
+    #                         continue
         
-        return prices
+    #     return prices
 
-    def _extract_prices_from_azure_arm(self, data) -> Dict[str, str]:
-        """Extract H100 prices from Azure ARM API response"""
-        prices = {}
+    # def _extract_prices_from_azure_arm(self, data) -> Dict[str, str]:
+    #     """Extract H100 prices from Azure ARM API response"""
+    #     prices = {}
         
-        # This would handle ARM API responses - structure varies by endpoint
-        if isinstance(data, dict):
-            for key, value in data.items():
-                if isinstance(value, (dict, list)):
-                    nested_prices = self._extract_prices_from_azure_arm(value)
-                    prices.update(nested_prices)
-                elif isinstance(value, (str, int, float)):
-                    # Look for H100/ND series indicators
-                    if any(term in str(key).upper() for term in ['H100', 'ND96', 'ND48', 'ND24', 'ND12']):
-                        try:
-                            if isinstance(value, (int, float)):
-                                price = float(value)
-                                if 1 < price < 500:
-                                    vm_type = self._clean_azure_vm_name(str(key))
-                                    prices[vm_type] = f"${price}/hr"
-                        except (ValueError, TypeError):
-                            continue
+    #     # This would handle ARM API responses - structure varies by endpoint
+    #     if isinstance(data, dict):
+    #         for key, value in data.items():
+    #             if isinstance(value, (dict, list)):
+    #                 nested_prices = self._extract_prices_from_azure_arm(value)
+    #                 prices.update(nested_prices)
+    #             elif isinstance(value, (str, int, float)):
+    #                 # Look for H100/ND series indicators
+    #                 if any(term in str(key).upper() for term in ['H100', 'ND96', 'ND48', 'ND24', 'ND12']):
+    #                     try:
+    #                         if isinstance(value, (int, float)):
+    #                             price = float(value)
+    #                             if 1 < price < 500:
+    #                                 vm_type = self._clean_azure_vm_name(str(key))
+    #                                 prices[vm_type] = f"${price}/hr"
+    #                     except (ValueError, TypeError):
+    #                         continue
         
-        elif isinstance(data, list):
-            for item in data:
-                if isinstance(item, dict):
-                    nested_prices = self._extract_prices_from_azure_arm(item)
-                    prices.update(nested_prices)
+    #     elif isinstance(data, list):
+    #         for item in data:
+    #             if isinstance(item, dict):
+    #                 nested_prices = self._extract_prices_from_azure_arm(item)
+    #                 prices.update(nested_prices)
         
-        return prices
+    #     return prices
 
-    def _extract_prices_from_azure_calculator(self, data) -> Dict[str, str]:
-        """Extract H100 prices from Azure calculator API response"""
-        prices = {}
+    # def _extract_prices_from_azure_calculator(self, data) -> Dict[str, str]:
+    #     """Extract H100 prices from Azure calculator API response"""
+    #     prices = {}
         
-        # Handle calculator API response structure
-        if isinstance(data, dict):
-            for key, value in data.items():
-                if isinstance(value, (dict, list)):
-                    nested_prices = self._extract_prices_from_azure_calculator(value)
-                    prices.update(nested_prices)
-                elif 'price' in key.lower() or 'cost' in key.lower():
-                    try:
-                        price = float(value)
-                        if 1 < price < 500:
-                            prices['H100 (Calculator API)'] = f"${price}/hr"
-                    except (ValueError, TypeError):
-                        continue
+    #     # Handle calculator API response structure
+    #     if isinstance(data, dict):
+    #         for key, value in data.items():
+    #             if isinstance(value, (dict, list)):
+    #                 nested_prices = self._extract_prices_from_azure_calculator(value)
+    #                 prices.update(nested_prices)
+    #             elif 'price' in key.lower() or 'cost' in key.lower():
+    #                 try:
+    #                     price = float(value)
+    #                     if 1 < price < 500:
+    #                         prices['H100 (Calculator API)'] = f"${price}/hr"
+    #                 except (ValueError, TypeError):
+    #                     continue
         
-        return prices
+    #     return prices
 
-    def _determine_azure_vm_type(self, product_name: str, sku_name: str, arm_sku_name: str) -> Dict:
-        """Determine Azure VM type and GPU count from API data"""
-        product_upper = product_name.upper()
-        sku_upper = sku_name.upper()
-        arm_upper = arm_sku_name.upper()
+    # def _determine_azure_vm_type(self, product_name: str, sku_name: str, arm_sku_name: str) -> Dict:
+    #     """Determine Azure VM type and GPU count from API data"""
+    #     product_upper = product_name.upper()
+    #     sku_upper = sku_name.upper()
+    #     arm_upper = arm_sku_name.upper()
         
-        # ND96isr H100 v5 (8x H100)
-        if any('ND96' in text for text in [product_upper, sku_upper, arm_upper]):
-            return {'name': 'H100 (ND96isr - 8x GPUs)', 'type': 'ND96isr', 'gpu_count': 8}
+    #     # ND96isr H100 v5 (8x H100)
+    #     if any('ND96' in text for text in [product_upper, sku_upper, arm_upper]):
+    #         return {'name': 'H100 (ND96isr - 8x GPUs)', 'type': 'ND96isr', 'gpu_count': 8}
         
-        # ND48s H100 v5 (4x H100)
-        elif any('ND48' in text for text in [product_upper, sku_upper, arm_upper]):
-            return {'name': 'H100 (ND48s - 4x GPUs)', 'type': 'ND48s', 'gpu_count': 4}
+    #     # ND48s H100 v5 (4x H100)
+    #     elif any('ND48' in text for text in [product_upper, sku_upper, arm_upper]):
+    #         return {'name': 'H100 (ND48s - 4x GPUs)', 'type': 'ND48s', 'gpu_count': 4}
         
-        # ND24s H100 v5 (2x H100)
-        elif any('ND24' in text for text in [product_upper, sku_upper, arm_upper]):
-            return {'name': 'H100 (ND24s - 2x GPUs)', 'type': 'ND24s', 'gpu_count': 2}
+    #     # ND24s H100 v5 (2x H100)
+    #     elif any('ND24' in text for text in [product_upper, sku_upper, arm_upper]):
+    #         return {'name': 'H100 (ND24s - 2x GPUs)', 'type': 'ND24s', 'gpu_count': 2}
         
-        # ND12s H100 v5 (1x H100)
-        elif any('ND12' in text for text in [product_upper, sku_upper, arm_upper]):
-            return {'name': 'H100 (ND12s - 1x GPU)', 'type': 'ND12s', 'gpu_count': 1}
+    #     # ND12s H100 v5 (1x H100)
+    #     elif any('ND12' in text for text in [product_upper, sku_upper, arm_upper]):
+    #         return {'name': 'H100 (ND12s - 1x GPU)', 'type': 'ND12s', 'gpu_count': 1}
         
-        # Generic H100
-        else:
-            return {'name': 'H100 (Azure)', 'type': 'Unknown', 'gpu_count': 1}
+    #     # Generic H100
+    #     else:
+    #         return {'name': 'H100 (Azure)', 'type': 'Unknown', 'gpu_count': 1}
 
-    def _clean_azure_vm_name(self, key: str) -> str:
-        """Clean and format Azure VM name"""
-        key_upper = key.upper()
+    # def _clean_azure_vm_name(self, key: str) -> str:
+    #     """Clean and format Azure VM name"""
+    #     key_upper = key.upper()
         
-        if 'ND96' in key_upper:
-            return 'H100 (ND96isr)'
-        elif 'ND48' in key_upper:
-            return 'H100 (ND48s)'
-        elif 'ND24' in key_upper:
-            return 'H100 (ND24s)'
-        elif 'ND12' in key_upper:
-            return 'H100 (ND12s)'
-        else:
-            return 'H100 (Azure)'
+    #     if 'ND96' in key_upper:
+    #         return 'H100 (ND96isr)'
+    #     elif 'ND48' in key_upper:
+    #         return 'H100 (ND48s)'
+    #     elif 'ND24' in key_upper:
+    #         return 'H100 (ND24s)'
+    #     elif 'ND12' in key_upper:
+    #         return 'H100 (ND12s)'
+    #     else:
+    #         return 'H100 (Azure)'
 
 
 
@@ -4365,7 +4365,7 @@ class MultiCloudScraper:
             'Vast.ai': VastAIScraper(),
             'RunPod': RunpodScraper(),
             'Latitude.sh': LatitudeScraper(),
-            'Microsoft Azure': AzureScraper(),
+            # 'Microsoft Azure': AzureScraper(),
             # 'Amazon Web Services': AWSPricingScraper(),
             # 'OVHcloud': OVHCloudScraper()
         }
