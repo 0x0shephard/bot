@@ -1203,713 +1203,713 @@ class GenesisCloudScraper(CloudProviderScraper):
             return None
 
 
-class RunpodScraper(CloudProviderScraper):
-    def __init__(self):
-        super().__init__("RunPod", "https://www.runpod.io/product/cloud-gpus")
+# class RunpodScraper(CloudProviderScraper):
+#     def __init__(self):
+#         super().__init__("RunPod", "https://www.runpod.io/product/cloud-gpus")
 
-    def extract_h100_prices(self, soup: BeautifulSoup) -> Dict[str, str]:
-        """Extract H100 prices from RunPod cloud-gpus page"""
-        h100_prices = {}
+#     def extract_h100_prices(self, soup: BeautifulSoup) -> Dict[str, str]:
+#         """Extract H100 prices from RunPod cloud-gpus page"""
+#         h100_prices = {}
         
-        # Try multiple methods to get real pricing from RunPod
-        print("  Method 1: Trying RunPod API endpoints...")
-        h100_prices = self._try_runpod_api_endpoints()
+#         # Try multiple methods to get real pricing from RunPod
+#         print("  Method 1: Trying RunPod API endpoints...")
+#         h100_prices = self._try_runpod_api_endpoints()
         
-        if h100_prices:
-            return h100_prices
+#         if h100_prices:
+#             return h100_prices
             
-        print("  Method 2: Trying GraphQL API...")
-        h100_prices = self._try_runpod_graphql()
+#         print("  Method 2: Trying GraphQL API...")
+#         h100_prices = self._try_runpod_graphql()
         
-        if h100_prices:
-            return h100_prices
+#         if h100_prices:
+#             return h100_prices
             
-        print("  Method 3: Trying pricing API...")
-        h100_prices = self._try_runpod_pricing_api()
+#         print("  Method 3: Trying pricing API...")
+#         h100_prices = self._try_runpod_pricing_api()
         
-        if h100_prices:
-            return h100_prices
+#         if h100_prices:
+#             return h100_prices
             
-        print("  Method 4: Trying dynamic content extraction...")
-        h100_prices = self._try_dynamic_content_extraction()
+#         print("  Method 4: Trying dynamic content extraction...")
+#         h100_prices = self._try_dynamic_content_extraction()
         
-        if h100_prices:
-            return h100_prices
+#         if h100_prices:
+#             return h100_prices
             
-        print("  Method 5: Trying alternative RunPod URLs...")
-        h100_prices = self._try_alternative_runpod_pages()
+#         print("  Method 5: Trying alternative RunPod URLs...")
+#         h100_prices = self._try_alternative_runpod_pages()
         
-        if h100_prices:
-            return h100_prices
+#         if h100_prices:
+#             return h100_prices
         
-        # If all methods fail, return error instead of fallback
-        print("  All live methods failed - unable to extract real-time pricing")
-        return {
-            'Error': 'Unable to fetch live pricing from RunPod APIs'
-        }
+#         # If all methods fail, return error instead of fallback
+#         print("  All live methods failed - unable to extract real-time pricing")
+#         return {
+#             'Error': 'Unable to fetch live pricing from RunPod APIs'
+#         }
 
-    def _try_runpod_api_endpoints(self) -> Dict[str, str]:
-        """Try various RunPod API endpoints for live pricing"""
-        h100_prices = {}
+#     def _try_runpod_api_endpoints(self) -> Dict[str, str]:
+#         """Try various RunPod API endpoints for live pricing"""
+#         h100_prices = {}
         
-        # Common RunPod API endpoints
-        api_urls = [
-            "https://api.runpod.io/graphql",
-            "https://api.runpod.io/v2/pods",
-            "https://api.runpod.io/v1/pods",
-            "https://www.runpod.io/api/v1/pricing",
-            "https://www.runpod.io/api/pricing",
-            "https://www.runpod.io/api/gpu-pricing",
-            "https://api.runpod.ai/v1/pricing",
-            "https://console.runpod.io/api/pricing",
-        ]
+#         # Common RunPod API endpoints
+#         api_urls = [
+#             "https://api.runpod.io/graphql",
+#             "https://api.runpod.io/v2/pods",
+#             "https://api.runpod.io/v1/pods",
+#             "https://www.runpod.io/api/v1/pricing",
+#             "https://www.runpod.io/api/pricing",
+#             "https://www.runpod.io/api/gpu-pricing",
+#             "https://api.runpod.ai/v1/pricing",
+#             "https://console.runpod.io/api/pricing",
+#         ]
         
-        for api_url in api_urls:
-            try:
-                print(f"    Trying: {api_url}")
+#         for api_url in api_urls:
+#             try:
+#                 print(f"    Trying: {api_url}")
                 
-                headers = {
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                    'Accept': 'application/json, text/plain, */*',
-                    'Accept-Language': 'en-US,en;q=0.9',
-                    'Referer': 'https://www.runpod.io/product/cloud-gpus',
-                    'Origin': 'https://www.runpod.io',
-                }
+#                 headers = {
+#                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+#                     'Accept': 'application/json, text/plain, */*',
+#                     'Accept-Language': 'en-US,en;q=0.9',
+#                     'Referer': 'https://www.runpod.io/product/cloud-gpus',
+#                     'Origin': 'https://www.runpod.io',
+#                 }
                 
-                response = requests.get(api_url, headers=headers, timeout=10)
+#                 response = requests.get(api_url, headers=headers, timeout=10)
                 
-                if response.status_code == 200:
-                    try:
-                        data = response.json()
-                        print(f"      API success! Got JSON data")
+#                 if response.status_code == 200:
+#                     try:
+#                         data = response.json()
+#                         print(f"      API success! Got JSON data")
                         
-                        # Use enhanced JSON parser for RunPod data
-                        found_prices = self._extract_prices_from_runpod_json(data)
-                        if found_prices:
-                            h100_prices.update(found_prices)
-                            print(f"      Extracted {len(found_prices)} prices!")
+#                         # Use enhanced JSON parser for RunPod data
+#                         found_prices = self._extract_prices_from_runpod_json(data)
+#                         if found_prices:
+#                             h100_prices.update(found_prices)
+#                             print(f"      Extracted {len(found_prices)} prices!")
                             
-                            # If we found enough prices, return early
-                            if len(h100_prices) >= 3:
-                                return h100_prices
+#                             # If we found enough prices, return early
+#                             if len(h100_prices) >= 3:
+#                                 return h100_prices
                                 
-                    except json.JSONDecodeError:
-                        print(f"      Not JSON response, trying text parsing...")
+#                     except json.JSONDecodeError:
+#                         print(f"      Not JSON response, trying text parsing...")
                         
-                        # Try text parsing if JSON fails
-                        content = response.text
-                        if any(gpu in content for gpu in ['H100', 'H200']):
-                            # Enhanced regex patterns for RunPod API responses
-                            patterns = [
-                                r'"gpu":\s*"([^"]*H100[^"]*)"[^}]*"price":\s*([0-9.]+)',
-                                r'"gpu_name":\s*"([^"]*H100[^"]*)"[^}]*"hourly_price":\s*([0-9.]+)',
-                                r'"model":\s*"([^"]*H100[^"]*)"[^}]*"cost":\s*([0-9.]+)',
-                                r'"name":\s*"([^"]*H100[^"]*)"[^}]*"rate":\s*([0-9.]+)',
-                                r'H100[^0-9]*([0-9.]+)',
-                            ]
+#                         # Try text parsing if JSON fails
+#                         content = response.text
+#                         if any(gpu in content for gpu in ['H100', 'H200']):
+#                             # Enhanced regex patterns for RunPod API responses
+#                             patterns = [
+#                                 r'"gpu":\s*"([^"]*H100[^"]*)"[^}]*"price":\s*([0-9.]+)',
+#                                 r'"gpu_name":\s*"([^"]*H100[^"]*)"[^}]*"hourly_price":\s*([0-9.]+)',
+#                                 r'"model":\s*"([^"]*H100[^"]*)"[^}]*"cost":\s*([0-9.]+)',
+#                                 r'"name":\s*"([^"]*H100[^"]*)"[^}]*"rate":\s*([0-9.]+)',
+#                                 r'H100[^0-9]*([0-9.]+)',
+#                             ]
                             
-                            for pattern in patterns:
-                                matches = re.findall(pattern, content, re.IGNORECASE | re.DOTALL)
-                                for match in matches:
-                                    try:
-                                        if isinstance(match, tuple) and len(match) == 2:
-                                            # GPU name and price tuple
-                                            gpu_name, price_str = match
-                                            price = float(price_str)
-                                            if 0.5 < price < 15.0:
-                                                gpu_clean = self._clean_runpod_gpu_name(gpu_name)
-                                                h100_prices[f'{gpu_clean} (API)'] = f"${price:.2f}/hr"
-                                                print(f"      Found via text: {gpu_clean} = ${price:.2f}/hr")
-                                        elif isinstance(match, str):
-                                            # Single price match
-                                            price = float(match)
-                                            if 0.5 < price < 15.0:
-                                                h100_prices['H100 (API)'] = f"${price:.2f}/hr"
-                                                print(f"      Found price: ${price:.2f}/hr")
-                                    except (ValueError, TypeError):
-                                        continue
+#                             for pattern in patterns:
+#                                 matches = re.findall(pattern, content, re.IGNORECASE | re.DOTALL)
+#                                 for match in matches:
+#                                     try:
+#                                         if isinstance(match, tuple) and len(match) == 2:
+#                                             # GPU name and price tuple
+#                                             gpu_name, price_str = match
+#                                             price = float(price_str)
+#                                             if 0.5 < price < 15.0:
+#                                                 gpu_clean = self._clean_runpod_gpu_name(gpu_name)
+#                                                 h100_prices[f'{gpu_clean} (API)'] = f"${price:.2f}/hr"
+#                                                 print(f"      Found via text: {gpu_clean} = ${price:.2f}/hr")
+#                                         elif isinstance(match, str):
+#                                             # Single price match
+#                                             price = float(match)
+#                                             if 0.5 < price < 15.0:
+#                                                 h100_prices['H100 (API)'] = f"${price:.2f}/hr"
+#                                                 print(f"      Found price: ${price:.2f}/hr")
+#                                     except (ValueError, TypeError):
+#                                         continue
                         
-                elif response.status_code == 401:
-                    print(f"      Unauthorized - may need API key")
-                elif response.status_code == 403:
-                    print(f"      Forbidden - may need auth")
-                else:
-                    print(f"      Status {response.status_code}")
+#                 elif response.status_code == 401:
+#                     print(f"      Unauthorized - may need API key")
+#                 elif response.status_code == 403:
+#                     print(f"      Forbidden - may need auth")
+#                 else:
+#                     print(f"      Status {response.status_code}")
                     
-            except Exception as e:
-                print(f"      Error: {e}")
-                continue
+#             except Exception as e:
+#                 print(f"      Error: {e}")
+#                 continue
         
-        return h100_prices
+#         return h100_prices
 
-    def _try_runpod_graphql(self) -> Dict[str, str]:
-        """Try RunPod GraphQL API for pricing data"""
-        h100_prices = {}
+#     def _try_runpod_graphql(self) -> Dict[str, str]:
+#         """Try RunPod GraphQL API for pricing data"""
+#         h100_prices = {}
         
-        # GraphQL queries for RunPod pricing
-        queries = [
-            {
-                "query": "{ gpuTypes { id name memoryInGb priceCentsPerHour } }"
-            },
-            {
-                "query": "{ pods { gpuType { name priceCentsPerHour } } }"
-            },
-            {
-                "query": "{ pricing { gpus { name hourlyPrice } } }"
-            },
-            {
-                "query": "query GetGPUPricing { gpuTypes { displayName costPerHour } }"
-            }
-        ]
+#         # GraphQL queries for RunPod pricing
+#         queries = [
+#             {
+#                 "query": "{ gpuTypes { id name memoryInGb priceCentsPerHour } }"
+#             },
+#             {
+#                 "query": "{ pods { gpuType { name priceCentsPerHour } } }"
+#             },
+#             {
+#                 "query": "{ pricing { gpus { name hourlyPrice } } }"
+#             },
+#             {
+#                 "query": "query GetGPUPricing { gpuTypes { displayName costPerHour } }"
+#             }
+#         ]
         
-        graphql_endpoints = [
-            "https://api.runpod.io/graphql",
-            "https://api.runpod.ai/graphql",
-            "https://console.runpod.io/api/graphql",
-        ]
+#         graphql_endpoints = [
+#             "https://api.runpod.io/graphql",
+#             "https://api.runpod.ai/graphql",
+#             "https://console.runpod.io/api/graphql",
+#         ]
         
-        for endpoint in graphql_endpoints:
-            for query_data in queries:
-                try:
-                    print(f"    Trying GraphQL: {endpoint}")
+#         for endpoint in graphql_endpoints:
+#             for query_data in queries:
+#                 try:
+#                     print(f"    Trying GraphQL: {endpoint}")
                     
-                    headers = {
-                        'Content-Type': 'application/json',
-                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                        'Accept': 'application/json',
-                        'Referer': 'https://www.runpod.io/product/cloud-gpus',
-                    }
+#                     headers = {
+#                         'Content-Type': 'application/json',
+#                         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+#                         'Accept': 'application/json',
+#                         'Referer': 'https://www.runpod.io/product/cloud-gpus',
+#                     }
                     
-                    response = requests.post(endpoint, json=query_data, headers=headers, timeout=10)
+#                     response = requests.post(endpoint, json=query_data, headers=headers, timeout=10)
                     
-                    if response.status_code == 200:
-                        try:
-                            data = response.json()
-                            print(f"      GraphQL success!")
+#                     if response.status_code == 200:
+#                         try:
+#                             data = response.json()
+#                             print(f"      GraphQL success!")
                             
-                            # Extract pricing from GraphQL response
-                            found_prices = self._extract_prices_from_runpod_graphql(data)
-                            if found_prices:
-                                h100_prices.update(found_prices)
-                                print(f"      Extracted {len(found_prices)} prices from GraphQL!")
+#                             # Extract pricing from GraphQL response
+#                             found_prices = self._extract_prices_from_runpod_graphql(data)
+#                             if found_prices:
+#                                 h100_prices.update(found_prices)
+#                                 print(f"      Extracted {len(found_prices)} prices from GraphQL!")
                                 
-                                if len(h100_prices) >= 3:
-                                    return h100_prices
+#                                 if len(h100_prices) >= 3:
+#                                     return h100_prices
                                     
-                        except json.JSONDecodeError:
-                            print(f"      GraphQL response not JSON")
+#                         except json.JSONDecodeError:
+#                             print(f"      GraphQL response not JSON")
                             
-                    else:
-                        print(f"      GraphQL status {response.status_code}")
+#                     else:
+#                         print(f"      GraphQL status {response.status_code}")
                         
-                except Exception as e:
-                    print(f"      GraphQL error: {e}")
-                    continue
+#                 except Exception as e:
+#                     print(f"      GraphQL error: {e}")
+#                     continue
         
-        return h100_prices
+#         return h100_prices
 
-    def _try_runpod_pricing_api(self) -> Dict[str, str]:
-        """Try RunPod pricing-specific endpoints"""
-        h100_prices = {}
+#     def _try_runpod_pricing_api(self) -> Dict[str, str]:
+#         """Try RunPod pricing-specific endpoints"""
+#         h100_prices = {}
         
-        pricing_urls = [
-            "https://www.runpod.io/_next/static/chunks/pages/pricing-*.js",
-            "https://www.runpod.io/api/v2/gpu/pricing",
-            "https://www.runpod.io/api/v1/gpu-types",
-            "https://api.runpod.io/v2/gpu-types",
-            "https://console.runpod.io/api/gpu-pricing",
-        ]
+#         pricing_urls = [
+#             "https://www.runpod.io/_next/static/chunks/pages/pricing-*.js",
+#             "https://www.runpod.io/api/v2/gpu/pricing",
+#             "https://www.runpod.io/api/v1/gpu-types",
+#             "https://api.runpod.io/v2/gpu-types",
+#             "https://console.runpod.io/api/gpu-pricing",
+#         ]
         
-        for url in pricing_urls:
-            try:
-                print(f"    Trying pricing API: {url}")
+#         for url in pricing_urls:
+#             try:
+#                 print(f"    Trying pricing API: {url}")
                 
-                headers = {
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                    'Accept': 'application/json',
-                    'Referer': 'https://www.runpod.io/product/cloud-gpus',
-                }
+#                 headers = {
+#                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+#                     'Accept': 'application/json',
+#                     'Referer': 'https://www.runpod.io/product/cloud-gpus',
+#                 }
                 
-                response = requests.get(url, headers=headers, timeout=10)
+#                 response = requests.get(url, headers=headers, timeout=10)
                 
-                if response.status_code == 200:
-                    content = response.text
-                    print(f"      Got pricing content length: {len(content)}")
+#                 if response.status_code == 200:
+#                     content = response.text
+#                     print(f"      Got pricing content length: {len(content)}")
                     
-                    # First try to parse as JSON
-                    try:
-                        data = response.json()
-                        found_prices = self._extract_prices_from_runpod_json(data)
-                        if found_prices:
-                            h100_prices.update(found_prices)
-                            continue
+#                     # First try to parse as JSON
+#                     try:
+#                         data = response.json()
+#                         found_prices = self._extract_prices_from_runpod_json(data)
+#                         if found_prices:
+#                             h100_prices.update(found_prices)
+#                             continue
                             
-                    except json.JSONDecodeError:
-                        pass
+#                     except json.JSONDecodeError:
+#                         pass
                     
-                    # Look for pricing data in JavaScript/text content
-                    if any(gpu in content for gpu in ['H100', 'H200']):
-                        print(f"      Contains GPU data!")
+#                     # Look for pricing data in JavaScript/text content
+#                     if any(gpu in content for gpu in ['H100', 'H200']):
+#                         print(f"      Contains GPU data!")
                         
-                        # Enhanced price patterns for RunPod pricing
-                        price_patterns = [
-                            # JavaScript object patterns
-                            r'H100.*?price["\']?\s*:\s*([0-9.]+)',
-                            r'H100.*?cost["\']?\s*:\s*([0-9.]+)',
-                            r'H100.*?rate["\']?\s*:\s*([0-9.]+)',
-                            r'"H100[^"]*"[^0-9]*([0-9.]+)',
+#                         # Enhanced price patterns for RunPod pricing
+#                         price_patterns = [
+#                             # JavaScript object patterns
+#                             r'H100.*?price["\']?\s*:\s*([0-9.]+)',
+#                             r'H100.*?cost["\']?\s*:\s*([0-9.]+)',
+#                             r'H100.*?rate["\']?\s*:\s*([0-9.]+)',
+#                             r'"H100[^"]*"[^0-9]*([0-9.]+)',
                             
-                            # NVL/PCIe/SXM specific patterns
-                            r'H100.*?NVL.*?([0-9.]+)',
-                            r'H100.*?PCIe.*?([0-9.]+)',
-                            r'H100.*?SXM.*?([0-9.]+)',
+#                             # NVL/PCIe/SXM specific patterns
+#                             r'H100.*?NVL.*?([0-9.]+)',
+#                             r'H100.*?PCIe.*?([0-9.]+)',
+#                             r'H100.*?SXM.*?([0-9.]+)',
                             
-                            # Price structure patterns
-                            r'priceCentsPerHour["\']?\s*:\s*([0-9]+)',  # Cents to dollars
-                            r'costPerHour["\']?\s*:\s*([0-9.]+)',
-                        ]
+#                             # Price structure patterns
+#                             r'priceCentsPerHour["\']?\s*:\s*([0-9]+)',  # Cents to dollars
+#                             r'costPerHour["\']?\s*:\s*([0-9.]+)',
+#                         ]
                         
-                        for pattern in price_patterns:
-                            matches = re.findall(pattern, content, re.IGNORECASE | re.DOTALL)
-                            for match in matches:
-                                try:
-                                    price = float(match)
+#                         for pattern in price_patterns:
+#                             matches = re.findall(pattern, content, re.IGNORECASE | re.DOTALL)
+#                             for match in matches:
+#                                 try:
+#                                     price = float(match)
                                     
-                                    # Convert cents to dollars if needed
-                                    if 'cents' in pattern.lower() and price > 100:
-                                        price = price / 100
+#                                     # Convert cents to dollars if needed
+#                                     if 'cents' in pattern.lower() and price > 100:
+#                                         price = price / 100
                                     
-                                    if 0.5 < price < 15.0:
-                                        print(f"        Found price via pattern: ${price}")
+#                                     if 0.5 < price < 15.0:
+#                                         print(f"        Found price via pattern: ${price}")
                                         
-                                        # Determine GPU type from context
-                                        if 'NVL' in pattern:
-                                            key = 'H100 NVL (Pricing API)'
-                                        elif 'PCIe' in pattern:
-                                            key = 'H100 PCIe (Pricing API)'
-                                        elif 'SXM' in pattern:
-                                            key = 'H100 SXM (Pricing API)'
-                                        else:
-                                            key = f'H100 (Pricing API)'
+#                                         # Determine GPU type from context
+#                                         if 'NVL' in pattern:
+#                                             key = 'H100 NVL (Pricing API)'
+#                                         elif 'PCIe' in pattern:
+#                                             key = 'H100 PCIe (Pricing API)'
+#                                         elif 'SXM' in pattern:
+#                                             key = 'H100 SXM (Pricing API)'
+#                                         else:
+#                                             key = f'H100 (Pricing API)'
                                         
-                                        if key not in h100_prices:
-                                            h100_prices[key] = f"${price:.2f}/hr"
-                                except (ValueError, TypeError):
-                                    continue
+#                                         if key not in h100_prices:
+#                                             h100_prices[key] = f"${price:.2f}/hr"
+#                                 except (ValueError, TypeError):
+#                                     continue
                     
-            except Exception as e:
-                print(f"      Error: {e}")
-                continue
+#             except Exception as e:
+#                 print(f"      Error: {e}")
+#                 continue
         
-        return h100_prices
+#         return h100_prices
 
-    def _try_dynamic_content_extraction(self) -> Dict[str, str]:
-        """Try to extract pricing from dynamic content/JavaScript"""
-        h100_prices = {}
+#     def _try_dynamic_content_extraction(self) -> Dict[str, str]:
+#         """Try to extract pricing from dynamic content/JavaScript"""
+#         h100_prices = {}
         
-        try:
-            print(f"    Trying dynamic content extraction...")
+#         try:
+#             print(f"    Trying dynamic content extraction...")
             
-            session = requests.Session()
-            headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-                'Accept-Language': 'en-US,en;q=0.5',
-                'Accept-Encoding': 'gzip, deflate, br',
-                'Connection': 'keep-alive',
-            }
-            session.headers.update(headers)
+#             session = requests.Session()
+#             headers = {
+#                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+#                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+#                 'Accept-Language': 'en-US,en;q=0.5',
+#                 'Accept-Encoding': 'gzip, deflate, br',
+#                 'Connection': 'keep-alive',
+#             }
+#             session.headers.update(headers)
             
-            # Get main pricing page
-            response = session.get(self.base_url, timeout=20)
-            if response.status_code == 200:
-                content = response.text
+#             # Get main pricing page
+#             response = session.get(self.base_url, timeout=20)
+#             if response.status_code == 200:
+#                 content = response.text
                 
-                # Look for JavaScript price variables
-                js_patterns = [
-                    r'var\s+gpuPricing\s*=\s*(\{[^}]+\})',
-                    r'window\.pricing\s*=\s*(\{[^}]+\})',
-                    r'const\s+H100_PRICING\s*=\s*(\{[^}]+\})',
-                    r'export\s+const\s+pricing\s*=\s*(\{[^}]+\})',
-                ]
+#                 # Look for JavaScript price variables
+#                 js_patterns = [
+#                     r'var\s+gpuPricing\s*=\s*(\{[^}]+\})',
+#                     r'window\.pricing\s*=\s*(\{[^}]+\})',
+#                     r'const\s+H100_PRICING\s*=\s*(\{[^}]+\})',
+#                     r'export\s+const\s+pricing\s*=\s*(\{[^}]+\})',
+#                 ]
                 
-                for pattern in js_patterns:
-                    matches = re.findall(pattern, content, re.IGNORECASE | re.DOTALL)
-                    for match in matches:
-                        try:
-                            # Try to parse the JavaScript object as JSON
-                            data = json.loads(match)
-                            found_prices = self._extract_prices_from_runpod_json(data)
-                            if found_prices:
-                                h100_prices.update(found_prices)
-                                print(f"      Found {len(found_prices)} prices from JS variables!")
-                        except json.JSONDecodeError:
-                            # If not valid JSON, try regex extraction
-                            price_matches = re.findall(r'H100.*?([0-9.]+)', match, re.IGNORECASE)
-                            for price_str in price_matches:
-                                try:
-                                    price = float(price_str)
-                                    if 0.5 < price < 15.0:
-                                        h100_prices['H100 (Dynamic)'] = f"${price:.2f}/hr"
-                                        print(f"      Found dynamic price: ${price:.2f}/hr")
-                                except (ValueError, TypeError):
-                                    continue
+#                 for pattern in js_patterns:
+#                     matches = re.findall(pattern, content, re.IGNORECASE | re.DOTALL)
+#                     for match in matches:
+#                         try:
+#                             # Try to parse the JavaScript object as JSON
+#                             data = json.loads(match)
+#                             found_prices = self._extract_prices_from_runpod_json(data)
+#                             if found_prices:
+#                                 h100_prices.update(found_prices)
+#                                 print(f"      Found {len(found_prices)} prices from JS variables!")
+#                         except json.JSONDecodeError:
+#                             # If not valid JSON, try regex extraction
+#                             price_matches = re.findall(r'H100.*?([0-9.]+)', match, re.IGNORECASE)
+#                             for price_str in price_matches:
+#                                 try:
+#                                     price = float(price_str)
+#                                     if 0.5 < price < 15.0:
+#                                         h100_prices['H100 (Dynamic)'] = f"${price:.2f}/hr"
+#                                         print(f"      Found dynamic price: ${price:.2f}/hr")
+#                                 except (ValueError, TypeError):
+#                                     continue
                 
-                # Look for script tags with pricing data
-                soup = BeautifulSoup(content, 'html.parser')
-                script_tags = soup.find_all('script')
+#                 # Look for script tags with pricing data
+#                 soup = BeautifulSoup(content, 'html.parser')
+#                 script_tags = soup.find_all('script')
                 
-                for script in script_tags:
-                    if script.string and any(gpu in script.string for gpu in ['H100', 'pricing', 'gpu']):
-                        script_content = script.string
+#                 for script in script_tags:
+#                     if script.string and any(gpu in script.string for gpu in ['H100', 'pricing', 'gpu']):
+#                         script_content = script.string
                         
-                        # Look for pricing objects in script content
-                        price_matches = re.findall(r'H100.*?([0-9.]+)', script_content, re.IGNORECASE)
-                        for price_str in price_matches:
-                            try:
-                                price = float(price_str)
-                                if 0.5 < price < 15.0:
-                                    h100_prices['H100 (Script)'] = f"${price:.2f}/hr"
-                                    print(f"      Found script price: ${price:.2f}/hr")
-                            except (ValueError, TypeError):
-                                continue
+#                         # Look for pricing objects in script content
+#                         price_matches = re.findall(r'H100.*?([0-9.]+)', script_content, re.IGNORECASE)
+#                         for price_str in price_matches:
+#                             try:
+#                                 price = float(price_str)
+#                                 if 0.5 < price < 15.0:
+#                                     h100_prices['H100 (Script)'] = f"${price:.2f}/hr"
+#                                     print(f"      Found script price: ${price:.2f}/hr")
+#                             except (ValueError, TypeError):
+#                                 continue
                 
-        except Exception as e:
-            print(f"      Dynamic extraction error: {e}")
+#         except Exception as e:
+#             print(f"      Dynamic extraction error: {e}")
         
-        return h100_prices
+#         return h100_prices
 
-    def _extract_prices_from_runpod_json(self, data) -> Dict[str, str]:
-        """Extract H100 prices from RunPod JSON data"""
-        prices = {}
+#     def _extract_prices_from_runpod_json(self, data) -> Dict[str, str]:
+#         """Extract H100 prices from RunPod JSON data"""
+#         prices = {}
         
-        if isinstance(data, dict):
-            # Look for pricing data in various possible structures
-            for key, value in data.items():
-                if isinstance(value, (dict, list)):
-                    # Recursively search nested structures
-                    nested_prices = self._extract_prices_from_runpod_json(value)
-                    prices.update(nested_prices)
+#         if isinstance(data, dict):
+#             # Look for pricing data in various possible structures
+#             for key, value in data.items():
+#                 if isinstance(value, (dict, list)):
+#                     # Recursively search nested structures
+#                     nested_prices = self._extract_prices_from_runpod_json(value)
+#                     prices.update(nested_prices)
                     
-                elif isinstance(value, (str, int, float)):
-                    value_str = str(value)
+#                 elif isinstance(value, (str, int, float)):
+#                     value_str = str(value)
                     
-                    # Check if this might be GPU-related data
-                    if any(gpu in key.upper() for gpu in ['H100', 'GPU', 'PRICING']):
-                        # Look for price fields
-                        try:
-                            if key.lower() in ['price', 'cost', 'rate', 'hourly_price', 'price_cents_per_hour']:
-                                price = float(value)
+#                     # Check if this might be GPU-related data
+#                     if any(gpu in key.upper() for gpu in ['H100', 'GPU', 'PRICING']):
+#                         # Look for price fields
+#                         try:
+#                             if key.lower() in ['price', 'cost', 'rate', 'hourly_price', 'price_cents_per_hour']:
+#                                 price = float(value)
                                 
-                                # Convert cents to dollars if needed
-                                if 'cents' in key.lower() and price > 100:
-                                    price = price / 100
+#                                 # Convert cents to dollars if needed
+#                                 if 'cents' in key.lower() and price > 100:
+#                                     price = price / 100
                                     
-                                if 0.5 < price < 15.0:
-                                    gpu_name = self._determine_runpod_gpu_from_context(data, key)
-                                    if gpu_name:
-                                        prices[f'{gpu_name} (JSON)'] = f"${price:.2f}/hr"
+#                                 if 0.5 < price < 15.0:
+#                                     gpu_name = self._determine_runpod_gpu_from_context(data, key)
+#                                     if gpu_name:
+#                                         prices[f'{gpu_name} (JSON)'] = f"${price:.2f}/hr"
                                         
-                        except (ValueError, TypeError):
-                            pass
+#                         except (ValueError, TypeError):
+#                             pass
                             
-                    # Check if value contains GPU name
-                    if any(gpu in value_str.upper() for gpu in ['H100']):
-                        # Look for price patterns in the value
-                        price_match = re.search(r'[\$]?([0-9]+\.?[0-9]*)', value_str)
-                        if price_match:
-                            try:
-                                price = float(price_match.group(1))
-                                if 0.5 < price < 15.0:
-                                    gpu_clean = self._clean_runpod_gpu_name(value_str)
-                                    prices[f'{gpu_clean} (JSON)'] = f"${price:.2f}/hr"
-                            except (ValueError, TypeError):
-                                pass
+#                     # Check if value contains GPU name
+#                     if any(gpu in value_str.upper() for gpu in ['H100']):
+#                         # Look for price patterns in the value
+#                         price_match = re.search(r'[\$]?([0-9]+\.?[0-9]*)', value_str)
+#                         if price_match:
+#                             try:
+#                                 price = float(price_match.group(1))
+#                                 if 0.5 < price < 15.0:
+#                                     gpu_clean = self._clean_runpod_gpu_name(value_str)
+#                                     prices[f'{gpu_clean} (JSON)'] = f"${price:.2f}/hr"
+#                             except (ValueError, TypeError):
+#                                 pass
         
-        elif isinstance(data, list):
-            # Handle list of GPU types or pods
-            for i, item in enumerate(data[:30]):  # Check first 30 items
-                if isinstance(item, dict):
-                    # Look for GPU data
-                    gpu_name = ""
-                    price = 0
+#         elif isinstance(data, list):
+#             # Handle list of GPU types or pods
+#             for i, item in enumerate(data[:30]):  # Check first 30 items
+#                 if isinstance(item, dict):
+#                     # Look for GPU data
+#                     gpu_name = ""
+#                     price = 0
                     
-                    # Common field names for RunPod
-                    gpu_fields = ['name', 'displayName', 'gpu', 'gpuType', 'model']
-                    price_fields = ['priceCentsPerHour', 'costPerHour', 'price', 'hourlyPrice']
+#                     # Common field names for RunPod
+#                     gpu_fields = ['name', 'displayName', 'gpu', 'gpuType', 'model']
+#                     price_fields = ['priceCentsPerHour', 'costPerHour', 'price', 'hourlyPrice']
                     
-                    # Extract GPU name
-                    for field in gpu_fields:
-                        if field in item and item[field]:
-                            gpu_name = str(item[field]).upper()
-                            if 'H100' in gpu_name:
-                                break
+#                     # Extract GPU name
+#                     for field in gpu_fields:
+#                         if field in item and item[field]:
+#                             gpu_name = str(item[field]).upper()
+#                             if 'H100' in gpu_name:
+#                                 break
                     
-                    # Extract price
-                    for field in price_fields:
-                        if field in item and item[field]:
-                            try:
-                                price = float(item[field])
+#                     # Extract price
+#                     for field in price_fields:
+#                         if field in item and item[field]:
+#                             try:
+#                                 price = float(item[field])
                                 
-                                # Convert cents to dollars if needed
-                                if 'cents' in field.lower() and price > 100:
-                                    price = price / 100
+#                                 # Convert cents to dollars if needed
+#                                 if 'cents' in field.lower() and price > 100:
+#                                     price = price / 100
                                     
-                                break
-                            except (ValueError, TypeError):
-                                continue
+#                                 break
+#                             except (ValueError, TypeError):
+#                                 continue
                     
-                    # If we found both GPU name and reasonable price
-                    if 'H100' in gpu_name and 0.5 < price < 15.0:
-                        gpu_clean = self._clean_runpod_gpu_name(gpu_name)
-                        prices[f'{gpu_clean} (API)'] = f"${price:.2f}/hr"
+#                     # If we found both GPU name and reasonable price
+#                     if 'H100' in gpu_name and 0.5 < price < 15.0:
+#                         gpu_clean = self._clean_runpod_gpu_name(gpu_name)
+#                         prices[f'{gpu_clean} (API)'] = f"${price:.2f}/hr"
                         
-                        # Log the successful extraction
-                        print(f"        Extracted: {gpu_clean} = ${price:.2f}/hr")
+#                         # Log the successful extraction
+#                         print(f"        Extracted: {gpu_clean} = ${price:.2f}/hr")
                         
-                else:
-                    # Handle nested structures
-                    nested_prices = self._extract_prices_from_runpod_json(item)
-                    prices.update(nested_prices)
+#                 else:
+#                     # Handle nested structures
+#                     nested_prices = self._extract_prices_from_runpod_json(item)
+#                     prices.update(nested_prices)
         
-        return prices
+#         return prices
 
-    def _extract_prices_from_runpod_graphql(self, data: dict) -> Dict[str, str]:
-        """Extract prices from RunPod GraphQL response"""
-        prices = {}
+#     def _extract_prices_from_runpod_graphql(self, data: dict) -> Dict[str, str]:
+#         """Extract prices from RunPod GraphQL response"""
+#         prices = {}
         
-        if 'data' in data:
-            data = data['data']
+#         if 'data' in data:
+#             data = data['data']
         
-        # Handle different GraphQL response structures
-        if 'gpuTypes' in data:
-            gpu_types = data['gpuTypes']
-            for gpu_type in gpu_types:
-                if isinstance(gpu_type, dict):
-                    name = gpu_type.get('name', gpu_type.get('displayName', ''))
-                    price_cents = gpu_type.get('priceCentsPerHour', 0)
-                    cost_per_hour = gpu_type.get('costPerHour', 0)
+#         # Handle different GraphQL response structures
+#         if 'gpuTypes' in data:
+#             gpu_types = data['gpuTypes']
+#             for gpu_type in gpu_types:
+#                 if isinstance(gpu_type, dict):
+#                     name = gpu_type.get('name', gpu_type.get('displayName', ''))
+#                     price_cents = gpu_type.get('priceCentsPerHour', 0)
+#                     cost_per_hour = gpu_type.get('costPerHour', 0)
                     
-                    if 'H100' in name.upper():
-                        if price_cents and price_cents > 0:
-                            price = price_cents / 100  # Convert cents to dollars
-                        elif cost_per_hour and cost_per_hour > 0:
-                            price = cost_per_hour
-                        else:
-                            continue
+#                     if 'H100' in name.upper():
+#                         if price_cents and price_cents > 0:
+#                             price = price_cents / 100  # Convert cents to dollars
+#                         elif cost_per_hour and cost_per_hour > 0:
+#                             price = cost_per_hour
+#                         else:
+#                             continue
                             
-                        if 0.5 < price < 15.0:
-                            gpu_clean = self._clean_runpod_gpu_name(name)
-                            prices[f'{gpu_clean} (GraphQL)'] = f"${price:.2f}/hr"
-                            print(f"        GraphQL extracted: {gpu_clean} = ${price:.2f}/hr")
+#                         if 0.5 < price < 15.0:
+#                             gpu_clean = self._clean_runpod_gpu_name(name)
+#                             prices[f'{gpu_clean} (GraphQL)'] = f"${price:.2f}/hr"
+#                             print(f"        GraphQL extracted: {gpu_clean} = ${price:.2f}/hr")
         
-        return prices
+#         return prices
 
-    def _determine_runpod_gpu_from_context(self, data: dict, price_key: str) -> str:
-        """Determine GPU type from context in RunPod JSON data"""
-        # Look for GPU indicators in the same object
-        gpu_fields = ['name', 'displayName', 'gpu', 'gpuType', 'model']
+#     def _determine_runpod_gpu_from_context(self, data: dict, price_key: str) -> str:
+#         """Determine GPU type from context in RunPod JSON data"""
+#         # Look for GPU indicators in the same object
+#         gpu_fields = ['name', 'displayName', 'gpu', 'gpuType', 'model']
         
-        for field in gpu_fields:
-            if field in data and data[field]:
-                gpu_value = str(data[field]).upper()
-                if 'H100' in gpu_value:
-                    return self._clean_runpod_gpu_name(gpu_value)
+#         for field in gpu_fields:
+#             if field in data and data[field]:
+#                 gpu_value = str(data[field]).upper()
+#                 if 'H100' in gpu_value:
+#                     return self._clean_runpod_gpu_name(gpu_value)
         
-        return ""
+#         return ""
 
-    def _clean_runpod_gpu_name(self, gpu_name: str) -> str:
-        """Clean GPU name for consistent formatting"""
-        gpu_name = gpu_name.strip().upper()
+#     def _clean_runpod_gpu_name(self, gpu_name: str) -> str:
+#         """Clean GPU name for consistent formatting"""
+#         gpu_name = gpu_name.strip().upper()
         
-        if 'H100 NVL' in gpu_name or 'H100NVL' in gpu_name:
-            return 'H100 NVL'
-        elif 'H100 PCIE' in gpu_name or 'H100PCIE' in gpu_name or 'H100 PCIe' in gpu_name:
-            return 'H100 PCIe'
-        elif 'H100 SXM' in gpu_name or 'H100SXM' in gpu_name:
-            return 'H100 SXM'
-        elif 'H100' in gpu_name:
-            return 'H100'
-        else:
-            return gpu_name
+#         if 'H100 NVL' in gpu_name or 'H100NVL' in gpu_name:
+#             return 'H100 NVL'
+#         elif 'H100 PCIE' in gpu_name or 'H100PCIE' in gpu_name or 'H100 PCIe' in gpu_name:
+#             return 'H100 PCIe'
+#         elif 'H100 SXM' in gpu_name or 'H100SXM' in gpu_name:
+#             return 'H100 SXM'
+#         elif 'H100' in gpu_name:
+#             return 'H100'
+#         else:
+#             return gpu_name
 
-    def _extract_prices_from_json(self, data: dict) -> Dict[str, str]:
-        """Extract H100 prices from JSON data"""
-        prices = {}
+#     def _extract_prices_from_json(self, data: dict) -> Dict[str, str]:
+#         """Extract H100 prices from JSON data"""
+#         prices = {}
         
-        if isinstance(data, dict):
-            for key, value in data.items():
-                if isinstance(value, (dict, list)):
-                    prices.update(self._extract_prices_from_json(value))
-                elif isinstance(value, (str, int, float)):
-                    value_str = str(value)
-                    if 'H100' in key.upper() or 'H100' in value_str:
-                        price_match = re.search(r'\$?(\d+\.\d+)', value_str)
-                        if price_match:
-                            price = price_match.group(1)
-                            gpu_name = self._clean_runpod_gpu_name(key, value_str)
-                            prices[f'{gpu_name} (JSON)'] = f"${price}"
+#         if isinstance(data, dict):
+#             for key, value in data.items():
+#                 if isinstance(value, (dict, list)):
+#                     prices.update(self._extract_prices_from_json(value))
+#                 elif isinstance(value, (str, int, float)):
+#                     value_str = str(value)
+#                     if 'H100' in key.upper() or 'H100' in value_str:
+#                         price_match = re.search(r'\$?(\d+\.\d+)', value_str)
+#                         if price_match:
+#                             price = price_match.group(1)
+#                             gpu_name = self._clean_runpod_gpu_name(key, value_str)
+#                             prices[f'{gpu_name} (JSON)'] = f"${price}"
         
-        elif isinstance(data, list):
-            for item in data:
-                prices.update(self._extract_prices_from_json(item))
+#         elif isinstance(data, list):
+#             for item in data:
+#                 prices.update(self._extract_prices_from_json(item))
         
-        return prices
+#         return prices
 
-    def _clean_runpod_gpu_name(self, key: str, value: str) -> str:
-        """Clean and format GPU name from RunPod JSON data"""
-        key_lower = key.lower()
-        value_lower = value.lower()
+#     def _clean_runpod_gpu_name(self, key: str, value: str) -> str:
+#         """Clean and format GPU name from RunPod JSON data"""
+#         key_lower = key.lower()
+#         value_lower = value.lower()
         
-        if 'spot' in key_lower or 'spot' in value_lower:
-            return 'H100 (Spot)'
-        elif 'secure' in key_lower or 'secure' in value_lower:
-            return 'H100 (Secure)'
-        elif 'community' in key_lower or 'community' in value_lower:
-            return 'H100 (Community)'
-        else:
-            return 'H100'
+#         if 'spot' in key_lower or 'spot' in value_lower:
+#             return 'H100 (Spot)'
+#         elif 'secure' in key_lower or 'secure' in value_lower:
+#             return 'H100 (Secure)'
+#         elif 'community' in key_lower or 'community' in value_lower:
+#             return 'H100 (Community)'
+#         else:
+#             return 'H100'
 
-    def _try_alternative_runpod_pages(self) -> Dict[str, str]:
-        """Try alternative RunPod pages for pricing information"""
-        prices = {}
+#     def _try_alternative_runpod_pages(self) -> Dict[str, str]:
+#         """Try alternative RunPod pages for pricing information"""
+#         prices = {}
         
-        alternative_urls = [
-            "https://www.runpod.io/pricing",                    # General pricing page
-            "https://www.runpod.io/console/deploy",             # Console deploy page
-            "https://console.runpod.io/pricing",                # Console pricing
-            "https://www.runpod.io/product/serverless",         # Serverless product page
-            "https://www.runpod.io/gpu-cloud",                  # GPU cloud page
-            "https://www.runpod.io/api/pricing",                # API pricing endpoint
-        ]
+#         alternative_urls = [
+#             "https://www.runpod.io/pricing",                    # General pricing page
+#             "https://www.runpod.io/console/deploy",             # Console deploy page
+#             "https://console.runpod.io/pricing",                # Console pricing
+#             "https://www.runpod.io/product/serverless",         # Serverless product page
+#             "https://www.runpod.io/gpu-cloud",                  # GPU cloud page
+#             "https://www.runpod.io/api/pricing",                # API pricing endpoint
+#         ]
         
-        for url in alternative_urls:
-            try:
-                print(f"    Trying alternative URL: {url}")
+#         for url in alternative_urls:
+#             try:
+#                 print(f"    Trying alternative URL: {url}")
                 
-                headers = {
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-                    'Accept-Language': 'en-US,en;q=0.9',
-                    'Referer': 'https://www.runpod.io/',
-                }
+#                 headers = {
+#                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+#                     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+#                     'Accept-Language': 'en-US,en;q=0.9',
+#                     'Referer': 'https://www.runpod.io/',
+#                 }
                 
-                response = requests.get(url, headers=headers, timeout=15)
-                if response.status_code == 200:
-                    content = response.text
-                    print(f"      Got content length: {len(content)}")
+#                 response = requests.get(url, headers=headers, timeout=15)
+#                 if response.status_code == 200:
+#                     content = response.text
+#                     print(f"      Got content length: {len(content)}")
                     
-                    # First try JSON parsing if it's an API endpoint
-                    if '/api/' in url:
-                        try:
-                            data = response.json()
-                            found_prices = self._extract_prices_from_runpod_json(data)
-                            if found_prices:
-                                prices.update(found_prices)
-                                print(f"      Found {len(found_prices)} prices from API!")
-                                continue
-                        except json.JSONDecodeError:
-                            pass
+#                     # First try JSON parsing if it's an API endpoint
+#                     if '/api/' in url:
+#                         try:
+#                             data = response.json()
+#                             found_prices = self._extract_prices_from_runpod_json(data)
+#                             if found_prices:
+#                                 prices.update(found_prices)
+#                                 print(f"      Found {len(found_prices)} prices from API!")
+#                                 continue
+#                         except json.JSONDecodeError:
+#                             pass
                     
-                    # Look for H100 pricing mentions in the content
-                    if any(gpu in content.upper() for gpu in ['H100', 'GPU PRICING']):
-                        print(f"      Contains GPU pricing data!")
+#                     # Look for H100 pricing mentions in the content
+#                     if any(gpu in content.upper() for gpu in ['H100', 'GPU PRICING']):
+#                         print(f"      Contains GPU pricing data!")
                         
-                        # Enhanced patterns for alternative pages
-                        price_patterns = [
-                            # Direct pricing mentions with variants
-                            r'H100\s*NVL[^0-9]*\$?([0-9.]+)[^0-9]*(?:per|/)*(?:hr|hour)',
-                            r'H100\s*PCIe[^0-9]*\$?([0-9.]+)[^0-9]*(?:per|/)*(?:hr|hour)',
-                            r'H100\s*SXM[^0-9]*\$?([0-9.]+)[^0-9]*(?:per|/)*(?:hr|hour)',
+#                         # Enhanced patterns for alternative pages
+#                         price_patterns = [
+#                             # Direct pricing mentions with variants
+#                             r'H100\s*NVL[^0-9]*\$?([0-9.]+)[^0-9]*(?:per|/)*(?:hr|hour)',
+#                             r'H100\s*PCIe[^0-9]*\$?([0-9.]+)[^0-9]*(?:per|/)*(?:hr|hour)',
+#                             r'H100\s*SXM[^0-9]*\$?([0-9.]+)[^0-9]*(?:per|/)*(?:hr|hour)',
                             
-                            # Table/card pricing patterns
-                            r'<[^>]*H100\s*NVL[^>]*>[^<]*</[^>]*>\s*[^<]*\$([0-9.]+)',
-                            r'<[^>]*H100\s*PCIe[^>]*>[^<]*</[^>]*>\s*[^<]*\$([0-9.]+)',
-                            r'<[^>]*H100\s*SXM[^>]*>[^<]*</[^>]*>\s*[^<]*\$([0-9.]+)',
+#                             # Table/card pricing patterns
+#                             r'<[^>]*H100\s*NVL[^>]*>[^<]*</[^>]*>\s*[^<]*\$([0-9.]+)',
+#                             r'<[^>]*H100\s*PCIe[^>]*>[^<]*</[^>]*>\s*[^<]*\$([0-9.]+)',
+#                             r'<[^>]*H100\s*SXM[^>]*>[^<]*</[^>]*>\s*[^<]*\$([0-9.]+)',
                             
-                            # Pricing card patterns (RunPod specific)
-                            r'H100[^}]*(?:price|cost|rate)["\']?\s*:\s*["\']?\$?([0-9.]+)',
-                            r'(?:price|cost|rate)["\']?\s*:\s*["\']?\$?([0-9.]+)[^}]*H100',
+#                             # Pricing card patterns (RunPod specific)
+#                             r'H100[^}]*(?:price|cost|rate)["\']?\s*:\s*["\']?\$?([0-9.]+)',
+#                             r'(?:price|cost|rate)["\']?\s*:\s*["\']?\$?([0-9.]+)[^}]*H100',
                             
-                            # Div/span patterns with pricing
-                            r'<div[^>]*>[^<]*H100[^<]*</div>\s*<[^>]*>\s*\$([0-9.]+)',
-                            r'<span[^>]*>[^<]*H100[^<]*</span>[^<]*\$([0-9.]+)',
+#                             # Div/span patterns with pricing
+#                             r'<div[^>]*>[^<]*H100[^<]*</div>\s*<[^>]*>\s*\$([0-9.]+)',
+#                             r'<span[^>]*>[^<]*H100[^<]*</span>[^<]*\$([0-9.]+)',
                             
-                            # General H100 patterns (last resort)
-                            r'H100[^0-9]*\$?([0-9.]+)[^0-9]*(?:per|/)*(?:hr|hour)',
-                            r'NVIDIA\s*H100[^0-9]*\$?([0-9.]+)',
+#                             # General H100 patterns (last resort)
+#                             r'H100[^0-9]*\$?([0-9.]+)[^0-9]*(?:per|/)*(?:hr|hour)',
+#                             r'NVIDIA\s*H100[^0-9]*\$?([0-9.]+)',
                             
-                            # JSON-like patterns in HTML/JS
-                            r'"H100[^"]*"[^0-9]*([0-9.]+)',
-                            r'H100.*?([0-9.]+).*?(?:hour|hr)',
+#                             # JSON-like patterns in HTML/JS
+#                             r'"H100[^"]*"[^0-9]*([0-9.]+)',
+#                             r'H100.*?([0-9.]+).*?(?:hour|hr)',
                             
-                            # API response patterns
-                            r'"gpu":\s*"[^"]*H100[^"]*"[^}]*"hourly":\s*([0-9.]+)',
-                            r'"model":\s*"[^"]*H100[^"]*"[^}]*"price":\s*([0-9.]+)',
-                        ]
+#                             # API response patterns
+#                             r'"gpu":\s*"[^"]*H100[^"]*"[^}]*"hourly":\s*([0-9.]+)',
+#                             r'"model":\s*"[^"]*H100[^"]*"[^}]*"price":\s*([0-9.]+)',
+#                         ]
                         
-                        # Track which H100 variants we've found
-                        found_variants = set()
+#                         # Track which H100 variants we've found
+#                         found_variants = set()
                         
-                        for pattern in price_patterns:
-                            matches = re.findall(pattern, content, re.IGNORECASE | re.DOTALL)
-                            for match in matches:
-                                try:
-                                    price = float(match)
-                                    if 0.5 < price < 15.0:
-                                        print(f"        Found price: ${price}")
+#                         for pattern in price_patterns:
+#                             matches = re.findall(pattern, content, re.IGNORECASE | re.DOTALL)
+#                             for match in matches:
+#                                 try:
+#                                     price = float(match)
+#                                     if 0.5 < price < 15.0:
+#                                         print(f"        Found price: ${price}")
                                         
-                                        # Determine GPU type from pattern and context
-                                        if 'NVL' in pattern.upper():
-                                            key = 'H100 NVL (Alt Page)'
-                                            variant = 'NVL'
-                                        elif 'PCIE' in pattern.upper():
-                                            key = 'H100 PCIe (Alt Page)'
-                                            variant = 'PCIe'
-                                        elif 'SXM' in pattern.upper():
-                                            key = 'H100 SXM (Alt Page)'
-                                            variant = 'SXM'
-                                        else:
-                                            # Check content around the match for variant info
-                                            pattern_start = content.upper().find(str(price))
-                                            if pattern_start > 0:
-                                                context = content[max(0, pattern_start-100):pattern_start+100].upper()
-                                                if 'NVL' in context and 'NVL' not in found_variants:
-                                                    key = 'H100 NVL (Alt Page)'
-                                                    variant = 'NVL'
-                                                elif 'PCIE' in context and 'PCIe' not in found_variants:
-                                                    key = 'H100 PCIe (Alt Page)'
-                                                    variant = 'PCIe'
-                                                elif 'SXM' in context and 'SXM' not in found_variants:
-                                                    key = 'H100 SXM (Alt Page)'
-                                                    variant = 'SXM'
-                                                else:
-                                                    key = f'H100 (Alt Page)'
-                                                    variant = 'Standard'
-                                            else:
-                                                key = f'H100 (Alt Page)'
-                                                variant = 'Standard'
+#                                         # Determine GPU type from pattern and context
+#                                         if 'NVL' in pattern.upper():
+#                                             key = 'H100 NVL (Alt Page)'
+#                                             variant = 'NVL'
+#                                         elif 'PCIE' in pattern.upper():
+#                                             key = 'H100 PCIe (Alt Page)'
+#                                             variant = 'PCIe'
+#                                         elif 'SXM' in pattern.upper():
+#                                             key = 'H100 SXM (Alt Page)'
+#                                             variant = 'SXM'
+#                                         else:
+#                                             # Check content around the match for variant info
+#                                             pattern_start = content.upper().find(str(price))
+#                                             if pattern_start > 0:
+#                                                 context = content[max(0, pattern_start-100):pattern_start+100].upper()
+#                                                 if 'NVL' in context and 'NVL' not in found_variants:
+#                                                     key = 'H100 NVL (Alt Page)'
+#                                                     variant = 'NVL'
+#                                                 elif 'PCIE' in context and 'PCIe' not in found_variants:
+#                                                     key = 'H100 PCIe (Alt Page)'
+#                                                     variant = 'PCIe'
+#                                                 elif 'SXM' in context and 'SXM' not in found_variants:
+#                                                     key = 'H100 SXM (Alt Page)'
+#                                                     variant = 'SXM'
+#                                                 else:
+#                                                     key = f'H100 (Alt Page)'
+#                                                     variant = 'Standard'
+#                                             else:
+#                                                 key = f'H100 (Alt Page)'
+#                                                 variant = 'Standard'
                                         
-                                        if key not in prices:
-                                            prices[key] = f"${price:.2f}/hr"
-                                            found_variants.add(variant)
-                                            print(f"        Added: {key} = ${price:.2f}/hr")
-                                except (ValueError, TypeError):
-                                    continue
+#                                         if key not in prices:
+#                                             prices[key] = f"${price:.2f}/hr"
+#                                             found_variants.add(variant)
+#                                             print(f"        Added: {key} = ${price:.2f}/hr")
+#                                 except (ValueError, TypeError):
+#                                     continue
                         
-                        # If we found pricing, continue to next URL
-                        if prices:
-                            print(f"      Found {len(prices)} prices from {url}")
+#                         # If we found pricing, continue to next URL
+#                         if prices:
+#                             print(f"      Found {len(prices)} prices from {url}")
                             
-                            # If we have enough variety, return
-                            if len(prices) >= 3:
-                                return prices
+#                             # If we have enough variety, return
+#                             if len(prices) >= 3:
+#                                 return prices
                         
-            except requests.RequestException as e:
-                print(f"      Error accessing {url}: {e}")
-                continue
+#             except requests.RequestException as e:
+#                 print(f"      Error accessing {url}: {e}")
+#                 continue
         
-        return prices
+#         return prices
 
 
 class HyperStackScraper(CloudProviderScraper):
@@ -3950,397 +3950,397 @@ class LatitudeScraper(CloudProviderScraper):
 
 
 
-class AWSPricingScraper:
-    def __init__(self):
-        self.session = requests.Session()
-        self.session.headers.update({
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-            'Accept-Language': 'en-US,en;q=0.5',
-            'Accept-Encoding': 'gzip, deflate',
-            'Connection': 'keep-alive',
-        })
+# class AWSPricingScraper:
+#     def __init__(self):
+#         self.session = requests.Session()
+#         self.session.headers.update({
+#             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+#             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+#             'Accept-Language': 'en-US,en;q=0.5',
+#             'Accept-Encoding': 'gzip, deflate',
+#             'Connection': 'keep-alive',
+#         })
         
-    def get_aws_p5_pricing(self) -> Dict[str, str]:
-        """Main method to get AWS P5 instance H100 pricing"""
-        print("🔍 Starting AWS P5 Instance (H100) Price Extraction...")
+#     def get_aws_p5_pricing(self) -> Dict[str, str]:
+#         """Main method to get AWS P5 instance H100 pricing"""
+#         print("🔍 Starting AWS P5 Instance (H100) Price Extraction...")
         
-        all_prices = {}
+#         all_prices = {}
         
-        # Try multiple methods
-        methods = [
-            self._try_aws_pricing_calculator,
-            self._try_ec2_pricing_page,
-            self._try_vantage_api,
-            self._try_ec2instances_api,
-            self._try_aws_official_apis
-        ]
+#         # Try multiple methods
+#         methods = [
+#             self._try_aws_pricing_calculator,
+#             self._try_ec2_pricing_page,
+#             self._try_vantage_api,
+#             self._try_ec2instances_api,
+#             self._try_aws_official_apis
+#         ]
         
-        for i, method in enumerate(methods, 1):
-            try:
-                print(f"\n📋 Method {i}: {method.__name__}")
-                prices = method()
-                if prices:
-                    all_prices.update(prices)
-                    print(f"   ✅ Found {len(prices)} prices!")
-                else:
-                    print("   ❌ No prices found")
-            except Exception as e:
-                print(f"   ❌ Error: {str(e)}")
-                continue
+#         for i, method in enumerate(methods, 1):
+#             try:
+#                 print(f"\n📋 Method {i}: {method.__name__}")
+#                 prices = method()
+#                 if prices:
+#                     all_prices.update(prices)
+#                     print(f"   ✅ Found {len(prices)} prices!")
+#                 else:
+#                     print("   ❌ No prices found")
+#             except Exception as e:
+#                 print(f"   ❌ Error: {str(e)}")
+#                 continue
         
-        if all_prices:
-            print(f"\n🎉 Total AWS P5 prices extracted: {len(all_prices)}")
-            return all_prices
-        else:
-            print("\n❌ No AWS P5 pricing data could be extracted")
-            return {}
+#         if all_prices:
+#             print(f"\n🎉 Total AWS P5 prices extracted: {len(all_prices)}")
+#             return all_prices
+#         else:
+#             print("\n❌ No AWS P5 pricing data could be extracted")
+#             return {}
     
-    def _try_aws_pricing_calculator(self) -> Dict[str, str]:
-        """Try AWS Pricing Calculator"""
-        prices = {}
+#     def _try_aws_pricing_calculator(self) -> Dict[str, str]:
+#         """Try AWS Pricing Calculator"""
+#         prices = {}
         
-        calculator_urls = [
-            "https://calculator.aws/#/",
-            "https://calculator.aws/pricing/2.0/meteredUnitMaps/ec2/USD/current/ec2-ondemand-without-recommendations.json",
-            "https://b0.p.awsstatic.com/pricing/2.0/meteredUnitMaps/ec2/USD/current/ec2-ondemand-without-sec-sel.json"
-        ]
+#         calculator_urls = [
+#             "https://calculator.aws/#/",
+#             "https://calculator.aws/pricing/2.0/meteredUnitMaps/ec2/USD/current/ec2-ondemand-without-recommendations.json",
+#             "https://b0.p.awsstatic.com/pricing/2.0/meteredUnitMaps/ec2/USD/current/ec2-ondemand-without-sec-sel.json"
+#         ]
         
-        for url in calculator_urls:
-            try:
-                print(f"   Trying calculator: {url[:60]}...")
+#         for url in calculator_urls:
+#             try:
+#                 print(f"   Trying calculator: {url[:60]}...")
                 
-                if url.endswith('.json'):
-                    response = self.session.get(url, timeout=10)
-                    if response.status_code == 200:
-                        data = response.json()
-                        # Look for P5 instance pricing in JSON
-                        p5_prices = self._extract_p5_from_json(data)
-                        if p5_prices:
-                            prices.update(p5_prices)
-                else:
-                    # Try to scrape calculator page
-                    response = self.session.get(url, timeout=10)
-                    if response.status_code == 200:
-                        soup = BeautifulSoup(response.content, 'html.parser')
-                        p5_prices = self._extract_p5_from_html(soup)
-                        if p5_prices:
-                            prices.update(p5_prices)
+#                 if url.endswith('.json'):
+#                     response = self.session.get(url, timeout=10)
+#                     if response.status_code == 200:
+#                         data = response.json()
+#                         # Look for P5 instance pricing in JSON
+#                         p5_prices = self._extract_p5_from_json(data)
+#                         if p5_prices:
+#                             prices.update(p5_prices)
+#                 else:
+#                     # Try to scrape calculator page
+#                     response = self.session.get(url, timeout=10)
+#                     if response.status_code == 200:
+#                         soup = BeautifulSoup(response.content, 'html.parser')
+#                         p5_prices = self._extract_p5_from_html(soup)
+#                         if p5_prices:
+#                             prices.update(p5_prices)
                             
-            except Exception as e:
-                print(f"     Error with {url}: {str(e)}")
-                continue
+#             except Exception as e:
+#                 print(f"     Error with {url}: {str(e)}")
+#                 continue
                 
-        return prices
+#         return prices
     
-    def _try_ec2_pricing_page(self) -> Dict[str, str]:
-        """Try AWS EC2 pricing page"""
-        prices = {}
+#     def _try_ec2_pricing_page(self) -> Dict[str, str]:
+#         """Try AWS EC2 pricing page"""
+#         prices = {}
         
-        ec2_urls = [
-            "https://aws.amazon.com/ec2/pricing/on-demand/",
-            "https://aws.amazon.com/ec2/instance-types/p5/",
-            "https://docs.aws.amazon.com/ec2/latest/userguide/p5-instances.html"
-        ]
+#         ec2_urls = [
+#             "https://aws.amazon.com/ec2/pricing/on-demand/",
+#             "https://aws.amazon.com/ec2/instance-types/p5/",
+#             "https://docs.aws.amazon.com/ec2/latest/userguide/p5-instances.html"
+#         ]
         
-        for url in ec2_urls:
-            try:
-                print(f"   Trying EC2 page: {url[:60]}...")
+#         for url in ec2_urls:
+#             try:
+#                 print(f"   Trying EC2 page: {url[:60]}...")
                 
-                response = self.session.get(url, timeout=15)
-                if response.status_code == 200:
-                    soup = BeautifulSoup(response.content, 'html.parser')
+#                 response = self.session.get(url, timeout=15)
+#                 if response.status_code == 200:
+#                     soup = BeautifulSoup(response.content, 'html.parser')
                     
-                    # Look for P5 pricing in tables or structured data
-                    p5_prices = self._extract_p5_from_html(soup)
-                    if p5_prices:
-                        prices.update(p5_prices)
+#                     # Look for P5 pricing in tables or structured data
+#                     p5_prices = self._extract_p5_from_html(soup)
+#                     if p5_prices:
+#                         prices.update(p5_prices)
                         
-            except Exception as e:
-                print(f"     Error with {url}: {str(e)}")
-                continue
+#             except Exception as e:
+#                 print(f"     Error with {url}: {str(e)}")
+#                 continue
                 
-        return prices
+#         return prices
     
-    def _try_vantage_api(self) -> Dict[str, str]:
-        """Try Vantage.sh API for AWS pricing"""
-        prices = {}
+#     def _try_vantage_api(self) -> Dict[str, str]:
+#         """Try Vantage.sh API for AWS pricing"""
+#         prices = {}
         
-        # P5 instance types
-        p5_instances = [
-            "p5.48xlarge",  # 8x H100
-            "p5.24xlarge",  # 4x H100  
-            "p5.12xlarge",  # 2x H100
-            "p5.6xlarge",   # 1x H100
-            "p5.2xlarge",   # 1x H100
-            "p5.xlarge"     # 1x H100
-        ]
+#         # P5 instance types
+#         p5_instances = [
+#             "p5.48xlarge",  # 8x H100
+#             "p5.24xlarge",  # 4x H100  
+#             "p5.12xlarge",  # 2x H100
+#             "p5.6xlarge",   # 1x H100
+#             "p5.2xlarge",   # 1x H100
+#             "p5.xlarge"     # 1x H100
+#         ]
         
-        regions = ["us-east-1", "us-west-2", "eu-west-1"]
+#         regions = ["us-east-1", "us-west-2", "eu-west-1"]
         
-        for instance in p5_instances:
-            for region in regions:
-                try:
-                    url = f"https://instances.vantage.sh/aws/ec2/{instance}?region={region}"
-                    print(f"   Trying Vantage: {instance} in {region}")
+#         for instance in p5_instances:
+#             for region in regions:
+#                 try:
+#                     url = f"https://instances.vantage.sh/aws/ec2/{instance}?region={region}"
+#                     print(f"   Trying Vantage: {instance} in {region}")
                     
-                    response = self.session.get(url, timeout=10)
-                    if response.status_code == 200:
-                        # Try to parse JSON response
-                        try:
-                            data = response.json()
-                            if 'pricing' in data or 'price' in data:
-                                price = self._extract_price_from_vantage_data(data, instance)
-                                if price:
-                                    gpu_count = self._get_p5_gpu_count(instance)
-                                    prices[f"H100 ({instance} - {gpu_count}x GPUs - {region})"] = f"${price:.2f}/hr"
-                        except:
-                            # Try to parse HTML
-                            soup = BeautifulSoup(response.content, 'html.parser')
-                            price = self._extract_price_from_vantage_html(soup, instance)
-                            if price:
-                                gpu_count = self._get_p5_gpu_count(instance)
-                                prices[f"H100 ({instance} - {gpu_count}x GPUs - {region})"] = f"${price:.2f}/hr"
+#                     response = self.session.get(url, timeout=10)
+#                     if response.status_code == 200:
+#                         # Try to parse JSON response
+#                         try:
+#                             data = response.json()
+#                             if 'pricing' in data or 'price' in data:
+#                                 price = self._extract_price_from_vantage_data(data, instance)
+#                                 if price:
+#                                     gpu_count = self._get_p5_gpu_count(instance)
+#                                     prices[f"H100 ({instance} - {gpu_count}x GPUs - {region})"] = f"${price:.2f}/hr"
+#                         except:
+#                             # Try to parse HTML
+#                             soup = BeautifulSoup(response.content, 'html.parser')
+#                             price = self._extract_price_from_vantage_html(soup, instance)
+#                             if price:
+#                                 gpu_count = self._get_p5_gpu_count(instance)
+#                                 prices[f"H100 ({instance} - {gpu_count}x GPUs - {region})"] = f"${price:.2f}/hr"
                         
-                except Exception as e:
-                    print(f"     Error with {instance}/{region}: {str(e)}")
-                    continue
+#                 except Exception as e:
+#                     print(f"     Error with {instance}/{region}: {str(e)}")
+#                     continue
                     
-        return prices
+#         return prices
     
-    def _try_ec2instances_api(self) -> Dict[str, str]:
-        """Try ec2instances.info API"""
-        prices = {}
+#     def _try_ec2instances_api(self) -> Dict[str, str]:
+#         """Try ec2instances.info API"""
+#         prices = {}
         
-        try:
-            print("   Trying ec2instances.info API...")
-            url = "https://instances.vantage.sh/api/aws/ec2/instances.json"
+#         try:
+#             print("   Trying ec2instances.info API...")
+#             url = "https://instances.vantage.sh/api/aws/ec2/instances.json"
             
-            response = self.session.get(url, timeout=15)
-            if response.status_code == 200:
-                data = response.json()
+#             response = self.session.get(url, timeout=15)
+#             if response.status_code == 200:
+#                 data = response.json()
                 
-                # Look for P5 instances
-                for instance in data:
-                    if instance.get('instance_type', '').startswith('p5.'):
-                        instance_type = instance.get('instance_type')
-                        pricing = instance.get('pricing', {})
+#                 # Look for P5 instances
+#                 for instance in data:
+#                     if instance.get('instance_type', '').startswith('p5.'):
+#                         instance_type = instance.get('instance_type')
+#                         pricing = instance.get('pricing', {})
                         
-                        if 'linux' in pricing:
-                            linux_pricing = pricing['linux']
-                            if 'ondemand' in linux_pricing:
-                                price = linux_pricing['ondemand']
-                                gpu_count = self._get_p5_gpu_count(instance_type)
-                                prices[f"H100 ({instance_type} - {gpu_count}x GPUs)"] = f"${price}/hr"
+#                         if 'linux' in pricing:
+#                             linux_pricing = pricing['linux']
+#                             if 'ondemand' in linux_pricing:
+#                                 price = linux_pricing['ondemand']
+#                                 gpu_count = self._get_p5_gpu_count(instance_type)
+#                                 prices[f"H100 ({instance_type} - {gpu_count}x GPUs)"] = f"${price}/hr"
                                 
-        except Exception as e:
-            print(f"     Error with ec2instances.info: {str(e)}")
+#         except Exception as e:
+#             print(f"     Error with ec2instances.info: {str(e)}")
             
-        return prices
+#         return prices
     
-    def _try_aws_official_apis(self) -> Dict[str, str]:
-        """Try AWS official APIs (lightweight endpoints only)"""
-        prices = {}
+#     def _try_aws_official_apis(self) -> Dict[str, str]:
+#         """Try AWS official APIs (lightweight endpoints only)"""
+#         prices = {}
         
-        # Only lightweight endpoints, no massive downloads
-        apis = [
-            "https://calculator.s3.amazonaws.com/pricing/ec2/linux-od.min.js",
-            "https://a0.awsstatic.com/pricing/1.0/ec2/linux-od.min.js",
-            "https://ec2.amazonaws.com/pricing/ec2-linux-od.min.js"
-        ]
+#         # Only lightweight endpoints, no massive downloads
+#         apis = [
+#             "https://calculator.s3.amazonaws.com/pricing/ec2/linux-od.min.js",
+#             "https://a0.awsstatic.com/pricing/1.0/ec2/linux-od.min.js",
+#             "https://ec2.amazonaws.com/pricing/ec2-linux-od.min.js"
+#         ]
         
-        for api_url in apis:
-            try:
-                print(f"   Trying API: {api_url[:50]}...")
+#         for api_url in apis:
+#             try:
+#                 print(f"   Trying API: {api_url[:50]}...")
                 
-                response = self.session.get(api_url, timeout=10)
-                if response.status_code == 200:
-                    content = response.text
+#                 response = self.session.get(api_url, timeout=10)
+#                 if response.status_code == 200:
+#                     content = response.text
                     
-                    # Handle JavaScript/JSON responses
-                    if api_url.endswith('.js'):
-                        # Extract JSON from JavaScript
-                        json_match = re.search(r'callback\((.*)\)', content)
-                        if json_match:
-                            try:
-                                data = json.loads(json_match.group(1))
-                                p5_prices = self._extract_p5_from_json(data)
-                                if p5_prices:
-                                    prices.update(p5_prices)
-                            except:
-                                pass
-                    else:
-                        # Try direct JSON parsing
-                        try:
-                            data = response.json()
-                            p5_prices = self._extract_p5_from_json(data)
-                            if p5_prices:
-                                prices.update(p5_prices)
-                        except:
-                            pass
+#                     # Handle JavaScript/JSON responses
+#                     if api_url.endswith('.js'):
+#                         # Extract JSON from JavaScript
+#                         json_match = re.search(r'callback\((.*)\)', content)
+#                         if json_match:
+#                             try:
+#                                 data = json.loads(json_match.group(1))
+#                                 p5_prices = self._extract_p5_from_json(data)
+#                                 if p5_prices:
+#                                     prices.update(p5_prices)
+#                             except:
+#                                 pass
+#                     else:
+#                         # Try direct JSON parsing
+#                         try:
+#                             data = response.json()
+#                             p5_prices = self._extract_p5_from_json(data)
+#                             if p5_prices:
+#                                 prices.update(p5_prices)
+#                         except:
+#                             pass
                             
-            except Exception as e:
-                print(f"     Error with {api_url}: {str(e)}")
-                continue
+#             except Exception as e:
+#                 print(f"     Error with {api_url}: {str(e)}")
+#                 continue
                 
-        return prices
+#         return prices
     
-    def _extract_p5_from_json(self, data: dict) -> Dict[str, str]:
-        """Extract P5 pricing from JSON data"""
-        prices = {}
+#     def _extract_p5_from_json(self, data: dict) -> Dict[str, str]:
+#         """Extract P5 pricing from JSON data"""
+#         prices = {}
         
-        def search_nested(obj, path=""):
-            if isinstance(obj, dict):
-                for key, value in obj.items():
-                    current_path = f"{path}.{key}" if path else key
+#         def search_nested(obj, path=""):
+#             if isinstance(obj, dict):
+#                 for key, value in obj.items():
+#                     current_path = f"{path}.{key}" if path else key
                     
-                    # Look for P5 instance references
-                    if any(p5_type in str(key).lower() for p5_type in ['p5.', 'p5_']):
-                        if isinstance(value, (int, float, str)):
-                            try:
-                                price = float(str(value).replace('$', '').replace(',', ''))
-                                if 0.1 <= price <= 500:  # Reasonable range for P5 pricing
-                                    gpu_count = self._get_p5_gpu_count(str(key))
-                                    prices[f"H100 (P5 {key} - {gpu_count}x GPUs)"] = f"${price:.2f}/hr"
-                            except:
-                                pass
+#                     # Look for P5 instance references
+#                     if any(p5_type in str(key).lower() for p5_type in ['p5.', 'p5_']):
+#                         if isinstance(value, (int, float, str)):
+#                             try:
+#                                 price = float(str(value).replace('$', '').replace(',', ''))
+#                                 if 0.1 <= price <= 500:  # Reasonable range for P5 pricing
+#                                     gpu_count = self._get_p5_gpu_count(str(key))
+#                                     prices[f"H100 (P5 {key} - {gpu_count}x GPUs)"] = f"${price:.2f}/hr"
+#                             except:
+#                                 pass
                     
-                    # Recursively search nested objects
-                    search_nested(value, current_path)
+#                     # Recursively search nested objects
+#                     search_nested(value, current_path)
                     
-            elif isinstance(obj, list):
-                for i, item in enumerate(obj):
-                    search_nested(item, f"{path}[{i}]")
+#             elif isinstance(obj, list):
+#                 for i, item in enumerate(obj):
+#                     search_nested(item, f"{path}[{i}]")
         
-        search_nested(data)
-        return prices
+#         search_nested(data)
+#         return prices
     
-    def _extract_p5_from_html(self, soup: BeautifulSoup) -> Dict[str, str]:
-        """Extract P5 pricing from HTML content"""
-        prices = {}
+#     def _extract_p5_from_html(self, soup: BeautifulSoup) -> Dict[str, str]:
+#         """Extract P5 pricing from HTML content"""
+#         prices = {}
         
-        # Look for pricing tables
-        tables = soup.find_all('table')
-        for table in tables:
-            rows = table.find_all('tr')
-            for row in rows:
-                cells = row.find_all(['td', 'th'])
-                row_text = ' '.join([cell.get_text().strip() for cell in cells])
+#         # Look for pricing tables
+#         tables = soup.find_all('table')
+#         for table in tables:
+#             rows = table.find_all('tr')
+#             for row in rows:
+#                 cells = row.find_all(['td', 'th'])
+#                 row_text = ' '.join([cell.get_text().strip() for cell in cells])
                 
-                # Look for P5 instance mentions with prices
-                if any(p5_type in row_text.lower() for p5_type in ['p5.', 'p5 ']):
-                    price_match = re.search(r'\$(\d+(?:\.\d{2})?)', row_text)
-                    if price_match:
-                        price = float(price_match.group(1))
-                        if 0.1 <= price <= 500:
-                            instance_match = re.search(r'(p5\.\w+)', row_text.lower())
-                            if instance_match:
-                                instance_type = instance_match.group(1)
-                                gpu_count = self._get_p5_gpu_count(instance_type)
-                                prices[f"H100 ({instance_type} - {gpu_count}x GPUs)"] = f"${price:.2f}/hr"
+#                 # Look for P5 instance mentions with prices
+#                 if any(p5_type in row_text.lower() for p5_type in ['p5.', 'p5 ']):
+#                     price_match = re.search(r'\$(\d+(?:\.\d{2})?)', row_text)
+#                     if price_match:
+#                         price = float(price_match.group(1))
+#                         if 0.1 <= price <= 500:
+#                             instance_match = re.search(r'(p5\.\w+)', row_text.lower())
+#                             if instance_match:
+#                                 instance_type = instance_match.group(1)
+#                                 gpu_count = self._get_p5_gpu_count(instance_type)
+#                                 prices[f"H100 ({instance_type} - {gpu_count}x GPUs)"] = f"${price:.2f}/hr"
         
-        # Also look for general text mentions
-        text_content = soup.get_text()
-        p5_matches = re.findall(r'p5\.\w+.*?\$(\d+(?:\.\d{2})?)', text_content, re.IGNORECASE)
-        for match in p5_matches:
-            try:
-                price = float(match)
-                if 0.1 <= price <= 500:
-                    prices[f"H100 (P5 Instance)"] = f"${price:.2f}/hr"
-            except:
-                pass
+#         # Also look for general text mentions
+#         text_content = soup.get_text()
+#         p5_matches = re.findall(r'p5\.\w+.*?\$(\d+(?:\.\d{2})?)', text_content, re.IGNORECASE)
+#         for match in p5_matches:
+#             try:
+#                 price = float(match)
+#                 if 0.1 <= price <= 500:
+#                     prices[f"H100 (P5 Instance)"] = f"${price:.2f}/hr"
+#             except:
+#                 pass
         
-        return prices
+#         return prices
     
-    def _extract_price_from_vantage_data(self, data: dict, instance_type: str) -> Optional[float]:
-        """Extract price from Vantage API data"""
-        try:
-            if 'pricing' in data:
-                pricing = data['pricing']
-                if 'onDemand' in pricing:
-                    price = pricing['onDemand']
-                    return float(price)
-                elif 'linux' in pricing:
-                    linux_pricing = pricing['linux']
-                    if 'onDemand' in linux_pricing:
-                        return float(linux_pricing['onDemand'])
+#     def _extract_price_from_vantage_data(self, data: dict, instance_type: str) -> Optional[float]:
+#         """Extract price from Vantage API data"""
+#         try:
+#             if 'pricing' in data:
+#                 pricing = data['pricing']
+#                 if 'onDemand' in pricing:
+#                     price = pricing['onDemand']
+#                     return float(price)
+#                 elif 'linux' in pricing:
+#                     linux_pricing = pricing['linux']
+#                     if 'onDemand' in linux_pricing:
+#                         return float(linux_pricing['onDemand'])
             
-            # Try other common fields
-            for field in ['price', 'cost', 'hourly', 'on_demand']:
-                if field in data:
-                    try:
-                        return float(str(data[field]).replace('$', ''))
-                    except:
-                        continue
+#             # Try other common fields
+#             for field in ['price', 'cost', 'hourly', 'on_demand']:
+#                 if field in data:
+#                     try:
+#                         return float(str(data[field]).replace('$', ''))
+#                     except:
+#                         continue
                         
-        except Exception:
-            pass
-        return None
+#         except Exception:
+#             pass
+#         return None
     
-    def _extract_price_from_vantage_html(self, soup: BeautifulSoup, instance_type: str) -> Optional[float]:
-        """Extract price from Vantage HTML page"""
-        try:
-            # Look for price displays
-            price_patterns = [
-                r'\$(\d+(?:\.\d{2})?)\s*per\s*hour',
-                r'\$(\d+(?:\.\d{2})?)/hour',
-                r'\$(\d+(?:\.\d{2})?)\s*hourly',
-                r'On-Demand.*?\$(\d+(?:\.\d{2})?)',
-            ]
+#     def _extract_price_from_vantage_html(self, soup: BeautifulSoup, instance_type: str) -> Optional[float]:
+#         """Extract price from Vantage HTML page"""
+#         try:
+#             # Look for price displays
+#             price_patterns = [
+#                 r'\$(\d+(?:\.\d{2})?)\s*per\s*hour',
+#                 r'\$(\d+(?:\.\d{2})?)/hour',
+#                 r'\$(\d+(?:\.\d{2})?)\s*hourly',
+#                 r'On-Demand.*?\$(\d+(?:\.\d{2})?)',
+#             ]
             
-            page_text = soup.get_text()
-            for pattern in price_patterns:
-                match = re.search(pattern, page_text, re.IGNORECASE)
-                if match:
-                    price = float(match.group(1))
-                    if 0.1 <= price <= 500:
-                        return price
+#             page_text = soup.get_text()
+#             for pattern in price_patterns:
+#                 match = re.search(pattern, page_text, re.IGNORECASE)
+#                 if match:
+#                     price = float(match.group(1))
+#                     if 0.1 <= price <= 500:
+#                         return price
                         
-        except Exception:
-            pass
-        return None
+#         except Exception:
+#             pass
+#         return None
     
-    def _get_p5_gpu_count(self, instance_type: str) -> int:
-        """Get number of H100 GPUs for P5 instance type"""
-        gpu_counts = {
-            'p5.48xlarge': 8,
-            'p5.24xlarge': 4,
-            'p5.12xlarge': 2,
-            'p5.6xlarge': 1,
-            'p5.2xlarge': 1,
-            'p5.xlarge': 1,
-        }
+#     def _get_p5_gpu_count(self, instance_type: str) -> int:
+#         """Get number of H100 GPUs for P5 instance type"""
+#         gpu_counts = {
+#             'p5.48xlarge': 8,
+#             'p5.24xlarge': 4,
+#             'p5.12xlarge': 2,
+#             'p5.6xlarge': 1,
+#             'p5.2xlarge': 1,
+#             'p5.xlarge': 1,
+#         }
         
-        instance_lower = instance_type.lower()
-        for inst, count in gpu_counts.items():
-            if inst in instance_lower:
-                return count
-        return 1  # Default to 1 GPU
+#         instance_lower = instance_type.lower()
+#         for inst, count in gpu_counts.items():
+#             if inst in instance_lower:
+#                 return count
+#         return 1  # Default to 1 GPU
     
-    def format_results(self, prices: Dict[str, str]) -> str:
-        """Format results for display"""
-        if not prices:
-            return "❌ No AWS P5 (H100) pricing data found"
+#     def format_results(self, prices: Dict[str, str]) -> str:
+#         """Format results for display"""
+#         if not prices:
+#             return "❌ No AWS P5 (H100) pricing data found"
         
-        result = f"\n🎯 AWS P5 Instance H100 Pricing Results ({len(prices)} found):\n"
-        result += "=" * 60 + "\n"
+#         result = f"\n🎯 AWS P5 Instance H100 Pricing Results ({len(prices)} found):\n"
+#         result += "=" * 60 + "\n"
         
-        # Sort prices by value for better display
-        sorted_prices = sorted(prices.items(), key=lambda x: float(x[1].replace('$', '').replace('/hr', '')))
+#         # Sort prices by value for better display
+#         sorted_prices = sorted(prices.items(), key=lambda x: float(x[1].replace('$', '').replace('/hr', '')))
         
-        for name, price in sorted_prices:
-            result += f"• {name:<45} {price:>12}\n"
+#         for name, price in sorted_prices:
+#             result += f"• {name:<45} {price:>12}\n"
         
-        result += "=" * 60 + "\n"
+#         result += "=" * 60 + "\n"
         
-        # Calculate price ranges
-        price_values = [float(p.replace('$', '').replace('/hr', '')) for p in prices.values()]
-        min_price = min(price_values)
-        max_price = max(price_values)
-        avg_price = sum(price_values) / len(price_values)
+#         # Calculate price ranges
+#         price_values = [float(p.replace('$', '').replace('/hr', '')) for p in prices.values()]
+#         min_price = min(price_values)
+#         max_price = max(price_values)
+#         avg_price = sum(price_values) / len(price_values)
         
-        result += f"💰 Price Range: ${min_price:.2f} - ${max_price:.2f}/hr\n"
-        result += f"📊 Average: ${avg_price:.2f}/hr\n"
+#         result += f"💰 Price Range: ${min_price:.2f} - ${max_price:.2f}/hr\n"
+#         result += f"📊 Average: ${avg_price:.2f}/hr\n"
         
 
 class MultiCloudScraper:
@@ -4363,7 +4363,7 @@ class MultiCloudScraper:
             'Google Cloud': GoogleCloudScraper(),
             'Genesis Cloud': GenesisCloudScraper(),
             'Vast.ai': VastAIScraper(),
-            'RunPod': RunpodScraper(),
+            # 'RunPod': RunpodScraper(),
             'Latitude.sh': LatitudeScraper(),
             # 'Microsoft Azure': AzureScraper(),
             # 'Amazon Web Services': AWSPricingScraper(),
