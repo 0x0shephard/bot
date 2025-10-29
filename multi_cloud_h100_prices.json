@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-10-29 01:52:41",
+  "timestamp": "2025-10-29 12:53:29",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -58,9 +58,11 @@
       "H100 (HGX Line)": "$1.60/hr"
     },
     "Vast.ai": {
-      "H200 (API)": "$4.47/hr",
-      "H200 NVL (API)": "$2.14/hr",
-      "H100 SXM (API)": "$3.23/hr"
+      "H200 (API)": "$8.94/hr",
+      "H200 NVL (API)": "$8.54/hr",
+      "H100 SXM (API)": "$1.62/hr",
+      "H100 (API)": "$1.20/hr",
+      "H100 NVL (API)": "$2.19/hr"
     },
     "RunPod": {
       "H100 PCIe": "USD 1.99/hr",
@@ -87,7 +89,7 @@
   },
   "summary": {
     "total_providers": 15,
-    "total_h100_variants": 53,
+    "total_h100_variants": 55,
     "providers_with_data": [
       "HyperStack",
       "CoreWeave",
@@ -114,6 +116,6 @@
       "variant": "H100NVL",
       "price": "$2648.4/hr"
     },
-    "last_updated": "2025-10-29T01:52:58.360472"
+    "last_updated": "2025-10-29T12:53:47.430018"
   }
 }
