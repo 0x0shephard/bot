@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-10-28 22:32:21",
+  "timestamp": "2025-10-29 01:52:41",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -58,8 +58,8 @@
       "H100 (HGX Line)": "$1.60/hr"
     },
     "Vast.ai": {
-      "H200 (API)": "$8.94/hr",
-      "H200 NVL (API)": "$4.27/hr",
+      "H200 (API)": "$4.47/hr",
+      "H200 NVL (API)": "$2.14/hr",
       "H100 SXM (API)": "$3.23/hr"
     },
     "RunPod": {
@@ -114,6 +114,6 @@
       "variant": "H100NVL",
       "price": "$2648.4/hr"
     },
-    "last_updated": "2025-10-28T22:32:39.415025"
+    "last_updated": "2025-10-29T01:52:58.360472"
   }
 }
