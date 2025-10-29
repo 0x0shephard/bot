@@ -59,35 +59,35 @@ jobs:
         echo "Scrapers completed. Checking output files..."
         ls -la *.json || echo "No JSON files found"
     
-    - name: Step 2 - Convert JSON to CSV
+    - name: Step 2 - Merge JSON Files
+      run: |
+        echo "Running combined.py to merge all data sources..."
+        python combined.py || echo "combined.py failed, continuing..."
+        echo "Combined script completed"
+        ls -la multi_cloud_h100_prices.json || echo "multi_cloud_h100_prices.json not found"
+
+    - name: Step 3 - Convert JSON to CSV
       run: |
         echo "Converting JSON files to CSV..."
         python json_to_csv_converter.py
         echo "JSON to CSV conversion completed"
         ls -la h100_prices_combined.csv || echo "h100_prices_combined.csv not found"
     
-    - name: Step 2.5 - Run Combined Script
-      run: |
-        echo "Running combined.py to merge all data sources..."
-        python combined.py || echo "combined.py failed, continuing..."
-        echo "Combined script completed"
-        ls -la *.csv || echo "No CSV files found"
-    
-    - name: Step 3 - Clean and Convert Currencies
+    - name: Step 4 - Clean and Convert Currencies
       run: |
         echo "Cleaning data and converting currencies..."
         python clean_and_convert_currencies.py
         echo "Currency conversion completed"
         ls -la h100_prices_usd.csv || echo "h100_prices_usd.csv not found"
-    
-    - name: Step 4 - Normalize Prices
+
+    - name: Step 5 - Normalize Prices
       run: |
         echo "Normalizing prices..."
         python normalize.py
         echo "Price normalization completed"
         ls -la gpu_prices_normalized.csv || echo "gpu_prices_normalized.csv not found"
-    
-    - name: Step 5 - Calculate GPU Index
+
+    - name: Step 6 - Calculate GPU Index
       run: |
         echo "Calculating GPU index..."
         python gpu_index_calculator.py
