@@ -153,9 +153,6 @@ jobs:
           git push origin main
           echo "Results committed and pushed successfully"
         fi
-    
-    - name: Trigger external service
-      run: python autorun.py
 
     - name: Upload artifacts (backup)
       uses: actions/upload-artifact@v4
