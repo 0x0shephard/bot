@@ -50,11 +50,14 @@ jobs:
         echo "Running aws_scraper.py..."
         python aws_scraper.py || echo "aws_scraper.py failed, continuing..."
         
-        echo "Running azure_scraper_fixed.py..."
-        python azure_scraper_fixed.py || echo "azure_scraper_fixed.py failed, continuing..."
-        
         echo "Running runpod_scraper.py..."
         python runpod_scraper.py || echo "runpod_scraper.py failed, continuing..."
+
+        echo "Running atlanticnet_scraper.py..."
+        python atlanticnet_scraper.py || echo "atlanticnet_scraper.py failed, continuing..."
+
+        echo "Running azure_scraper_fixed.py..."
+        python azure_scraper_fixed.py || echo "azure_scraper_fixed.py failed, continuing..."
         
         echo "Scrapers completed. Checking output files..."
         ls -la *.json || echo "No JSON files found"

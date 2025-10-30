@@ -152,7 +152,7 @@ def fix_cluster_pricing(row):
     # Microsoft Azure ND96isr is 8x GPU cluster
     if provider == "Microsoft Azure" and "nd96isr" in name:
         if "per gpu" not in name:  # If it's not already per-GPU pricing
-            return 8
+            return 1
     
     return row["EffectiveGPUCount"]
 

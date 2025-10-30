@@ -286,6 +286,47 @@ class AWSPricingScraper:
             
         return prices
     
+    def _normalize_aws_prices(self, raw_prices: Dict[str, str]) -> Dict[str, str]:
+        """
+        Normalize AWS prices to per-GPU pricing and select representative price.
+        Strategy:
+        1. Normalize all prices to per-GPU (divide multi-GPU prices by GPU count)
+        2. Average all normalized per-GPU prices to get a single representative price
+        3. Return single H100 price entry
+        """
+        normalized_prices = []
+        
+        print("\n   📊 Normalizing AWS prices to per-GPU...")
+        
+        for variant, price_str in raw_prices.items():
+            # Extract GPU count from variant name
+            gpu_count_match = re.search(r'(\d+)x?\s*GPUs?', variant, re.IGNORECASE)
+            if gpu_count_match:
+                gpu_count = int(gpu_count_match.group(1))
+            else:
+                gpu_count = 1
+            
+            # Extract price value
+            price_match = re.search(r'\$([0-9.]+)', price_str)
+            if price_match:
+                total_price = float(price_match.group(1))
+                per_gpu_price = total_price / gpu_count
+                
+                normalized_prices.append(per_gpu_price)
+                print(f"      {variant}: ${total_price:.2f}/hr → ${per_gpu_price:.2f}/GPU")
+        
+        if normalized_prices:
+            # Calculate average per-GPU price
+            avg_per_gpu = sum(normalized_prices) / len(normalized_prices)
+            print(f"\n   ✅ Averaged {len(normalized_prices)} prices → ${avg_per_gpu:.2f}/GPU")
+            
+            # Return single normalized price
+            return {
+                "H100 (AWS P5)": f"${avg_per_gpu:.2f}/hr"
+            }
+        
+        return {}
+    
     def _extract_p5_from_json(self, data: dict) -> Dict[str, str]:
         """Extract P5 pricing from JSON data"""
         prices = {}
@@ -499,7 +540,11 @@ def main():
     scraper = AWSPricingScraper()
     
     start_time = time.time()
-    prices = scraper.get_aws_p5_pricing()
+    raw_prices = scraper.get_aws_p5_pricing()
+    
+    # Normalize prices to per-GPU and get single representative price
+    prices = scraper._normalize_aws_prices(raw_prices)
+    
     end_time = time.time()
     
     print(f"\n⏱️  Scraping completed in {end_time - start_time:.2f} seconds")
