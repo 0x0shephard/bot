@@ -1,0 +1,19 @@
+{
+  "timestamp": "2025-10-30 20:04:05",
+  "provider": "Atlantic.net",
+  "providers": {
+    "Atlantic.net": {
+      "name": "Atlantic.net",
+      "url": "https://www.atlantic.net",
+      "variants": {
+        "H100 NVL": {
+          "gpu_model": "H100",
+          "gpu_memory": "80GB",
+          "price_per_hour": 1.67,
+          "currency": "USD",
+          "availability": "on-demand"
+        }
+      }
+    }
+  }
+}
