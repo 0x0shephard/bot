@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-10-31 12:48:20",
+  "timestamp": "2025-11-01 01:51:28",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -97,7 +97,7 @@
     "DataCrunch": {
       "H100 SXM5 (Pay As You Go)": "$1.99",
       "H100 SXM5 (Spot Price)": "$1.04",
-      "H100 SXM5 (Dynamic Pricing)": "$2.09",
+      "H100 SXM5 (Dynamic Pricing)": "$2.08",
       "H100 SXM5 (Fixed Pricing)": "$4.95"
     },
     "LeaderGPU": {
@@ -140,11 +140,10 @@
       "H100 GPU Instance": "$3.50"
     },
     "Crusoe": {
-      "H100 80GB SXM (On-Demand)": "$4.29",
-      "H100 80GB SXM (6-month reserved)": "$4.29",
-      "H100 80GB SXM (1-year reserved)": "$4.29",
-      "H100 80GB SXM (3-year reserved)": "$4.29",
-      "H100": "$4.29"
+      "H100 80GB SXM (On-Demand)": "$3.90",
+      "H100 80GB SXM (6-month reserved)": "$3.12",
+      "H100 80GB SXM (1-year reserved)": "$2.93",
+      "H100 80GB SXM (3-year reserved)": "$2.54"
     },
     "Leaseweb": {
       "H100 (2x GPUs - Dedicated Monthly)": "\u20ac2.76",
@@ -169,7 +168,7 @@
   },
   "summary": {
     "total_providers": 34,
-    "total_h100_variants": 97,
+    "total_h100_variants": 96,
     "providers_with_data": [
       "HyperStack",
       "CoreWeave",
@@ -280,7 +279,6 @@
         "Crusoe: H100 80GB SXM (6-month reserved)",
         "Crusoe: H100 80GB SXM (1-year reserved)",
         "Crusoe: H100 80GB SXM (3-year reserved)",
-        "Crusoe: H100",
         "HydraHost: H100 (per card-hour)",
         "HydraHost: H100",
         "VoltagePark: H100 (On-Demand Ethernet)",
