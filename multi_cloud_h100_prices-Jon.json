@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-10 12:50:22",
+  "timestamp": "2025-11-11 01:50:27",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -46,10 +46,6 @@
       "H100 (2x GPUs)": "$6.60",
       "H100 (4x GPUs)": "$13.20"
     },
-    "FluidStack": {
-      "H100 SXM (per GPU)": "$2.10",
-      "H100 (per GPU)": "$2.10"
-    },
     "Nebius": {
       "HGX H100 (On-Demand)": "$2.95"
     },
@@ -94,8 +90,8 @@
     },
     "DataCrunch": {
       "H100 SXM5 (Pay As You Go)": "$1.99",
-      "H100 SXM5 (Spot Price)": "$0.97",
-      "H100 SXM5 (Dynamic Pricing)": "$1.94",
+      "H100 SXM5 (Spot Price)": "$1.00",
+      "H100 SXM5 (Dynamic Pricing)": "$2.00",
       "H100 SXM5 (Fixed Pricing)": "$4.95"
     },
     "LeaderGPU": {
@@ -126,6 +122,9 @@
       "4\u00d7H100 - Spot": "\u20b9700",
       "8\u00d7H100 HGX": "\u20b93,152",
       "4\u00d7H100 HGX": "\u20b91,576"
+    },
+    "Seeweb": {
+      "H100 SXM (80GB)": "\u20ac1.60"
     },
     "TensorDock": {
       "H100 SXM5": "$2.25",
@@ -163,7 +162,7 @@
   },
   "summary": {
     "total_providers": 33,
-    "total_h100_variants": 93,
+    "total_h100_variants": 92,
     "providers_with_data": [
       "HyperStack",
       "CoreWeave",
@@ -173,7 +172,6 @@
       "OVHcloud",
       "Gcore",
       "Koyeb",
-      "FluidStack",
       "Nebius",
       "TaigaCloud",
       "Neysa.ai",
@@ -190,6 +188,7 @@
       "Fal.AI",
       "Modal",
       "E2E Networks",
+      "Seeweb",
       "TensorDock",
       "AtlasCloud",
       "Crusoe",
@@ -238,8 +237,6 @@
         "Koyeb: H100 (1x GPU)",
         "Koyeb: H100 (2x GPUs)",
         "Koyeb: H100 (4x GPUs)",
-        "FluidStack: H100 SXM (per GPU)",
-        "FluidStack: H100 (per GPU)",
         "Nebius: HGX H100 (On-Demand)",
         "TaigaCloud: H100 SXM (1x GPU)",
         "TaigaCloud: H100 SXM (4x GPUs)",
@@ -306,6 +303,7 @@
         "LeaderGPU: H100 (2x GPUs - Regular)",
         "LeaderGPU: H100 (2x GPUs - per hour)",
         "LeaderGPU: H100 (8x GPUs - per hour)",
+        "Seeweb: H100 SXM (80GB)",
         "Leaseweb: H100 (2x GPUs - Dedicated Monthly)",
         "Leaseweb: H100 (Per GPU - Dedicated Monthly)"
       ]
