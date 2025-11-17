@@ -209,12 +209,20 @@ class H100PriceUpdater:
 
         # Build transaction
         print(f"\nBuilding transaction...")
+        base_fee = self.w3.eth.gas_price
+        max_priority_fee = self.w3.to_wei(1, 'gwei')
+        max_fee = base_fee * 2
+
+        # Ensure maxFeePerGas is always higher than maxPriorityFeePerGas
+        if max_fee < max_priority_fee:
+            max_fee = max_priority_fee * 2
+
         tx = self.contract.functions.setPrice(price_scaled).build_transaction({
             'from': self.address,
             'nonce': self.w3.eth.get_transaction_count(self.address),
             'gas': 100000,
-            'maxFeePerGas': self.w3.eth.gas_price * 2,
-            'maxPriorityFeePerGas': self.w3.to_wei(1, 'gwei'),
+            'maxFeePerGas': max_fee,
+            'maxPriorityFeePerGas': max_priority_fee,
             'chainId': 11155111  # Sepolia
         })
 
