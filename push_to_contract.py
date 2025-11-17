@@ -1,21 +1,20 @@
 #!/usr/bin/env python3
 """
-ByteStrike Oracle Price Updater
-Updates H100 GPU hourly prices on Sepolia testnet using CuOracle commit-reveal scheme
+H100 GPU Price Oracle - Smart Contract Updater
+Pushes H100 GPU index price to Sepolia testnet smart contract
 
 Usage:
-    python update_oracle_price.py --csv gpu_prices.csv --asset-id H100
+    python push_to_contract.py --csv h100_gpu_index.csv
+    python push_to_contract.py --price 3.75
 
 Requirements:
-    pip install web3 python-dotenv pandas
+    pip install web3 python-dotenv
 """
 
 import csv
 import os
-import time
-import secrets
+import json
 from datetime import datetime
-from pathlib import Path
 from typing import Optional
 
 from web3 import Web3
@@ -26,61 +25,47 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Sepolia Testnet Configuration
-SEPOLIA_RPC_URL = os.getenv("SEPOLIA_RPC_URL", "https://eth-sepolia.g.alchemy.com/v2/YOUR_ALCHEMY_KEY")
-PRIVATE_KEY = os.getenv("ORACLE_UPDATER_PRIVATE_KEY")  # Oracle updater wallet private key
-ORACLE_CONTRACT_ADDRESS = "0x3cA2Da03e4b6dB8fe5a24c22Cf5EB2A34B59cbad"  # Your deployed CuOracle address
+SEPOLIA_RPC_URL = os.getenv("SEPOLIA_RPC_URL", "https://rpc.sepolia.org")
+PRIVATE_KEY = os.getenv("ORACLE_UPDATER_PRIVATE_KEY") or os.getenv("WALLET_PRIVATE_KEY")
+CONTRACT_ADDRESS = os.getenv("CONTRACT_ADDRESS", "0x3cA2Da03e4b6dB8fe5a24c22Cf5EB2A34B59cbad")
 
-# CuOracle ABI (only the functions we need)
-CUORACLE_ABI = [
+# H100PriceOracle ABI - setPrice contract
+H100_ORACLE_ABI = [
     {
-        "inputs": [
-            {"internalType": "bytes32", "name": "_assetId", "type": "bytes32"},
-            {"internalType": "bytes32", "name": "_commitHash", "type": "bytes32"}
-        ],
-        "name": "commitPrice",
+        "type": "function",
+        "name": "setPrice",
+        "inputs": [{"name": "newPrice", "type": "uint256", "internalType": "uint256"}],
         "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
+        "stateMutability": "nonpayable"
     },
     {
-        "inputs": [
-            {"internalType": "bytes32", "name": "_assetId", "type": "bytes32"},
-            {"internalType": "uint256", "name": "_price", "type": "uint256"},
-            {"internalType": "uint256", "name": "_nonce", "type": "uint256"}
-        ],
-        "name": "updatePrices",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [{"internalType": "bytes32", "name": "_assetId", "type": "bytes32"}],
+        "type": "function",
         "name": "getPrice",
-        "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-        "stateMutability": "view",
-        "type": "function"
+        "inputs": [],
+        "outputs": [{"name": "", "type": "uint256", "internalType": "uint256"}],
+        "stateMutability": "view"
     },
     {
+        "type": "function",
+        "name": "decimals",
         "inputs": [],
-        "name": "minCommitRevealDelay",
-        "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-        "stateMutability": "view",
-        "type": "function"
+        "outputs": [{"name": "", "type": "uint8", "internalType": "uint8"}],
+        "stateMutability": "view"
     }
 ]
 
 
-class OraclePriceUpdater:
-    """Updates CuOracle prices using commit-reveal scheme"""
+class H100PriceUpdater:
+    """Updates H100 GPU price on Sepolia smart contract"""
 
-    def __init__(self, rpc_url: str, private_key: str, oracle_address: str):
+    def __init__(self, rpc_url: str, private_key: str, contract_address: str):
         """Initialize Web3 connection and contract"""
         self.w3 = Web3(Web3.HTTPProvider(rpc_url))
 
         if not self.w3.is_connected():
             raise ConnectionError(f"Failed to connect to Sepolia RPC: {rpc_url}")
 
-        print(f"✅ Connected to Sepolia testnet")
+        print(f"Connected to Sepolia testnet")
         print(f"   Chain ID: {self.w3.eth.chain_id}")
         print(f"   Latest block: {self.w3.eth.block_number}")
 
@@ -95,36 +80,43 @@ class OraclePriceUpdater:
         print(f"   Balance: {balance_eth:.4f} ETH")
 
         if balance == 0:
-            print("⚠️  WARNING: Zero balance! Get Sepolia ETH from faucet:")
+            print("   WARNING: Zero balance! Get Sepolia ETH from faucet:")
             print("   https://sepoliafaucet.com/")
 
         # Initialize contract
-        self.oracle = self.w3.eth.contract(
-            address=Web3.to_checksum_address(oracle_address),
-            abi=CUORACLE_ABI
+        self.contract = self.w3.eth.contract(
+            address=Web3.to_checksum_address(contract_address),
+            abi=H100_ORACLE_ABI
         )
-        print(f"   Oracle contract: {oracle_address}")
+        print(f"   Contract address: {contract_address}")
 
-        # Get oracle configuration
+        # Get contract decimals
         try:
-            self.min_delay = self.oracle.functions.minCommitRevealDelay().call()
-            print(f"   Min commit-reveal delay: {self.min_delay} seconds")
+            self.decimals = self.contract.functions.decimals().call()
+            print(f"   Contract decimals: {self.decimals}")
         except Exception as e:
-            print(f"⚠️  Could not read oracle config: {e}")
-            self.min_delay = 60  # Default 1 minute
+            print(f"   Could not read decimals: {e}")
+            self.decimals = 2  # Default to 2 decimals (cents)
+            print(f"   Using default decimals: {self.decimals}")
 
-    def read_price_from_csv(self, csv_file: str, asset_name: str = "H100") -> Optional[float]:
+        # Get current price
+        try:
+            current_price = self.contract.functions.getPrice().call()
+            current_price_usd = current_price / (10 ** self.decimals)
+            print(f"   Current price: ${current_price_usd:.4f}/hour ({current_price} raw)")
+        except Exception as e:
+            print(f"   Could not read current price: {e}")
+
+    def read_price_from_csv(self, csv_file: str) -> Optional[float]:
         """
         Read latest GPU price from CSV file
 
         Supports two CSV formats:
         1. h100_gpu_index.csv format (from gpu_index_calculator.py):
-           Total_Weight_Percent,Total_Weighted_Price,Full_Index_Price,Hyperscalers_Only_Price,Non_Hyperscalers_Only_Price,Hyperscaler_Weight,Non_Hyperscaler_Weight,Calculation_Date
-           83.75,317.32,3.78,4.16,3.03,55.84,27.91,2025-11-14 12:49:50
+           Total_Weight_Percent,Total_Weighted_Price,Full_Index_Price,...
 
         2. Legacy format:
            timestamp,asset,price
-           2025-11-14 10:00:00,H100,3.75
         """
         try:
             with open(csv_file, 'r') as f:
@@ -132,255 +124,249 @@ class OraclePriceUpdater:
                 rows = list(reader)
 
                 if not rows:
-                    print(f"❌ CSV file is empty: {csv_file}")
+                    print(f"CSV file is empty: {csv_file}")
                     return None
 
                 # Check if this is the h100_gpu_index.csv format
                 if 'Full_Index_Price' in rows[0]:
-                    # This is the h100_gpu_index.csv format
-                    latest = rows[-1]  # Get last row
+                    latest = rows[-1]
                     price = float(latest['Full_Index_Price'])
                     timestamp = latest.get('Calculation_Date', 'unknown')
 
-                    print(f"📊 Latest H100 Index Price from CSV:")
+                    print(f"\nLatest H100 Index Price from CSV:")
                     print(f"   Timestamp: {timestamp}")
                     print(f"   Full Index Price: ${price:.4f}/hour")
-                    print(f"   Hyperscalers Only: ${float(latest['Hyperscalers_Only_Price']):.4f}/hour")
-                    print(f"   Non-Hyperscalers Only: ${float(latest['Non_Hyperscalers_Only_Price']):.4f}/hour")
-                    print(f"   Total Weight: {float(latest['Total_Weight_Percent']):.2f}%")
+                    print(f"   Hyperscalers Only: ${float(latest.get('Hyperscalers_Only_Price', 0)):.4f}/hour")
+                    print(f"   Non-Hyperscalers Only: ${float(latest.get('Non_Hyperscalers_Only_Price', 0)):.4f}/hour")
+                    print(f"   Total Weight: {float(latest.get('Total_Weight_Percent', 0)):.2f}%")
 
                     return price
                 else:
                     # Legacy format
-                    asset_rows = [r for r in rows if r.get('asset', '').upper() == asset_name.upper()]
+                    asset_rows = [r for r in rows if r.get('asset', '').upper() == 'H100']
 
                     if not asset_rows:
-                        print(f"❌ No rows found for asset: {asset_name}")
+                        print(f"No H100 rows found in CSV")
                         return None
 
-                    latest = asset_rows[-1]  # Get last row
+                    latest = asset_rows[-1]
                     price = float(latest['price'])
                     timestamp = latest.get('timestamp', 'unknown')
 
-                    print(f"📊 Latest price from CSV:")
+                    print(f"\nLatest price from CSV:")
                     print(f"   Timestamp: {timestamp}")
-                    print(f"   Asset: {asset_name}")
                     print(f"   Price: ${price:.2f}/hour")
 
                     return price
 
         except FileNotFoundError:
-            print(f"❌ CSV file not found: {csv_file}")
+            print(f"CSV file not found: {csv_file}")
             return None
         except Exception as e:
-            print(f"❌ Error reading CSV: {e}")
+            print(f"Error reading CSV: {e}")
             return None
 
-    def commit_price(self, asset_id: bytes, price_wei: int, nonce: int) -> str:
-        """
-        Step 1: Commit price hash to oracle
+    def get_current_price(self) -> Optional[int]:
+        """Get current price from contract (raw value with decimals)"""
+        try:
+            price_raw = self.contract.functions.getPrice().call()
+            return price_raw
+        except Exception as e:
+            print(f"   Could not read current price: {e}")
+            return None
 
-        Returns transaction hash
+    def update_price(self, price_usd: float) -> str:
         """
-        # Create commitment hash: keccak256(abi.encodePacked(price, nonce))
-        commit_hash = Web3.solidity_keccak(
-            ['uint256', 'uint256'],
-            [price_wei, nonce]
-        )
+        Update H100 price on the smart contract
 
-        print(f"\n🔐 Committing price...")
-        print(f"   Asset ID: {asset_id.hex()}")
-        print(f"   Commit hash: {commit_hash.hex()}")
-        print(f"   Nonce: {nonce}")
+        Args:
+            price_usd: Price in USD (e.g., 3.75 for $3.75/hour)
+
+        Returns:
+            Transaction hash
+        """
+        print(f"\n{'='*60}")
+        print(f"Updating H100 Price on Sepolia")
+        print(f"{'='*60}")
+
+        # Convert USD to contract format based on decimals
+        # e.g., if decimals=2: $3.75 -> 375
+        # e.g., if decimals=4: $3.75 -> 37500
+        price_scaled = int(price_usd * (10 ** self.decimals))
+
+        # Get current price for comparison
+        current_price_raw = self.get_current_price()
+        if current_price_raw is not None:
+            current_price_usd = current_price_raw / (10 ** self.decimals)
+            print(f"\nPrice change:")
+            print(f"   Current: ${current_price_usd:.4f}/hour ({current_price_raw} raw)")
+            print(f"   New: ${price_usd:.4f}/hour ({price_scaled} raw)")
+            if current_price_usd > 0:
+                change_pct = ((price_usd - current_price_usd) / current_price_usd) * 100
+                print(f"   Change: {change_pct:+.2f}%")
+        else:
+            print(f"\nNew price: ${price_usd:.4f}/hour ({price_scaled} raw)")
 
         # Build transaction
-        tx = self.oracle.functions.commitPrice(
-            asset_id,
-            commit_hash
-        ).build_transaction({
+        print(f"\nBuilding transaction...")
+        tx = self.contract.functions.setPrice(price_scaled).build_transaction({
             'from': self.address,
             'nonce': self.w3.eth.get_transaction_count(self.address),
-            'gas': 200000,
+            'gas': 100000,
             'maxFeePerGas': self.w3.eth.gas_price * 2,
             'maxPriorityFeePerGas': self.w3.to_wei(1, 'gwei'),
             'chainId': 11155111  # Sepolia
         })
 
-        # Sign and send
+        # Sign transaction
+        print(f"Signing transaction...")
         signed_tx = self.account.sign_transaction(tx)
-        tx_hash = self.w3.eth.send_raw_transaction(signed_tx.rawTransaction)
 
-        print(f"   Tx hash: {tx_hash.hex()}")
-        print(f"   Waiting for confirmation...")
+        # Send transaction
+        print(f"Sending transaction...")
+        # Handle both old and new Web3.py versions
+        if hasattr(signed_tx, 'raw_transaction'):
+            tx_hash = self.w3.eth.send_raw_transaction(signed_tx.raw_transaction)
+        else:
+            tx_hash = self.w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+
+        tx_hash_hex = tx_hash.hex()
+        print(f"   Transaction hash: {tx_hash_hex}")
 
         # Wait for receipt
+        print(f"Waiting for confirmation...")
         receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash, timeout=120)
 
         if receipt['status'] == 1:
-            print(f"   ✅ Commit successful!")
+            print(f"\nTransaction successful!")
+            print(f"   Block number: {receipt['blockNumber']}")
             print(f"   Gas used: {receipt['gasUsed']}")
-            return tx_hash.hex()
+            print(f"   Effective gas price: {self.w3.from_wei(receipt['effectiveGasPrice'], 'gwei'):.2f} gwei")
+
+            # Calculate cost
+            cost_eth = self.w3.from_wei(receipt['gasUsed'] * receipt['effectiveGasPrice'], 'ether')
+            print(f"   Transaction cost: {cost_eth:.6f} ETH")
+
+            print(f"\n   View on Etherscan:")
+            print(f"   https://sepolia.etherscan.io/tx/{tx_hash_hex}")
+
+            # Verify update
+            new_price_raw = self.get_current_price()
+            if new_price_raw is not None:
+                new_price_usd = new_price_raw / (10 ** self.decimals)
+                print(f"\n   Verification: Contract now reports ${new_price_usd:.4f}/hour")
+
+                if new_price_raw == price_scaled:
+                    print(f"   Price update verified successfully!")
+                else:
+                    print(f"   WARNING: Price mismatch - expected {price_scaled}, got {new_price_raw}")
+
+            # Log the update
+            self.log_update(price_usd, tx_hash_hex, receipt['blockNumber'])
+
+            return tx_hash_hex
         else:
-            print(f"   ❌ Commit failed!")
-            raise Exception("Commit transaction failed")
+            print(f"\nTransaction FAILED!")
+            print(f"   Check transaction on Etherscan for details")
+            raise Exception("Transaction failed")
 
-    def reveal_price(self, asset_id: bytes, price_wei: int, nonce: int) -> str:
-        """
-        Step 2: Reveal price to oracle (after delay)
+    def log_update(self, price_usd: float, tx_hash: str, block_number: int):
+        """Log the price update to a JSON file"""
+        log_file = "contract_update_log.json"
 
-        Returns transaction hash
-        """
-        print(f"\n🔓 Revealing price...")
-        print(f"   Asset ID: {asset_id.hex()}")
-        print(f"   Price: {price_wei} wei ({self.w3.from_wei(price_wei, 'ether'):.2f})")
-        print(f"   Nonce: {nonce}")
+        log_entry = {
+            "timestamp": datetime.utcnow().isoformat() + "Z",
+            "index_price_usd": price_usd,
+            "index_price_cents": int(price_usd * 100),
+            "tx_hash": tx_hash,
+            "block_number": block_number,
+            "contract_address": CONTRACT_ADDRESS,
+            "network": "sepolia"
+        }
 
-        # Build transaction
-        tx = self.oracle.functions.updatePrices(
-            asset_id,
-            price_wei,
-            nonce
-        ).build_transaction({
-            'from': self.address,
-            'nonce': self.w3.eth.get_transaction_count(self.address),
-            'gas': 200000,
-            'maxFeePerGas': self.w3.eth.gas_price * 2,
-            'maxPriorityFeePerGas': self.w3.to_wei(1, 'gwei'),
-            'chainId': 11155111
-        })
+        # Load existing log or create new
+        logs = []
+        if os.path.exists(log_file):
+            try:
+                with open(log_file, 'r') as f:
+                    logs = json.load(f)
+            except Exception:
+                logs = []
 
-        # Sign and send
-        signed_tx = self.account.sign_transaction(tx)
-        tx_hash = self.w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+        logs.append(log_entry)
 
-        print(f"   Tx hash: {tx_hash.hex()}")
-        print(f"   Waiting for confirmation...")
+        # Keep last 100 entries
+        if len(logs) > 100:
+            logs = logs[-100:]
 
-        # Wait for receipt
-        receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash, timeout=120)
+        # Save log
+        with open(log_file, 'w') as f:
+            json.dump(logs, f, indent=2)
 
-        if receipt['status'] == 1:
-            print(f"   ✅ Reveal successful!")
-            print(f"   Gas used: {receipt['gasUsed']}")
-            return tx_hash.hex()
-        else:
-            print(f"   ❌ Reveal failed!")
-            raise Exception("Reveal transaction failed")
-
-    def get_current_price(self, asset_id: bytes) -> float:
-        """Get current price from oracle"""
-        try:
-            price_wei = self.oracle.functions.getPrice(asset_id).call()
-            price_eth = self.w3.from_wei(price_wei, 'ether')
-            return float(price_eth)
-        except Exception as e:
-            print(f"⚠️  Could not read current price: {e}")
-            return 0.0
-
-    def update_price(self, asset_name: str, price_usd: float):
-        """
-        Complete price update flow: commit -> wait -> reveal
-
-        Args:
-            asset_name: Name of asset (e.g., "H100", "A100")
-            price_usd: Price in USD (will be converted to wei for 1e18 precision)
-        """
-        print(f"\n{'='*60}")
-        print(f"🚀 Starting price update for {asset_name}")
-        print(f"{'='*60}")
-
-        # Convert asset name to bytes32
-        asset_id = Web3.keccak(text=asset_name)
-
-        # Get current price
-        current_price = self.get_current_price(asset_id)
-        print(f"\n📈 Price change:")
-        print(f"   Current: ${current_price:.2f}/hour")
-        print(f"   New: ${price_usd:.2f}/hour")
-        print(f"   Change: {((price_usd - current_price) / current_price * 100) if current_price > 0 else 0:.2f}%")
-
-        # Convert price to wei (scale by 1e18 for precision)
-        # Example: $3.75 -> 3.75 * 1e18 = 3750000000000000000
-        price_wei = self.w3.to_wei(price_usd, 'ether')
-
-        # Generate random nonce
-        nonce = secrets.randbits(256)
-
-        # Step 1: Commit
-        commit_tx = self.commit_price(asset_id, price_wei, nonce)
-        print(f"\n   View on Etherscan:")
-        print(f"   https://sepolia.etherscan.io/tx/{commit_tx}")
-
-        # Step 2: Wait for minimum delay
-        print(f"\n⏳ Waiting {self.min_delay} seconds for commit-reveal delay...")
-        for remaining in range(self.min_delay, 0, -1):
-            print(f"   {remaining} seconds remaining...", end='\r')
-            time.sleep(1)
-        print("\n   ✅ Delay complete!")
-
-        # Step 3: Reveal
-        reveal_tx = self.reveal_price(asset_id, price_wei, nonce)
-        print(f"\n   View on Etherscan:")
-        print(f"   https://sepolia.etherscan.io/tx/{reveal_tx}")
-
-        # Verify update
-        updated_price = self.get_current_price(asset_id)
-        print(f"\n✅ Price update complete!")
-        print(f"   Oracle now reports: ${updated_price:.2f}/hour")
-
-        if abs(updated_price - price_usd) < 0.01:
-            print(f"   ✅ Verification successful!")
-        else:
-            print(f"   ⚠️  Price mismatch - expected ${price_usd:.2f}, got ${updated_price:.2f}")
+        print(f"\n   Update logged to {log_file}")
 
 
 def main():
     """Main entry point"""
     import argparse
 
-    parser = argparse.ArgumentParser(description='Update ByteStrike Oracle prices from CSV')
+    parser = argparse.ArgumentParser(description='Update H100 GPU price on Sepolia smart contract')
     parser.add_argument('--csv', default='h100_gpu_index.csv', help='Path to CSV file with GPU prices (default: h100_gpu_index.csv)')
-    parser.add_argument('--asset-id', default='H100', help='Asset identifier (default: H100)')
-    parser.add_argument('--price', type=float, help='Manual price override (skips CSV)')
+    parser.add_argument('--price', type=float, help='Manual price in USD (skips CSV reading)')
 
     args = parser.parse_args()
 
     # Validate environment
     if not PRIVATE_KEY:
-        print("❌ ERROR: ORACLE_UPDATER_PRIVATE_KEY not set in .env file")
-        print("\nCreate a .env file with:")
-        print("ORACLE_UPDATER_PRIVATE_KEY=0xYOUR_PRIVATE_KEY_HERE")
-        print("SEPOLIA_RPC_URL=https://eth-sepolia.g.alchemy.com/v2/YOUR_ALCHEMY_KEY")
+        print("ERROR: Private key not set!")
+        print("\nSet one of these environment variables:")
+        print("  ORACLE_UPDATER_PRIVATE_KEY=0xYOUR_PRIVATE_KEY")
+        print("  WALLET_PRIVATE_KEY=0xYOUR_PRIVATE_KEY")
+        print("\nOr create a .env file with the variable.")
         return
+
+    print(f"\n{'='*60}")
+    print(f"H100 GPU Price Oracle - Contract Updater")
+    print(f"{'='*60}\n")
 
     # Initialize updater
     try:
-        updater = OraclePriceUpdater(
+        updater = H100PriceUpdater(
             rpc_url=SEPOLIA_RPC_URL,
             private_key=PRIVATE_KEY,
-            oracle_address=ORACLE_CONTRACT_ADDRESS
+            contract_address=CONTRACT_ADDRESS
         )
     except Exception as e:
-        print(f"❌ Failed to initialize: {e}")
+        print(f"Failed to initialize: {e}")
         return
 
     # Get price
     if args.price:
         price = args.price
-        print(f"📊 Using manual price: ${price:.2f}/hour")
+        print(f"\nUsing manual price: ${price:.2f}/hour")
     else:
-        price = updater.read_price_from_csv(args.csv, args.asset_id)
+        price = updater.read_price_from_csv(args.csv)
         if price is None:
+            print(f"\nFailed to read price from CSV. Exiting.")
             return
 
-    # Update oracle
+    # Validate price
+    if price <= 0:
+        print(f"\nERROR: Price must be greater than 0 (got ${price:.2f})")
+        return
+
+    if price > 100:
+        print(f"\nWARNING: Price ${price:.2f}/hour seems unusually high. Proceeding anyway...")
+
+    # Update contract
     try:
-        updater.update_price(args.asset_id, price)
+        tx_hash = updater.update_price(price)
         print(f"\n{'='*60}")
-        print(f"🎉 SUCCESS! Oracle updated on Sepolia testnet")
+        print(f"SUCCESS! H100 price updated to ${price:.2f}/hour")
+        print(f"Transaction: {tx_hash}")
         print(f"{'='*60}\n")
     except Exception as e:
-        print(f"\n❌ Update failed: {e}")
+        print(f"\nUpdate failed: {e}")
         import traceback
         traceback.print_exc()
 
