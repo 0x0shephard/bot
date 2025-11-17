@@ -1,2 +1,2 @@
 Provider,GPU_Variant,Price_Original,Price_Numeric,Currency,GPU_Count,GPU_Type,Pricing_Model,Timestamp
-Microsoft Azure,H100 (ND96isr - 8x GPUs),$6.17/hr,6.17,USD,8,H100,On-Demand,2025-11-16 12:43:17
+Microsoft Azure,H100 (ND96isr - 8x GPUs),$6.17/hr,6.17,USD,8,H100,On-Demand,2025-11-17 01:52:37
