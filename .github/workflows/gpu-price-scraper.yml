@@ -30,7 +30,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pandas numpy requests beautifulsoup4 selenium webdriver-manager lxml openpyxl
+        pip install pandas numpy requests beautifulsoup4 selenium webdriver-manager lxml openpyxl web3 python-dotenv
         # Add any other dependencies your scrapers need
     
     - name: Install Chrome and ChromeDriver (if needed for selenium)
@@ -96,7 +96,20 @@ jobs:
         python gpu_index_calculator.py
         echo "GPU index calculation completed"
         ls -la h100_gpu_index.csv || echo "h100_gpu_index.csv not found"
-    
+
+    - name: Step 7 - Push to Sepolia Smart Contract
+      env:
+        SEPOLIA_RPC_URL: ${{ secrets.SEPOLIA_RPC_URL }}
+        ORACLE_UPDATER_PRIVATE_KEY: ${{ secrets.ORACLE_UPDATER_PRIVATE_KEY }}
+      run: |
+        echo "Pushing H100 index price to Sepolia contract..."
+        if [ -f "h100_gpu_index.csv" ]; then
+          python push_to_contract.py --csv h100_gpu_index.csv || echo "⚠️ Contract push failed (non-blocking)"
+        else
+          echo "⚠️ h100_gpu_index.csv not found, skipping contract push"
+        fi
+        echo "Contract push step completed"
+
     - name: Display Results
       run: |
         echo "=== PIPELINE RESULTS ==="
@@ -121,6 +134,7 @@ jobs:
         echo "- Currency Conversion: ✅ Completed" >> results_summary.md
         echo "- Price Normalization: ✅ Completed" >> results_summary.md
         echo "- Index Calculation: ✅ Completed" >> results_summary.md
+        echo "- Smart Contract Push: ✅ Attempted" >> results_summary.md
         echo "" >> results_summary.md
         
         if [ -f "h100_gpu_index.csv" ]; then
