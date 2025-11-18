@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-18 01:49:23",
+  "timestamp": "2025-11-18 12:50:09",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -65,8 +65,7 @@
       "H100 Azure ML (per GPU)": "\u20b9264"
     },
     "Lambda Labs": {
-      "H100 SXM (On-Demand per GPU)": "$2.99",
-      "H100 1-Click Clusters (Reserved)": "$2.40",
+      "H100 1-Click Clusters (Reserved)": "$2.29",
       "H100": "$3.79",
       "H100 SXM": "$2.99"
     },
@@ -89,10 +88,10 @@
       "H100 PCIe": "$2.35"
     },
     "DataCrunch": {
-      "H100 SXM5 (Pay As You Go)": "$1.99",
-      "H100 SXM5 (Spot Price)": "$1.09",
-      "H100 SXM5 (Dynamic Pricing)": "$2.18",
-      "H100 SXM5 (Fixed Pricing)": "$4.95"
+      "H100 SXM5 (Pay As You Go)": "$1.77",
+      "H100 SXM5 (Dynamic Pricing)": "$1.44",
+      "H100 SXM5 (Spot Price)": "$0.72",
+      "H100 SXM5 (Fixed Pricing)": "$3.637"
     },
     "LeaderGPU": {
       "H100 (2x GPUs - Summer Promo)": "\u20ac3.97",
@@ -160,7 +159,7 @@
   },
   "summary": {
     "total_providers": 33,
-    "total_h100_variants": 90,
+    "total_h100_variants": 89,
     "providers_with_data": [
       "HyperStack",
       "CoreWeave",
@@ -241,7 +240,6 @@
         "TaigaCloud: H100 SXM (8x GPUs)",
         "Neysa.ai: H100 SXM (Monthly Commitment)",
         "Neysa.ai: H100 SXM (80GB)",
-        "Lambda Labs: H100 SXM (On-Demand per GPU)",
         "Lambda Labs: H100 1-Click Clusters (Reserved)",
         "Lambda Labs: H100",
         "Lambda Labs: H100 SXM",
@@ -253,8 +251,8 @@
         "Massed Compute: H100 NVL",
         "Massed Compute: H100 PCIe",
         "DataCrunch: H100 SXM5 (Pay As You Go)",
-        "DataCrunch: H100 SXM5 (Spot Price)",
         "DataCrunch: H100 SXM5 (Dynamic Pricing)",
+        "DataCrunch: H100 SXM5 (Spot Price)",
         "DataCrunch: H100 SXM5 (Fixed Pricing)",
         "Baseten: H100 (80GB VRAM)",
         "Baseten: H100 MIG (40GB VRAM)",
