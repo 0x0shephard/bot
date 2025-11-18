@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-17 12:50:40",
+  "timestamp": "2025-11-18 01:50:20",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -43,6 +43,7 @@
     },
     "JarvisLabs": {
       "H100": "$0.39/hr",
+      "H200 (Price First)": "$0.39/hr",
       "H100 (Line Context)": "$0.39/hr"
     },
     "Google Cloud": {
@@ -59,8 +60,9 @@
     },
     "Vast.ai": {
       "H200 NVL (API)": "$4.27/hr",
-      "H200 (API)": "$4.19/hr",
-      "H100 NVL (API)": "$2.10/hr"
+      "H200 (API)": "$8.94/hr",
+      "H100 NVL (API)": "$2.02/hr",
+      "H100 SXM (API)": "$3.47/hr"
     },
     "Latitude.sh": {
       "Error": "Unable to fetch live pricing from Latitude.sh"
@@ -82,7 +84,7 @@
   },
   "summary": {
     "total_providers": 16,
-    "total_h100_variants": 46,
+    "total_h100_variants": 48,
     "providers_with_data": [
       "HyperStack",
       "CoreWeave",
@@ -108,6 +110,6 @@
       "variant": "H100NVL",
       "price": "$2648.4/hr"
     },
-    "last_updated": "2025-11-17T12:50:55.782653"
+    "last_updated": "2025-11-18T01:50:39.078956"
   }
 }
