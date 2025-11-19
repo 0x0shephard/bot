@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-18 12:51:05",
+  "timestamp": "2025-11-19 01:50:39",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -41,6 +41,11 @@
     "Hostkey": {
       "H100 (Hourly)": "€2.00"
     },
+    "Scaleway": {
+      "H100 (Hourly)": "€2.73",
+      "H100 (Monthly Estimate)": "€1,992",
+      "H100 (2x GPUs)": "€5.04"
+    },
     "JarvisLabs": {
       "H100": "$0.39/hr",
       "H100 SXM": "$2.99/hr",
@@ -60,9 +65,10 @@
       "H100 (HGX Line)": "$1.60/hr"
     },
     "Vast.ai": {
-      "H200 NVL (API)": "$2.14/hr",
-      "H200 (API)": "$8.94/hr",
-      "H100 SXM (API)": "$6.46/hr"
+      "H200 NVL (API)": "$1.64/hr",
+      "H200 (API)": "$4.47/hr",
+      "H100 NVL (API)": "$2.10/hr",
+      "H100 SXM (API)": "$1.62/hr"
     },
     "Latitude.sh": {
       "Error": "Unable to fetch live pricing from Latitude.sh"
@@ -83,8 +89,8 @@
     }
   },
   "summary": {
-    "total_providers": 16,
-    "total_h100_variants": 48,
+    "total_providers": 17,
+    "total_h100_variants": 52,
     "providers_with_data": [
       "HyperStack",
       "CoreWeave",
@@ -93,6 +99,7 @@
       "Civo",
       "GPU-Mart",
       "Hostkey",
+      "Scaleway",
       "JarvisLabs",
       "Google Cloud",
       "Genesis Cloud",
@@ -110,6 +117,6 @@
       "variant": "H100NVL",
       "price": "$2648.4/hr"
     },
-    "last_updated": "2025-11-18T12:51:22.951120"
+    "last_updated": "2025-11-19T01:51:03.164585"
   }
 }
