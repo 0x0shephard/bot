@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-20 01:48:08",
+  "timestamp": "2025-11-20 12:48:56",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -83,8 +83,8 @@
     },
     "DataCrunch": {
       "H100 SXM5 (Pay As You Go)": "$1.99",
-      "H100 SXM5 (Spot Price)": "$1.12",
-      "H100 SXM5 (Dynamic Pricing)": "$2.24",
+      "H100 SXM5 (Spot Price)": "$1.11",
+      "H100 SXM5 (Dynamic Pricing)": "$2.23",
       "H100 SXM5 (Fixed Pricing)": "$4.95"
     },
     "LeaderGPU": {
@@ -113,9 +113,6 @@
       "4\u00d7H100 - Spot": "\u20b9700",
       "8\u00d7H100 HGX": "\u20b93,152",
       "4\u00d7H100 HGX": "\u20b91,576"
-    },
-    "Seeweb": {
-      "H100 SXM (80GB)": "\u20ac1.60"
     },
     "TensorDock": {
       "H100 SXM5": "$2.25",
@@ -152,8 +149,8 @@
     }
   },
   "summary": {
-    "total_providers": 32,
-    "total_h100_variants": 85,
+    "total_providers": 31,
+    "total_h100_variants": 84,
     "providers_with_data": [
       "HyperStack",
       "CoreWeave",
@@ -178,7 +175,6 @@
       "Fal.AI",
       "Modal",
       "E2E Networks",
-      "Seeweb",
       "TensorDock",
       "AtlasCloud",
       "Crusoe",
@@ -286,7 +282,6 @@
         "LeaderGPU: H100 (2x GPUs - Summer Promo)",
         "LeaderGPU: H100 (2x GPUs - Regular)",
         "LeaderGPU: H100 (2x GPUs - per hour)",
-        "Seeweb: H100 SXM (80GB)",
         "Leaseweb: H100 (2x GPUs - Dedicated Monthly)",
         "Leaseweb: H100 (Per GPU - Dedicated Monthly)"
       ]
