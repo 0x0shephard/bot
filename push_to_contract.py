@@ -176,7 +176,24 @@ class CuOraclePriceUpdater:
 
             # Sign transaction
             signed = self.account.sign_transaction(tx)
-            raw_tx = getattr(signed, "raw_transaction", signed.rawTransaction)
+
+            # Get raw transaction bytes
+            # The SignedTransaction namedtuple has different attribute names across versions:
+            # - eth-account < 0.9: uses 'rawTransaction'
+            # - eth-account >= 0.9: uses 'raw_transaction'
+            # Access by index [0] is most reliable as it's the first field in the namedtuple
+            if hasattr(signed, "raw_transaction"):
+                raw_tx = signed.raw_transaction
+            elif hasattr(signed, "rawTransaction"):
+                raw_tx = signed.rawTransaction
+            elif isinstance(signed, tuple) and len(signed) > 0:
+                # SignedTransaction is a namedtuple, first element is always the raw tx
+                raw_tx = signed[0]
+            else:
+                raise AttributeError(
+                    f"Cannot extract raw transaction from signed object. "
+                    f"Type: {type(signed)}, Dir: {[a for a in dir(signed) if not a.startswith('_')]}"
+                )
 
             # Send transaction
             tx_hash = self.w3.eth.send_raw_transaction(raw_tx)
