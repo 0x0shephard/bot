@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-19 12:50:22",
+  "timestamp": "2025-11-20 01:48:08",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -8,12 +8,6 @@
     },
     "CoreWeave": {
       "HGX H100 (8x GPUs)": "$49.24"
-    },
-    "CUDO Compute": {
-      "H100 PCIe (On-Demand)": "$2.45",
-      "H100 PCIe (Reserved)": "$1.79",
-      "H100 SXM (On-Demand)": "$1.79",
-      "H100 SXM (Reserved)": "$1.34"
     },
     "Atlantic.Net": {
       "H100NVL (1x GPU)": "$3.941",
@@ -89,8 +83,8 @@
     },
     "DataCrunch": {
       "H100 SXM5 (Pay As You Go)": "$1.99",
-      "H100 SXM5 (Spot Price)": "$1.11",
-      "H100 SXM5 (Dynamic Pricing)": "$2.22",
+      "H100 SXM5 (Spot Price)": "$1.12",
+      "H100 SXM5 (Dynamic Pricing)": "$2.24",
       "H100 SXM5 (Fixed Pricing)": "$4.95"
     },
     "LeaderGPU": {
@@ -158,12 +152,11 @@
     }
   },
   "summary": {
-    "total_providers": 33,
-    "total_h100_variants": 89,
+    "total_providers": 32,
+    "total_h100_variants": 85,
     "providers_with_data": [
       "HyperStack",
       "CoreWeave",
-      "CUDO Compute",
       "Atlantic.Net",
       "Civo",
       "OVHcloud",
@@ -211,10 +204,6 @@
         "HyperStack: H100 NVLink",
         "HyperStack: H100 (Standard)",
         "CoreWeave: HGX H100 (8x GPUs)",
-        "CUDO Compute: H100 PCIe (On-Demand)",
-        "CUDO Compute: H100 PCIe (Reserved)",
-        "CUDO Compute: H100 SXM (On-Demand)",
-        "CUDO Compute: H100 SXM (Reserved)",
         "Atlantic.Net: H100NVL (1x GPU)",
         "Atlantic.Net: H100NVL (4x GPUs)",
         "Atlantic.Net: H100NVL (8x GPUs)",
