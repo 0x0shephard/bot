@@ -1,13 +1,10 @@
 {
-  "timestamp": "2025-11-20 21:42:11",
+  "timestamp": "2025-11-21 01:49:05",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
       "H100 NVLink": "$1.95",
       "H100 (Standard)": "$1.90"
-    },
-    "CoreWeave": {
-      "HGX H100 (8x GPUs)": "$49.24"
     },
     "Atlantic.Net": {
       "H100NVL (1x GPU)": "$3.941",
@@ -83,8 +80,8 @@
     },
     "DataCrunch": {
       "H100 SXM5 (Pay As You Go)": "$1.99",
-      "H100 SXM5 (Spot Price)": "$1.11",
-      "H100 SXM5 (Dynamic Pricing)": "$2.23",
+      "H100 SXM5 (Spot Price)": "$1.10",
+      "H100 SXM5 (Dynamic Pricing)": "$2.21",
       "H100 SXM5 (Fixed Pricing)": "$4.95"
     },
     "LeaderGPU": {
@@ -153,11 +150,10 @@
     }
   },
   "summary": {
-    "total_providers": 32,
-    "total_h100_variants": 86,
+    "total_providers": 31,
+    "total_h100_variants": 85,
     "providers_with_data": [
       "HyperStack",
-      "CoreWeave",
       "Atlantic.Net",
       "Civo",
       "OVHcloud",
@@ -204,7 +200,6 @@
         "HyperStack: H100 SXM",
         "HyperStack: H100 NVLink",
         "HyperStack: H100 (Standard)",
-        "CoreWeave: HGX H100 (8x GPUs)",
         "Atlantic.Net: H100NVL (1x GPU)",
         "Atlantic.Net: H100NVL (4x GPUs)",
         "Atlantic.Net: H100NVL (8x GPUs)",
