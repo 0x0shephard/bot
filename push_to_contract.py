@@ -140,6 +140,10 @@ class CuOraclePriceUpdater:
         return max_fee, max_priority
 
     def _send_transaction(self, func, gas_limit: int) -> Tuple[str, dict]:
+        """Build, sign, and send a transaction to the blockchain.
+
+        Compatible with modern Web3.py versions (v6+).
+        """
         max_fee, max_priority = self._build_dynamic_fee()
         tx = func.build_transaction(
             {
@@ -152,7 +156,17 @@ class CuOraclePriceUpdater:
             }
         )
         signed = self.account.sign_transaction(tx)
-        raw_tx = getattr(signed, "raw_transaction", signed.rawTransaction)
+
+        # Modern Web3.py (v6+) uses 'raw_transaction' or 'rawTransaction' attributes
+        # Try both for maximum compatibility
+        if hasattr(signed, "raw_transaction"):
+            raw_tx = signed.raw_transaction
+        elif hasattr(signed, "rawTransaction"):
+            raw_tx = signed.rawTransaction
+        else:
+            # Fallback: some versions return bytes directly
+            raw_tx = signed
+
         tx_hash = self.w3.eth.send_raw_transaction(raw_tx)
         receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash, timeout=180)
         return tx_hash.hex(), dict(receipt)
