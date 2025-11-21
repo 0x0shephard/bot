@@ -1,27 +1,21 @@
 #!/usr/bin/env python3
-"""
-CuOracle price updater script.
-Pushes H100 GPU index prices to Sepolia testnet using commit-reveal mechanism.
-"""
+"""CuOracle price updater script."""
 
 import csv
 import json
 import os
 import secrets
-import sys
 import time
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime
 from typing import Optional, Sequence, Tuple
 
 from dotenv import load_dotenv
 from eth_account import Account
 from web3 import Web3
-from web3.exceptions import ContractLogicError, TimeExhausted
 
 load_dotenv()
 
-# Environment variables with defaults
 SEPOLIA_RPC_URL = os.getenv("SEPOLIA_RPC_URL", "https://rpc.sepolia.org")
 PRIVATE_KEY = os.getenv("ORACLE_UPDATER_PRIVATE_KEY") or os.getenv("WALLET_PRIVATE_KEY")
 CU_ORACLE_ADDRESS = os.getenv(
@@ -32,13 +26,6 @@ ASSET_ID_HEX = os.getenv("CU_ORACLE_ASSET_ID")
 ASSET_LABEL = os.getenv("CU_ORACLE_ASSET_LABEL", "H100_GPU_HOURLY")
 PRICE_DECIMALS = int(os.getenv("CU_ORACLE_DECIMALS", "18"))
 COMMIT_DELAY_SECONDS = float(os.getenv("CU_ORACLE_COMMIT_DELAY_SECONDS", "2"))
-
-# Constants
-MIN_PRICE_USD = 0.01  # Minimum valid price
-MAX_PRICE_USD = 100.0  # Maximum valid price (sanity check)
-DEFAULT_CSV_PATH = "h100_gpu_index.csv"
-LOG_FILE_PATH = "contract_update_log.json"
-MAX_LOG_ENTRIES = 100
 
 CU_ORACLE_ABI: Sequence[dict] = [
     {
@@ -146,72 +133,28 @@ class CuOraclePriceUpdater:
         return Web3.keccak(text=label)
 
     def _build_dynamic_fee(self) -> Tuple[int, int]:
-        """Build EIP-1559 dynamic fee parameters."""
-        try:
-            base_fee = self.w3.eth.gas_price
-            max_priority = self.w3.to_wei(2, "gwei")  # Increased for faster inclusion
-            max_fee = base_fee * 2 + max_priority
-            return max_fee, max_priority
-        except Exception as exc:
-            print(f"Warning: Could not fetch gas price, using defaults: {exc}")
-            # Fallback to safe defaults
-            return self.w3.to_wei(50, "gwei"), self.w3.to_wei(2, "gwei")
+        base_fee = self.w3.eth.gas_price
+        max_priority = self.w3.to_wei(1, "gwei")
+        max_fee = max(base_fee * 2, max_priority * 2)
+        return max_fee, max_priority
 
     def _send_transaction(self, func, gas_limit: int) -> Tuple[str, dict]:
-        """Build, sign, and send a transaction to the blockchain."""
         max_fee, max_priority = self._build_dynamic_fee()
-
-        try:
-            nonce = self.w3.eth.get_transaction_count(self.address)
-            tx = func.build_transaction(
-                {
-                    "from": self.address,
-                    "nonce": nonce,
-                    "gas": gas_limit,
-                    "maxFeePerGas": max_fee,
-                    "maxPriorityFeePerGas": max_priority,
-                    "chainId": 11155111,  # Sepolia chain ID
-                }
-            )
-
-            # Sign transaction
-            signed = self.account.sign_transaction(tx)
-
-            # Get raw transaction bytes
-            # The SignedTransaction namedtuple has different attribute names across versions:
-            # - eth-account < 0.9: uses 'rawTransaction'
-            # - eth-account >= 0.9: uses 'raw_transaction'
-            # Access by index [0] is most reliable as it's the first field in the namedtuple
-            if hasattr(signed, "raw_transaction"):
-                raw_tx = signed.raw_transaction
-            elif hasattr(signed, "rawTransaction"):
-                raw_tx = signed.rawTransaction
-            elif isinstance(signed, tuple) and len(signed) > 0:
-                # SignedTransaction is a namedtuple, first element is always the raw tx
-                raw_tx = signed[0]
-            else:
-                raise AttributeError(
-                    f"Cannot extract raw transaction from signed object. "
-                    f"Type: {type(signed)}, Dir: {[a for a in dir(signed) if not a.startswith('_')]}"
-                )
-
-            # Send transaction
-            tx_hash = self.w3.eth.send_raw_transaction(raw_tx)
-            print(f"  Transaction sent: {tx_hash.hex()}")
-
-            # Wait for receipt with timeout
-            receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash, timeout=180)
-
-            # Check transaction status
-            if receipt.get("status") != 1:
-                raise ContractLogicError("Transaction failed on-chain")
-
-            return tx_hash.hex(), dict(receipt)
-
-        except TimeExhausted:
-            raise TimeExhausted(f"Transaction {tx_hash.hex()} timed out after 180 seconds")
-        except Exception as exc:
-            raise Exception(f"Transaction failed: {exc}") from exc
+        tx = func.build_transaction(
+            {
+                "from": self.address,
+                "nonce": self.w3.eth.get_transaction_count(self.address),
+                "gas": gas_limit,
+                "maxFeePerGas": max_fee,
+                "maxPriorityFeePerGas": max_priority,
+                "chainId": 11155111,
+            }
+        )
+        signed = self.account.sign_transaction(tx)
+        raw_tx = getattr(signed, "raw_transaction", signed.rawTransaction)
+        tx_hash = self.w3.eth.send_raw_transaction(raw_tx)
+        receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash, timeout=180)
+        return tx_hash.hex(), dict(receipt)
 
     def get_current_price(self) -> PriceData:
         try:
@@ -221,301 +164,243 @@ class CuOraclePriceUpdater:
             return PriceData(price_raw=0, last_updated=0)
 
     def update_price(self, price_usd: float) -> str:
-        """
-        Update the oracle price using commit-reveal mechanism.
-
-        Args:
-            price_usd: Price in USD (will be scaled by decimals)
-
-        Returns:
-            Transaction hash of the reveal transaction
-        """
-        # Validate price
-        if not MIN_PRICE_USD <= price_usd <= MAX_PRICE_USD:
-            raise ValueError(
-                f"Price ${price_usd:.2f} outside valid range "
-                f"[${MIN_PRICE_USD}, ${MAX_PRICE_USD}]"
-            )
-
-        # Scale price to contract precision
         price_scaled = int(price_usd * (10 ** self.decimals))
         nonce_bytes32 = secrets.token_bytes(32)
-
-        # Display current price and change
         current = self.get_current_price()
         if current.price_raw:
             delta = price_usd - current.price
             change_pct = (delta / current.price) * 100 if current.price else 0
-            print(f"\nCurrent on-chain price: ${current.price:.6f}/hr")
-            print(f"New price: ${price_usd:.6f}/hr (Δ {change_pct:+.2f}%)")
-        else:
-            print(f"\nSetting initial price: ${price_usd:.6f}/hr")
-
-        # Phase 1: Commit
-        print("\n=== PHASE 1: COMMIT ===")
+            print(f"Current oracle: ${current.price:.6f}/hr (Δ {change_pct:+.2f}%)")
         commit_hash = Web3.keccak(
-            self.w3.codec.encode(["uint256", "bytes32"], [price_scaled, nonce_bytes32])
+            self.w3.codec.encode_abi(["uint256", "bytes32"], [price_scaled, nonce_bytes32])
         )
-        print(f"Commit hash: {Web3.to_hex(commit_hash)}")
-
-        try:
-            commit_tx, commit_receipt = self._send_transaction(
-                self.contract.functions.commitPrice(self.asset_id, commit_hash),
-                gas_limit=150_000,
-            )
-            gas_used = commit_receipt.get("gasUsed", 0)
-            print(f"  ✓ Commit successful! Tx: {commit_tx}")
-            print(f"  Gas used: {gas_used:,}")
-
-        except Exception as exc:
-            raise Exception(f"Commit phase failed: {exc}") from exc
-
-        # Wait between commit and reveal
+        print("Committing price...")
+        commit_tx, _ = self._send_transaction(
+            self.contract.functions.commitPrice(self.asset_id, commit_hash),
+            gas_limit=150_000,
+        )
+        print(f"Commit tx: {commit_tx}")
         delay = max(self.commit_delay, 1)
-        print(f"\nWaiting {delay:.1f}s before reveal phase...")
+        print(f"Waiting {delay:.1f}s before reveal")
         time.sleep(delay)
-
-        # Phase 2: Reveal
-        print("\n=== PHASE 2: REVEAL ===")
-        try:
-            reveal_tx, reveal_receipt = self._send_transaction(
-                self.contract.functions.updatePrices(
-                    self.asset_id,
-                    price_scaled,
-                    nonce_bytes32,
-                ),
-                gas_limit=250_000,
-            )
-            gas_used = reveal_receipt.get("gasUsed", 0)
-            print(f"  ✓ Reveal successful! Tx: {reveal_tx}")
-            print(f"  Gas used: {gas_used:,}")
-
-        except Exception as exc:
-            raise Exception(f"Reveal phase failed: {exc}") from exc
-
-        # Verify update
-        print("\n=== VERIFICATION ===")
+        print("Revealing price...")
+        reveal_tx, _ = self._send_transaction(
+            self.contract.functions.updatePrices(
+                self.asset_id,
+                price_scaled,
+                nonce_bytes32,
+            ),
+            gas_limit=250_000,
+        )
+        print(f"Reveal tx: {reveal_tx}")
         latest = self.get_current_price()
         if latest.price_raw == price_scaled:
-            print(f"  ✓ On-chain price confirmed: ${latest.price:.6f}/hr")
-        else:
-            print(f"  ⚠ Warning: On-chain price mismatch!")
-            print(f"    Expected: ${price_usd:.6f}/hr")
-            print(f"    Got: ${latest.price:.6f}/hr")
-
-        # Log the update
-        self.log_update(price_usd, commit_tx, reveal_tx, latest.last_updated)
-
+            print(f"On-chain price now ${latest.price:.6f}/hr")
+        self.log_update(price_usd, reveal_tx, latest.last_updated)
         return reveal_tx
 
     def read_price_from_csv(self, csv_file: str) -> Optional[float]:
+        """Read GPU price from pipeline-generated CSV file.
+
+        Expected format: h100_gpu_index.csv with columns:
+        - Full_Index_Price: Weighted average price across all providers
+        - Calculation_Date: Timestamp of calculation
+        - Hyperscalers_Only_Price (optional): Price from major cloud providers only
+        - Non_Hyperscalers_Only_Price (optional): Price from smaller providers only
         """
-        Read the latest H100 GPU index price from CSV file.
-
-        Args:
-            csv_file: Path to the CSV file containing price data
-
-        Returns:
-            Price in USD or None if unable to read
-        """
-        if not os.path.exists(csv_file):
-            print(f"ERROR: CSV file not found: {csv_file}")
-            return None
-
         try:
             with open(csv_file, "r", encoding="utf-8") as handle:
                 reader = csv.DictReader(handle)
                 rows = list(reader)
+        except FileNotFoundError:
+            print(f"ERROR: CSV file not found: {csv_file}")
+            print("   Ensure the GPU price pipeline has completed successfully")
+            print("   Expected file from: gpu_index_calculator.py output")
+            return None
         except Exception as exc:
             print(f"ERROR: Failed to read CSV {csv_file}: {exc}")
             return None
 
         if not rows:
             print(f"ERROR: CSV file is empty: {csv_file}")
+            print("   The pipeline may have failed to generate data")
             return None
 
-        # Get the latest row
+        # Get the latest index price (last row)
         latest = rows[-1]
 
-        # Try to extract Full_Index_Price (primary format)
-        if "Full_Index_Price" in latest:
-            try:
-                price = float(latest["Full_Index_Price"])
-                timestamp = latest.get("Calculation_Date", "unknown")
-                print("\n=== READING CSV DATA ===")
-                print(f"  Source: {csv_file}")
-                print(f"  Timestamp: {timestamp}")
-                print(f"  Full Index Price: ${price:.6f}/hour")
-
-                # Display additional metrics if available
-                if "Hyperscalers_Only_Price" in latest:
-                    print(f"  Hyperscalers Only: ${float(latest['Hyperscalers_Only_Price']):.6f}/hour")
-                if "Non_Hyperscalers_Only_Price" in latest:
-                    print(f"  Non-Hyperscalers Only: ${float(latest['Non_Hyperscalers_Only_Price']):.6f}/hour")
-
-                return price
-            except (ValueError, KeyError) as exc:
-                print(f"ERROR: Invalid price data in CSV: {exc}")
-                return None
-
-        # Fallback: Try legacy format with 'asset' and 'price' columns
-        asset_rows = [row for row in rows if row.get("asset", "").upper() == "H100"]
-        if not asset_rows:
-            print(f"ERROR: No valid price data found in {csv_file}")
-            print(f"  Expected column 'Full_Index_Price' or asset='H100'")
+        # Validate required columns exist
+        if "Full_Index_Price" not in latest:
+            print(f"ERROR: CSV missing 'Full_Index_Price' column")
+            print(f"   Available columns: {list(latest.keys())}")
+            print("   Ensure you're using output from gpu_index_calculator.py")
             return None
 
-        latest = asset_rows[-1]
         try:
-            price = float(latest["price"])
-            timestamp = latest.get("timestamp", "unknown")
-            print("\n=== READING CSV DATA (Legacy Format) ===")
-            print(f"  Source: {csv_file}")
-            print(f"  Timestamp: {timestamp}")
-            print(f"  Price: ${price:.6f}/hour")
-            return price
-        except (ValueError, KeyError) as exc:
-            print(f"ERROR: Invalid price data: {exc}")
+            price = float(latest["Full_Index_Price"])
+        except (ValueError, TypeError) as exc:
+            print(f"ERROR: Invalid price value: {latest['Full_Index_Price']}")
+            print(f"   Parse error: {exc}")
             return None
 
-    def log_update(
-        self,
-        price_usd: float,
-        commit_tx: str,
-        reveal_tx: str,
-        block_timestamp: int,
-    ) -> None:
-        """
-        Log the price update to a JSON file.
+        timestamp = latest.get("Calculation_Date", "unknown")
+        print("="*60)
+        print("GPU INDEX PRICE FROM PIPELINE")
+        print("="*60)
+        print(f"   Calculation Date: {timestamp}")
+        print(f"   Full Index Price: ${price:.6f}/hour")
 
-        Args:
-            price_usd: Price in USD
-            commit_tx: Commit transaction hash
-            reveal_tx: Reveal transaction hash
-            block_timestamp: Blockchain timestamp of update
+        # Show additional index data if available
+        if "Hyperscalers_Only_Price" in latest:
+            hyperscaler_price = float(latest["Hyperscalers_Only_Price"])
+            print(f"   Hyperscalers Only: ${hyperscaler_price:.6f}/hour")
+        if "Non_Hyperscalers_Only_Price" in latest:
+            non_hyperscaler_price = float(latest["Non_Hyperscalers_Only_Price"])
+            print(f"   Non-Hyperscalers: ${non_hyperscaler_price:.6f}/hour")
+        print("="*60)
+
+        return price
+
+    def log_update(self, price_usd: float, tx_hash: str, block_number: int) -> None:
+        """Log blockchain update to JSON file for pipeline tracking.
+
+        Maintains a rolling log of the last 100 updates with complete metadata.
+        Compatible with pipeline monitoring and debugging tools.
         """
+        from datetime import timezone
+
         log_entry = {
-            "timestamp_utc": datetime.now(timezone.utc).isoformat(),
-            "price_usd": price_usd,
-            "price_scaled": int(price_usd * (10 ** self.decimals)),
-            "commit_tx_hash": commit_tx,
-            "reveal_tx_hash": reveal_tx,
-            "block_timestamp": block_timestamp,
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "index_price_usd": price_usd,
+            "index_price_scaled": int(price_usd * (10 ** self.decimals)),
+            "tx_hash": tx_hash,
+            "block_number": block_number,
             "contract_address": CU_ORACLE_ADDRESS,
             "asset_id": self.asset_id_hex,
             "asset_label": self.asset_label,
             "network": "sepolia",
             "decimals": self.decimals,
-            "etherscan_url": f"https://sepolia.etherscan.io/tx/{reveal_tx}",
+            "updater_address": self.address,
         }
 
-        # Read existing logs
+        log_file = "contract_update_log.json"
         logs = []
-        if os.path.exists(LOG_FILE_PATH):
+
+        # Load existing logs
+        if os.path.exists(log_file):
             try:
-                with open(LOG_FILE_PATH, "r", encoding="utf-8") as handle:
+                with open(log_file, "r", encoding="utf-8") as handle:
                     logs = json.load(handle)
-                    if not isinstance(logs, list):
-                        logs = []
+                if not isinstance(logs, list):
+                    print(f"WARNING: {log_file} has invalid format, resetting log")
+                    logs = []
+            except json.JSONDecodeError as exc:
+                print(f"WARNING: Failed to parse {log_file}: {exc}")
+                print("   Creating new log file")
+                logs = []
             except Exception as exc:
-                print(f"Warning: Could not read existing log file: {exc}")
+                print(f"WARNING: Error reading {log_file}: {exc}")
                 logs = []
 
-        # Append new entry and trim to max size
+        # Append new entry and keep last 100
         logs.append(log_entry)
-        logs = logs[-MAX_LOG_ENTRIES:]
+        logs = logs[-100:]
 
-        # Write back to file
+        # Write updated logs
         try:
-            with open(LOG_FILE_PATH, "w", encoding="utf-8") as handle:
+            with open(log_file, "w", encoding="utf-8") as handle:
                 json.dump(logs, handle, indent=2)
-            print(f"\n✓ Update logged to {LOG_FILE_PATH}")
+            print(f"✓ Logged update to {log_file} (entry {len(logs)}/100)")
         except Exception as exc:
-            print(f"Warning: Failed to write log file: {exc}")
+            print(f"ERROR: Failed to write log file: {exc}")
 
 
 def main() -> None:
-    """Main entry point for the price updater script."""
+    """Main entry point for pushing GPU index prices to blockchain.
+
+    This script integrates with the GPU pricing pipeline by:
+    1. Reading the final index price from h100_gpu_index.csv
+    2. Executing a commit-reveal transaction on the CuOracle contract
+    3. Logging the update for pipeline monitoring and debugging
+
+    Pipeline Integration:
+    - Input: h100_gpu_index.csv (from gpu_index_calculator.py)
+    - Output: contract_update_log.json (transaction history)
+    - Environment: Requires SEPOLIA_RPC_URL and ORACLE_UPDATER_PRIVATE_KEY
+    """
     import argparse
+    import sys
 
     parser = argparse.ArgumentParser(
-        description="Push H100 GPU index price to CuOracle smart contract on Sepolia",
+        description="Push H100 GPU index price to CuOracle smart contract",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
-Examples:
-  # Update from CSV (default: h100_gpu_index.csv)
-  python push_to_contract.py
-
-  # Update from specific CSV file
-  python push_to_contract.py --csv custom_prices.csv
-
-  # Update with manual price
-  python push_to_contract.py --price 3.79
-
-  # Customize commit-reveal delay
-  python push_to_contract.py --commit-delay 5.0
+Pipeline Integration:
+  This script is designed to work as Step 7 of the GPU pricing pipeline.
+  It expects h100_gpu_index.csv to be generated by gpu_index_calculator.py.
 
 Environment Variables:
-  SEPOLIA_RPC_URL              - Sepolia RPC endpoint
-  ORACLE_UPDATER_PRIVATE_KEY   - Wallet private key
-  CU_ORACLE_ADDRESS            - Contract address
-  CU_ORACLE_ASSET_LABEL        - Asset label (default: H100_GPU_HOURLY)
-  CU_ORACLE_DECIMALS           - Price decimals (default: 18)
-        """,
+  SEPOLIA_RPC_URL              Ethereum RPC endpoint (default: https://rpc.sepolia.org)
+  ORACLE_UPDATER_PRIVATE_KEY   Wallet private key for signing transactions
+  CU_ORACLE_ADDRESS            Smart contract address
+  CU_ORACLE_ASSET_LABEL        Asset identifier (default: H100_GPU_HOURLY)
+  CU_ORACLE_DECIMALS           Price decimals (default: 18)
+  CU_ORACLE_COMMIT_DELAY_SECONDS  Delay between commit/reveal (default: 2)
+
+Examples:
+  # Use pipeline-generated CSV (default)
+  python push_to_contract.py
+
+  # Use custom CSV file
+  python push_to_contract.py --csv custom_prices.csv
+
+  # Override with manual price (bypass CSV)
+  python push_to_contract.py --price 3.75
+        """
     )
     parser.add_argument(
         "--csv",
-        default=DEFAULT_CSV_PATH,
-        help=f"Path to CSV file with price data (default: {DEFAULT_CSV_PATH})",
+        default="h100_gpu_index.csv",
+        help="Path to GPU index CSV (default: h100_gpu_index.csv from pipeline)",
     )
     parser.add_argument(
         "--price",
         type=float,
-        help="Manual price override (bypasses CSV reading)",
+        help="Manual price override (USD/hour). Bypasses CSV reading.",
     )
-    parser.add_argument(
-        "--asset-label",
-        default=ASSET_LABEL,
-        help=f"Asset label for the oracle (default: {ASSET_LABEL})",
-    )
-    parser.add_argument(
-        "--asset-id",
-        default=ASSET_ID_HEX,
-        help="Asset ID as hex string (optional, derived from label if not set)",
-    )
+    parser.add_argument("--asset-label", default=ASSET_LABEL, help="Asset label for oracle")
+    parser.add_argument("--asset-id", default=ASSET_ID_HEX, help="Asset ID (hex bytes32)")
     parser.add_argument(
         "--decimals",
         type=int,
         default=PRICE_DECIMALS,
-        help=f"Price decimal precision (default: {PRICE_DECIMALS})",
+        help="Price decimals for on-chain storage",
     )
     parser.add_argument(
         "--commit-delay",
         type=float,
         default=COMMIT_DELAY_SECONDS,
-        help=f"Delay between commit and reveal in seconds (default: {COMMIT_DELAY_SECONDS})",
+        help="Seconds to wait between commit and reveal",
     )
-    parser.add_argument(
-        "--dry-run",
-        action="store_true",
-        help="Read price from CSV but don't send transactions",
-    )
-
     args = parser.parse_args()
 
     # Validate environment
-    print("=" * 70)
-    print("CuOracle H100 GPU Price Updater")
-    print("=" * 70)
-
     if not PRIVATE_KEY:
-        print("\n❌ ERROR: Private key not configured!")
-        print("   Set ORACLE_UPDATER_PRIVATE_KEY or WALLET_PRIVATE_KEY environment variable")
-        print("   or add to .env file")
+        print("=" * 60)
+        print("ERROR: Private key not configured")
+        print("=" * 60)
+        print("Set one of these environment variables:")
+        print("  - ORACLE_UPDATER_PRIVATE_KEY")
+        print("  - WALLET_PRIVATE_KEY")
+        print("\nFor GitHub Actions, add as a repository secret.")
+        print("=" * 60)
         sys.exit(1)
 
+    # Initialize oracle updater
+    print("\n" + "=" * 60)
+    print("CUORACLE PRICE UPDATER")
+    print("=" * 60)
     try:
-        # Initialize updater
         updater = CuOraclePriceUpdater(
             rpc_url=SEPOLIA_RPC_URL,
             private_key=PRIVATE_KEY,
@@ -525,68 +410,71 @@ Environment Variables:
             decimals=args.decimals,
             commit_delay=args.commit_delay,
         )
-
-        # Determine price
-        if args.price is not None:
-            price = args.price
-            print(f"\n✓ Using manual price: ${price:.6f}/hour")
-        else:
-            price = updater.read_price_from_csv(args.csv)
-            if price is None:
-                print("\n❌ ERROR: Unable to read price from CSV")
-                sys.exit(1)
-
-        # Validate price
-        if price <= 0:
-            print(f"\n❌ ERROR: Price must be greater than zero (got ${price})")
-            sys.exit(1)
-
-        if price < MIN_PRICE_USD or price > MAX_PRICE_USD:
-            print(f"\n⚠️  WARNING: Price ${price:.2f} outside normal range")
-            print(f"   Expected range: ${MIN_PRICE_USD} - ${MAX_PRICE_USD}")
-            response = input("   Continue anyway? (y/N): ")
-            if response.lower() != "y":
-                print("   Aborted by user")
-                sys.exit(0)
-
-        # Dry run mode
-        if args.dry_run:
-            print("\n=== DRY RUN MODE ===")
-            print(f"Would update price to: ${price:.6f}/hour")
-            print(f"Scaled value: {int(price * (10 ** args.decimals))}")
-            print("No transactions sent.")
-            sys.exit(0)
-
-        # Execute update
-        print("\n" + "=" * 70)
-        print("EXECUTING PRICE UPDATE")
-        print("=" * 70)
-
-        tx_hash = updater.update_price(price)
-
-        print("\n" + "=" * 70)
-        print("✅ SUCCESS!")
-        print("=" * 70)
-        print(f"Price updated to: ${price:.6f}/hour")
-        print(f"Reveal transaction: {tx_hash}")
-        print(f"Etherscan: https://sepolia.etherscan.io/tx/{tx_hash}")
-        print("=" * 70)
-
-    except KeyboardInterrupt:
-        print("\n\n⚠️  Interrupted by user")
-        sys.exit(130)
-    except ValueError as exc:
-        print(f"\n❌ ERROR: Invalid input - {exc}")
-        sys.exit(1)
     except ConnectionError as exc:
-        print(f"\n❌ ERROR: Connection failed - {exc}")
-        print("   Check your RPC endpoint and internet connection")
+        print(f"\nERROR: Failed to connect to blockchain: {exc}")
+        print("Check SEPOLIA_RPC_URL and network connectivity")
         sys.exit(1)
     except Exception as exc:
-        print(f"\n❌ ERROR: Update failed")
-        print(f"   {exc}")
+        print(f"\nERROR: Failed to initialize updater: {exc}")
         import traceback
+        traceback.print_exc()
+        sys.exit(1)
 
+    # Determine price source
+    if args.price is not None:
+        price = args.price
+        print("\n" + "=" * 60)
+        print("MANUAL PRICE OVERRIDE")
+        print("=" * 60)
+        print(f"   Using manual price: ${price:.6f}/hour")
+        print("   (Bypassing CSV pipeline data)")
+        print("=" * 60)
+    else:
+        price = updater.read_price_from_csv(args.csv)
+        if price is None:
+            print("\n" + "=" * 60)
+            print("ERROR: Unable to read price from CSV")
+            print("=" * 60)
+            print("Possible causes:")
+            print("  1. Pipeline has not completed yet (run gpu_index_calculator.py)")
+            print("  2. CSV file missing or corrupted")
+            print("  3. Invalid CSV format")
+            print("\nTo bypass, use: --price <value>")
+            print("=" * 60)
+            sys.exit(1)
+
+    # Validate price
+    if price <= 0:
+        print(f"\nERROR: Price must be greater than zero (got {price})")
+        print("Check pipeline data or manual price input")
+        sys.exit(1)
+
+    if price > 100:
+        print(f"\nWARNING: Price ${price:.2f}/hour seems unusually high")
+        print("Expected range: $1-10/hour for H100 GPUs")
+        print("Proceeding anyway...\n")
+
+    # Execute blockchain update
+    print("\n" + "=" * 60)
+    print("EXECUTING BLOCKCHAIN UPDATE")
+    print("=" * 60)
+    try:
+        tx_hash = updater.update_price(price)
+        print("\n" + "=" * 60)
+        print("SUCCESS! PRICE UPDATED ON-CHAIN")
+        print("=" * 60)
+        print(f"   Transaction: {tx_hash}")
+        print(f"   Etherscan: https://sepolia.etherscan.io/tx/{tx_hash}")
+        print(f"   Price: ${price:.6f}/hour")
+        print("=" * 60)
+        sys.exit(0)
+    except Exception as exc:
+        print("\n" + "=" * 60)
+        print("ERROR: BLOCKCHAIN UPDATE FAILED")
+        print("=" * 60)
+        print(f"   {exc}")
+        print("=" * 60)
+        import traceback
         traceback.print_exc()
         sys.exit(1)
 
