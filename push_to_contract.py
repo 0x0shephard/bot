@@ -12,6 +12,7 @@ from typing import Optional, Sequence, Tuple
 
 from dotenv import load_dotenv
 from eth_account import Account
+from eth_abi import encode
 from web3 import Web3
 
 load_dotenv()
@@ -171,9 +172,9 @@ class CuOraclePriceUpdater:
             delta = price_usd - current.price
             change_pct = (delta / current.price) * 100 if current.price else 0
             print(f"Current oracle: ${current.price:.6f}/hr (Δ {change_pct:+.2f}%)")
-        commit_hash = Web3.keccak(
-            self.w3.codec.encode_abi(["uint256", "bytes32"], [price_scaled, nonce_bytes32])
-        )
+        # Encode parameters for commit hash using eth_abi
+        encoded = encode(["uint256", "bytes32"], [price_scaled, nonce_bytes32])
+        commit_hash = Web3.keccak(encoded)
         print("Committing price...")
         commit_tx, _ = self._send_transaction(
             self.contract.functions.commitPrice(self.asset_id, commit_hash),
