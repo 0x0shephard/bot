@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-21 13:06:54",
+  "timestamp": "2025-11-22 01:45:23",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -80,8 +80,8 @@
     },
     "DataCrunch": {
       "H100 SXM5 (Pay As You Go)": "$1.99",
-      "H100 SXM5 (Spot Price)": "$1.10",
-      "H100 SXM5 (Dynamic Pricing)": "$2.19",
+      "H100 SXM5 (Spot Price)": "$1.11",
+      "H100 SXM5 (Dynamic Pricing)": "$2.23",
       "H100 SXM5 (Fixed Pricing)": "$4.95"
     },
     "LeaderGPU": {
@@ -113,10 +113,6 @@
     },
     "Seeweb": {
       "H100 SXM (80GB)": "\u20ac1.60"
-    },
-    "TensorDock": {
-      "H100 SXM5": "$2.25",
-      "H100": "$2.25"
     },
     "AtlasCloud": {
       "H100 GPU Instance": "$3.50"
@@ -150,8 +146,8 @@
     }
   },
   "summary": {
-    "total_providers": 31,
-    "total_h100_variants": 85,
+    "total_providers": 30,
+    "total_h100_variants": 83,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -176,7 +172,6 @@
       "Modal",
       "E2E Networks",
       "Seeweb",
-      "TensorDock",
       "AtlasCloud",
       "Crusoe",
       "Leaseweb",
@@ -244,8 +239,6 @@
         "Fal.AI: H100 (80GB)",
         "Fal.AI: H100",
         "Modal: H100",
-        "TensorDock: H100 SXM5",
-        "TensorDock: H100",
         "AtlasCloud: H100 GPU Instance",
         "Crusoe: H100 80GB SXM (On-Demand)",
         "Crusoe: H100 80GB SXM (6-month reserved)",
