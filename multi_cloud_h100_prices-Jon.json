@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-22 01:45:23",
+  "timestamp": "2025-11-22 12:41:19",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -54,6 +54,9 @@
       "H100 Kubernetes (per GPU)": "\u20b9325",
       "H100 Serverless 80GB (per hour)": "\u20b923760.00",
       "H100 Azure ML (per GPU)": "\u20b9264"
+    },
+    "GMICloud": {
+      "H100 (per GPU)": "$2.10"
     },
     "Lambda Labs": {
       "H100 1-Click Clusters (Reserved)": "$2.29",
@@ -146,8 +149,8 @@
     }
   },
   "summary": {
-    "total_providers": 30,
-    "total_h100_variants": 83,
+    "total_providers": 31,
+    "total_h100_variants": 84,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -159,6 +162,7 @@
       "TaigaCloud",
       "Neysa.ai",
       "ShaktiCloud",
+      "GMICloud",
       "Lambda Labs",
       "Qubrid",
       "EdgeVana",
@@ -220,6 +224,7 @@
         "TaigaCloud: H100 SXM (8x GPUs)",
         "Neysa.ai: H100 SXM (Monthly Commitment)",
         "Neysa.ai: H100 SXM (80GB)",
+        "GMICloud: H100 (per GPU)",
         "Lambda Labs: H100 1-Click Clusters (Reserved)",
         "Lambda Labs: H100",
         "Lambda Labs: H100 SXM",
