@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""CuOracle price updater script."""
+"""Index Oracle price updater script for H100 GPU rental rates."""
 
 import csv
 import json
 import os
-import secrets
 import time
 from dataclasses import dataclass
 from datetime import datetime
@@ -12,62 +11,48 @@ from typing import Optional, Sequence, Tuple
 
 from dotenv import load_dotenv
 from eth_account import Account
-from eth_abi import encode
 from web3 import Web3
 
 load_dotenv()
 
 SEPOLIA_RPC_URL = os.getenv("SEPOLIA_RPC_URL", "https://rpc.sepolia.org")
 PRIVATE_KEY = os.getenv("ORACLE_UPDATER_PRIVATE_KEY") or os.getenv("WALLET_PRIVATE_KEY")
-CU_ORACLE_ADDRESS = os.getenv(
-    "CU_ORACLE_ADDRESS",
-    "0xB28502a76ED13877fCCd33dc9301b8250b14efd5",
+INDEX_ORACLE_ADDRESS = os.getenv(
+    "INDEX_ORACLE_ADDRESS",
+    "0x3cA2Da03e4b6dB8fe5a24c22Cf5EB2A34B59cbad",  # UpdatableETHOracle for H100 GPU prices
 )
-ASSET_ID_HEX = os.getenv("CU_ORACLE_ASSET_ID")
-ASSET_LABEL = os.getenv("CU_ORACLE_ASSET_LABEL", "H100_GPU_HOURLY")
-PRICE_DECIMALS = int(os.getenv("CU_ORACLE_DECIMALS", "18"))
-COMMIT_DELAY_SECONDS = float(os.getenv("CU_ORACLE_COMMIT_DELAY_SECONDS", "2"))
+ASSET_LABEL = os.getenv("ORACLE_ASSET_LABEL", "H100_GPU_HOURLY")
+PRICE_DECIMALS = int(os.getenv("ORACLE_DECIMALS", "18"))
+BOT_MODE = os.getenv("BOT_MODE", "false").lower() in ("true", "1", "yes")
 
-CU_ORACLE_ABI: Sequence[dict] = [
+# Simple oracle ABI - just setPrice and getPrice
+INDEX_ORACLE_ABI: Sequence[dict] = [
     {
         "type": "function",
-        "name": "commitPrice",
+        "name": "setPrice",
         "inputs": [
-            {"name": "assetId", "type": "bytes32", "internalType": "bytes32"},
-            {"name": "commit", "type": "bytes32", "internalType": "bytes32"},
+            {"name": "newPrice", "type": "uint256", "internalType": "uint256"},
         ],
         "outputs": [],
         "stateMutability": "nonpayable",
     },
     {
         "type": "function",
-        "name": "updatePrices",
-        "inputs": [
-            {"name": "assetId", "type": "bytes32", "internalType": "bytes32"},
-            {"name": "price", "type": "uint256", "internalType": "uint256"},
-            {"name": "nonce", "type": "bytes32", "internalType": "bytes32"},
-        ],
-        "outputs": [],
-        "stateMutability": "nonpayable",
-    },
-    {
-        "type": "function",
-        "name": "getLatestPrice",
-        "inputs": [
-            {"name": "assetId", "type": "bytes32", "internalType": "bytes32"},
-        ],
+        "name": "getPrice",
+        "inputs": [],
         "outputs": [
-            {
-                "components": [
-                    {"name": "price", "type": "uint256", "internalType": "uint256"},
-                    {"name": "lastUpdatedAt", "type": "uint256", "internalType": "uint256"},
-                ],
-                "name": "",
-                "type": "tuple",
-                "internalType": "struct CuOracle.PriceData",
-            }
+            {"name": "", "type": "uint256", "internalType": "uint256"}
         ],
         "stateMutability": "view",
+    },
+    {
+        "type": "event",
+        "name": "PriceUpdated",
+        "inputs": [
+            {"name": "newPrice", "type": "uint256", "indexed": True, "internalType": "uint256"},
+            {"name": "timestamp", "type": "uint256", "indexed": False, "internalType": "uint256"},
+        ],
+        "anonymous": False,
     },
 ]
 
@@ -75,23 +60,26 @@ CU_ORACLE_ABI: Sequence[dict] = [
 @dataclass
 class PriceData:
     price_raw: int
-    last_updated: int
 
     @property
     def price(self) -> float:
         return self.price_raw / 10 ** PRICE_DECIMALS
 
 
-class CuOraclePriceUpdater:
+class IndexOraclePriceUpdater:
+    """Update H100 GPU rental price on the index oracle contract.
+
+    This oracle is used by the vAMM for funding rate calculations.
+    It's a simple updatable oracle with setPrice(uint256) function.
+    """
+
     def __init__(
         self,
         rpc_url: str,
         private_key: str,
         contract_address: str,
-        asset_id_hex: Optional[str],
         asset_label: str,
         decimals: int,
-        commit_delay: float,
     ):
         self.w3 = Web3(Web3.HTTPProvider(rpc_url))
         if not self.w3.is_connected():
@@ -100,38 +88,26 @@ class CuOraclePriceUpdater:
         self.address = self.account.address
         self.contract = self.w3.eth.contract(
             address=Web3.to_checksum_address(contract_address),
-            abi=CU_ORACLE_ABI,
+            abi=INDEX_ORACLE_ABI,
         )
         self.decimals = decimals
-        self.commit_delay = commit_delay
         self.asset_label = asset_label
-        self.asset_id = self._derive_asset_id(asset_id_hex, asset_label)
-        self.asset_id_hex = Web3.to_hex(self.asset_id)
         balance_eth = self.w3.from_wei(self.w3.eth.get_balance(self.address), "ether")
         print("Connected to Sepolia testnet")
         print(f"   Chain ID: {self.w3.eth.chain_id}")
         print(f"   Latest block: {self.w3.eth.block_number}")
         print(f"   Updater address: {self.address}")
         print(f"   Balance: {balance_eth:.4f} ETH")
-        print(f"   CuOracle: {contract_address}")
-        print(f"   Asset ID: {self.asset_id_hex} (label='{self.asset_label}')")
+        print(f"   Index Oracle: {contract_address}")
+        print(f"   Asset: {self.asset_label}")
         print(f"   Price decimals: {self.decimals}")
         latest = self.get_current_price()
         if latest.price_raw:
             print(
-                f"   Current oracle price: ${latest.price:.6f}/hr at block timestamp {latest.last_updated}"
+                f"   Current oracle price: ${latest.price:.6f}/hr"
             )
         else:
-            print("   No price set yet for this asset")
-
-    @staticmethod
-    def _derive_asset_id(asset_id_hex: Optional[str], label: str) -> bytes:
-        if asset_id_hex:
-            data = Web3.to_bytes(hexstr=asset_id_hex)
-            if len(data) > 32:
-                raise ValueError("CU_ORACLE_ASSET_ID must be <= 32 bytes")
-            return data.rjust(32, b"\x00")
-        return Web3.keccak(text=label)
+            print("   No price set yet")
 
     def _build_dynamic_fee(self) -> Tuple[int, int]:
         base_fee = self.w3.eth.gas_price
@@ -172,47 +148,75 @@ class CuOraclePriceUpdater:
         return tx_hash.hex(), dict(receipt)
 
     def get_current_price(self) -> PriceData:
+        """Get current price from the oracle."""
         try:
-            price_raw, last_updated = self.contract.functions.getLatestPrice(self.asset_id).call()
-            return PriceData(price_raw=price_raw, last_updated=last_updated)
+            price_raw = self.contract.functions.getPrice().call()
+            return PriceData(price_raw=price_raw)
         except Exception:
-            return PriceData(price_raw=0, last_updated=0)
+            return PriceData(price_raw=0)
 
-    def update_price(self, price_usd: float) -> str:
-        price_scaled = int(price_usd * (10 ** self.decimals))
-        nonce_bytes32 = secrets.token_bytes(32)
+    def should_update_price(self, new_price_usd: float, threshold_percent: float = 1.0) -> bool:
+        """Check if the new price differs enough from current to warrant an update.
+
+        Args:
+            new_price_usd: New price to potentially set
+            threshold_percent: Minimum % change required (default: 1%)
+
+        Returns:
+            True if price should be updated, False if change is too small
+        """
         current = self.get_current_price()
+        if current.price_raw == 0:
+            return True  # No price set yet, always update
+
+        delta = abs(new_price_usd - current.price)
+        change_pct = (delta / current.price) * 100 if current.price else 0
+
+        return change_pct >= threshold_percent
+
+    def update_price(self, price_usd: float, skip_verification: bool = False) -> str:
+        """Update the oracle price to the new H100 GPU rental rate.
+
+        Args:
+            price_usd: New price in USD per hour (e.g., 3.78)
+            skip_verification: If True, skip on-chain verification (faster for bots)
+
+        Returns:
+            Transaction hash of the update transaction
+        """
+        price_scaled = int(price_usd * (10 ** self.decimals))
+        current = self.get_current_price()
+
         if current.price_raw:
             delta = price_usd - current.price
             change_pct = (delta / current.price) * 100 if current.price else 0
             print(f"Current oracle: ${current.price:.6f}/hr (Δ {change_pct:+.2f}%)")
-        # Encode parameters for commit hash using eth_abi
-        encoded = encode(["uint256", "bytes32"], [price_scaled, nonce_bytes32])
-        commit_hash = Web3.keccak(encoded)
-        print("Committing price...")
-        commit_tx, _ = self._send_transaction(
-            self.contract.functions.commitPrice(self.asset_id, commit_hash),
-            gas_limit=150_000,
+
+        print(f"Updating to: ${price_usd:.6f}/hr")
+        print("Sending transaction...")
+
+        tx_hash, receipt = self._send_transaction(
+            self.contract.functions.setPrice(price_scaled),
+            gas_limit=100_000,
         )
-        print(f"Commit tx: {commit_tx}")
-        delay = max(self.commit_delay, 1)
-        print(f"Waiting {delay:.1f}s before reveal")
-        time.sleep(delay)
-        print("Revealing price...")
-        reveal_tx, _ = self._send_transaction(
-            self.contract.functions.updatePrices(
-                self.asset_id,
-                price_scaled,
-                nonce_bytes32,
-            ),
-            gas_limit=250_000,
-        )
-        print(f"Reveal tx: {reveal_tx}")
-        latest = self.get_current_price()
-        if latest.price_raw == price_scaled:
-            print(f"On-chain price now ${latest.price:.6f}/hr")
-        self.log_update(price_usd, reveal_tx, latest.last_updated)
-        return reveal_tx
+
+        print(f"Transaction confirmed: {tx_hash}")
+        print(f"Gas used: {receipt['gasUsed']:,}")
+
+        # Verify the update (optional for bot mode)
+        if not skip_verification:
+            latest = self.get_current_price()
+            if latest.price_raw == price_scaled:
+                print(f"✓ On-chain price verified: ${latest.price:.6f}/hr")
+            else:
+                print(f"⚠ WARNING: On-chain price mismatch!")
+                print(f"   Expected: ${price_usd:.6f}/hr")
+                print(f"   Got: ${latest.price:.6f}/hr")
+        else:
+            print("⏩ Skipping verification (bot mode)")
+
+        self.log_update(price_usd, tx_hash, receipt['blockNumber'])
+        return tx_hash
 
     def read_price_from_csv(self, csv_file: str) -> Optional[float]:
         """Read GPU price from pipeline-generated CSV file.
@@ -290,12 +294,12 @@ class CuOraclePriceUpdater:
             "index_price_scaled": int(price_usd * (10 ** self.decimals)),
             "tx_hash": tx_hash,
             "block_number": block_number,
-            "contract_address": CU_ORACLE_ADDRESS,
-            "asset_id": self.asset_id_hex,
+            "contract_address": INDEX_ORACLE_ADDRESS,
             "asset_label": self.asset_label,
             "network": "sepolia",
             "decimals": self.decimals,
             "updater_address": self.address,
+            "etherscan_url": f"https://sepolia.etherscan.io/tx/{tx_hash}",
         }
 
         log_file = "contract_update_log.json"
@@ -335,7 +339,7 @@ def main() -> None:
 
     This script integrates with the GPU pricing pipeline by:
     1. Reading the final index price from h100_gpu_index.csv
-    2. Executing a commit-reveal transaction on the CuOracle contract
+    2. Executing a setPrice transaction on the Index Oracle contract
     3. Logging the update for pipeline monitoring and debugging
 
     Pipeline Integration:
@@ -347,7 +351,7 @@ def main() -> None:
     import sys
 
     parser = argparse.ArgumentParser(
-        description="Push H100 GPU index price to CuOracle smart contract",
+        description="Push H100 GPU index price to Index Oracle smart contract",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Pipeline Integration:
@@ -357,10 +361,9 @@ Pipeline Integration:
 Environment Variables:
   SEPOLIA_RPC_URL              Ethereum RPC endpoint (default: https://rpc.sepolia.org)
   ORACLE_UPDATER_PRIVATE_KEY   Wallet private key for signing transactions
-  CU_ORACLE_ADDRESS            Smart contract address
-  CU_ORACLE_ASSET_LABEL        Asset identifier (default: H100_GPU_HOURLY)
-  CU_ORACLE_DECIMALS           Price decimals (default: 18)
-  CU_ORACLE_COMMIT_DELAY_SECONDS  Delay between commit/reveal (default: 2)
+  INDEX_ORACLE_ADDRESS         Index oracle contract address (H100 GPU price feed)
+  ORACLE_ASSET_LABEL           Asset identifier (default: H100_GPU_HOURLY)
+  ORACLE_DECIMALS              Price decimals (default: 18)
 
 Examples:
   # Use pipeline-generated CSV (default)
@@ -370,7 +373,19 @@ Examples:
   python push_to_contract.py --csv custom_prices.csv
 
   # Override with manual price (bypass CSV)
-  python push_to_contract.py --price 3.75
+  python push_to_contract.py --price 3.78
+
+  # Bot mode with fast execution (no verification)
+  python push_to_contract.py --csv h100_gpu_index.csv --no-verify
+
+  # Only update if price changed by at least 0.5%
+  python push_to_contract.py --threshold 0.5
+
+  # Bot mode with threshold (recommended for automated pipelines)
+  python push_to_contract.py --csv h100_gpu_index.csv --no-verify --threshold 0.5
+
+  # Dry run to check price difference without updating
+  python push_to_contract.py --dry-run --threshold 1.0
         """
     )
     parser.add_argument(
@@ -384,7 +399,6 @@ Examples:
         help="Manual price override (USD/hour). Bypasses CSV reading.",
     )
     parser.add_argument("--asset-label", default=ASSET_LABEL, help="Asset label for oracle")
-    parser.add_argument("--asset-id", default=ASSET_ID_HEX, help="Asset ID (hex bytes32)")
     parser.add_argument(
         "--decimals",
         type=int,
@@ -392,10 +406,20 @@ Examples:
         help="Price decimals for on-chain storage",
     )
     parser.add_argument(
-        "--commit-delay",
+        "--no-verify",
+        action="store_true",
+        help="Skip price verification after update (faster for bots)",
+    )
+    parser.add_argument(
+        "--threshold",
         type=float,
-        default=COMMIT_DELAY_SECONDS,
-        help="Seconds to wait between commit and reveal",
+        default=0.0,
+        help="Minimum %% price change required for update (default: 0.0 = always update). Use 1.0 for 1%% threshold",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Check price difference without executing update",
     )
     args = parser.parse_args()
 
@@ -413,17 +437,15 @@ Examples:
 
     # Initialize oracle updater
     print("\n" + "=" * 60)
-    print("CUORACLE PRICE UPDATER")
+    print("INDEX ORACLE PRICE UPDATER")
     print("=" * 60)
     try:
-        updater = CuOraclePriceUpdater(
+        updater = IndexOraclePriceUpdater(
             rpc_url=SEPOLIA_RPC_URL,
             private_key=PRIVATE_KEY,
-            contract_address=CU_ORACLE_ADDRESS,
-            asset_id_hex=args.asset_id,
+            contract_address=INDEX_ORACLE_ADDRESS,
             asset_label=args.asset_label,
             decimals=args.decimals,
-            commit_delay=args.commit_delay,
         )
     except ConnectionError as exc:
         print(f"\nERROR: Failed to connect to blockchain: {exc}")
@@ -469,12 +491,46 @@ Examples:
         print("Expected range: $1-10/hour for H100 GPUs")
         print("Proceeding anyway...\n")
 
+    # Check if update is needed based on threshold
+    if args.threshold > 0:
+        should_update = updater.should_update_price(price, threshold_percent=args.threshold)
+        current = updater.get_current_price()
+
+        if current.price_raw > 0:
+            delta = abs(price - current.price)
+            change_pct = (delta / current.price) * 100 if current.price else 0
+
+            print("\n" + "=" * 60)
+            print("PRICE CHANGE ANALYSIS")
+            print("=" * 60)
+            print(f"   Current on-chain: ${current.price:.6f}/hr")
+            print(f"   New price: ${price:.6f}/hr")
+            print(f"   Change: {change_pct:+.2f}%")
+            print(f"   Threshold: {args.threshold}%")
+            print(f"   Update needed: {'YES' if should_update else 'NO'}")
+            print("=" * 60)
+
+            if not should_update:
+                print(f"\n⏩ Skipping update - price change ({change_pct:.2f}%) below threshold ({args.threshold}%)")
+                if args.dry_run:
+                    print("   (Dry run mode)")
+                sys.exit(0)
+
+    # Dry run mode - exit before updating
+    if args.dry_run:
+        print("\n" + "=" * 60)
+        print("DRY RUN MODE - NO UPDATE EXECUTED")
+        print("=" * 60)
+        print(f"   Would update to: ${price:.6f}/hr")
+        print("=" * 60)
+        sys.exit(0)
+
     # Execute blockchain update
     print("\n" + "=" * 60)
     print("EXECUTING BLOCKCHAIN UPDATE")
     print("=" * 60)
     try:
-        tx_hash = updater.update_price(price)
+        tx_hash = updater.update_price(price, skip_verification=args.no_verify)
         print("\n" + "=" * 60)
         print("SUCCESS! PRICE UPDATED ON-CHAIN")
         print("=" * 60)
