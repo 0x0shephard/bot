@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-21 12:46:46",
+  "timestamp": "2025-11-26 12:10:35",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -47,13 +47,16 @@
     },
     "Neysa.ai": {
       "H100 SXM (Monthly Commitment)": "$2.55",
-      "H100 SXM (80GB)": "$4.59"
+      "H100 SXM (80GB)": "$4.42"
     },
     "ShaktiCloud": {
       "H100 SLURM (per GPU)": "\u20b9357",
       "H100 Kubernetes (per GPU)": "\u20b9325",
       "H100 Serverless 80GB (per hour)": "\u20b923760.00",
       "H100 Azure ML (per GPU)": "\u20b9264"
+    },
+    "GMICloud": {
+      "H100 (per GPU)": "$2.10"
     },
     "Lambda Labs": {
       "H100 1-Click Clusters (Reserved)": "$2.29",
@@ -80,9 +83,8 @@
     },
     "DataCrunch": {
       "H100 SXM5 (Pay As You Go)": "$1.99",
-      "H100 SXM5 (Spot Price)": "$1.10",
-      "H100 SXM5 (Dynamic Pricing)": "$2.19",
-      "H100 SXM5 (Fixed Pricing)": "$4.95"
+      "H100 SXM5 (Spot Price)": "$1.99",
+      "H100 SXM5 (Dynamic Pricing)": "$1.00"
     },
     "LeaderGPU": {
       "H100 (2x GPUs - Summer Promo)": "\u20ac3.97",
@@ -113,10 +115,6 @@
     },
     "Seeweb": {
       "H100 SXM (80GB)": "\u20ac1.60"
-    },
-    "TensorDock": {
-      "H100 SXM5": "$2.25",
-      "H100": "$2.25"
     },
     "AtlasCloud": {
       "H100 GPU Instance": "$3.50"
@@ -151,7 +149,7 @@
   },
   "summary": {
     "total_providers": 31,
-    "total_h100_variants": 85,
+    "total_h100_variants": 83,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -163,6 +161,7 @@
       "TaigaCloud",
       "Neysa.ai",
       "ShaktiCloud",
+      "GMICloud",
       "Lambda Labs",
       "Qubrid",
       "EdgeVana",
@@ -176,7 +175,6 @@
       "Modal",
       "E2E Networks",
       "Seeweb",
-      "TensorDock",
       "AtlasCloud",
       "Crusoe",
       "Leaseweb",
@@ -225,6 +223,7 @@
         "TaigaCloud: H100 SXM (8x GPUs)",
         "Neysa.ai: H100 SXM (Monthly Commitment)",
         "Neysa.ai: H100 SXM (80GB)",
+        "GMICloud: H100 (per GPU)",
         "Lambda Labs: H100 1-Click Clusters (Reserved)",
         "Lambda Labs: H100",
         "Lambda Labs: H100 SXM",
@@ -238,14 +237,11 @@
         "DataCrunch: H100 SXM5 (Pay As You Go)",
         "DataCrunch: H100 SXM5 (Spot Price)",
         "DataCrunch: H100 SXM5 (Dynamic Pricing)",
-        "DataCrunch: H100 SXM5 (Fixed Pricing)",
         "Baseten: H100 (80GB VRAM)",
         "Baseten: H100 MIG (40GB VRAM)",
         "Fal.AI: H100 (80GB)",
         "Fal.AI: H100",
         "Modal: H100",
-        "TensorDock: H100 SXM5",
-        "TensorDock: H100",
         "AtlasCloud: H100 GPU Instance",
         "Crusoe: H100 80GB SXM (On-Demand)",
         "Crusoe: H100 80GB SXM (6-month reserved)",
