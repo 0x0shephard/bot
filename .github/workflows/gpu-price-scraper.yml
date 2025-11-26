@@ -105,8 +105,8 @@ jobs:
       run: |
         echo "Pushing H100 index price to Sepolia contract..."
         if [ -f "h100_gpu_index.csv" ]; then
-          # Use --no-verify for faster execution and --threshold to avoid unnecessary updates
-          python push_to_contract.py --csv h100_gpu_index.csv --no-verify --threshold 0.5 || echo "⚠️ Contract push failed (non-blocking)"
+          # Use --no-verify for faster execution, always push the newly calculated price
+          python push_to_contract.py --csv h100_gpu_index.csv --no-verify || echo "⚠️ Contract push failed (non-blocking)"
         else
           echo "⚠️ h100_gpu_index.csv not found, skipping contract push"
         fi

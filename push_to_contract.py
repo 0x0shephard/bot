@@ -155,25 +155,6 @@ class IndexOraclePriceUpdater:
         except Exception:
             return PriceData(price_raw=0)
 
-    def should_update_price(self, new_price_usd: float, threshold_percent: float = 1.0) -> bool:
-        """Check if the new price differs enough from current to warrant an update.
-
-        Args:
-            new_price_usd: New price to potentially set
-            threshold_percent: Minimum % change required (default: 1%)
-
-        Returns:
-            True if price should be updated, False if change is too small
-        """
-        current = self.get_current_price()
-        if current.price_raw == 0:
-            return True  # No price set yet, always update
-
-        delta = abs(new_price_usd - current.price)
-        change_pct = (delta / current.price) * 100 if current.price else 0
-
-        return change_pct >= threshold_percent
-
     def update_price(self, price_usd: float, skip_verification: bool = False) -> str:
         """Update the oracle price to the new H100 GPU rental rate.
 
@@ -375,17 +356,8 @@ Examples:
   # Override with manual price (bypass CSV)
   python push_to_contract.py --price 3.78
 
-  # Bot mode with fast execution (no verification)
+  # Bot mode with fast execution (no verification, recommended for automated pipelines)
   python push_to_contract.py --csv h100_gpu_index.csv --no-verify
-
-  # Only update if price changed by at least 0.5%
-  python push_to_contract.py --threshold 0.5
-
-  # Bot mode with threshold (recommended for automated pipelines)
-  python push_to_contract.py --csv h100_gpu_index.csv --no-verify --threshold 0.5
-
-  # Dry run to check price difference without updating
-  python push_to_contract.py --dry-run --threshold 1.0
         """
     )
     parser.add_argument(
@@ -409,17 +381,6 @@ Examples:
         "--no-verify",
         action="store_true",
         help="Skip price verification after update (faster for bots)",
-    )
-    parser.add_argument(
-        "--threshold",
-        type=float,
-        default=0.0,
-        help="Minimum %% price change required for update (default: 0.0 = always update). Use 1.0 for 1%% threshold",
-    )
-    parser.add_argument(
-        "--dry-run",
-        action="store_true",
-        help="Check price difference without executing update",
     )
     args = parser.parse_args()
 
@@ -490,40 +451,6 @@ Examples:
         print(f"\nWARNING: Price ${price:.2f}/hour seems unusually high")
         print("Expected range: $1-10/hour for H100 GPUs")
         print("Proceeding anyway...\n")
-
-    # Check if update is needed based on threshold
-    if args.threshold > 0:
-        should_update = updater.should_update_price(price, threshold_percent=args.threshold)
-        current = updater.get_current_price()
-
-        if current.price_raw > 0:
-            delta = abs(price - current.price)
-            change_pct = (delta / current.price) * 100 if current.price else 0
-
-            print("\n" + "=" * 60)
-            print("PRICE CHANGE ANALYSIS")
-            print("=" * 60)
-            print(f"   Current on-chain: ${current.price:.6f}/hr")
-            print(f"   New price: ${price:.6f}/hr")
-            print(f"   Change: {change_pct:+.2f}%")
-            print(f"   Threshold: {args.threshold}%")
-            print(f"   Update needed: {'YES' if should_update else 'NO'}")
-            print("=" * 60)
-
-            if not should_update:
-                print(f"\n⏩ Skipping update - price change ({change_pct:.2f}%) below threshold ({args.threshold}%)")
-                if args.dry_run:
-                    print("   (Dry run mode)")
-                sys.exit(0)
-
-    # Dry run mode - exit before updating
-    if args.dry_run:
-        print("\n" + "=" * 60)
-        print("DRY RUN MODE - NO UPDATE EXECUTED")
-        print("=" * 60)
-        print(f"   Would update to: ${price:.6f}/hr")
-        print("=" * 60)
-        sys.exit(0)
 
     # Execute blockchain update
     print("\n" + "=" * 60)
