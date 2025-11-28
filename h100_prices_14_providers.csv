@@ -1,43 +1,44 @@
 Provider,GPU_Variant,Price_Original,Price_Numeric,Currency,GPU_Count,GPU_Type,Pricing_Model,Timestamp
-HyperStack,H100 SXM,$2.40,2.4,USD,1,H100,On-Demand,2025-11-27 12:51:52
-HyperStack,H100 NVLink,$1.95,1.95,USD,1,H100,On-Demand,2025-11-27 12:51:52
-HyperStack,H100 (Standard),$1.90,1.9,USD,1,H100,On-Demand,2025-11-27 12:51:52
-Atlantic.Net,H100NVL (1x GPU),$3.941,3.941,USD,1,H100,On-Demand,2025-11-27 12:51:52
-Atlantic.Net,H100NVL (4x GPUs),$15.765,15.765,USD,4,H100,On-Demand,2025-11-27 12:51:52
-Atlantic.Net,H100NVL (8x GPUs),$31.531,31.531,USD,8,H100,On-Demand,2025-11-27 12:51:52
-Atlantic.Net,H100NVL,$2648.4,2648.4,USD,1,H100,On-Demand,2025-11-27 12:51:52
-Civo,H100 SXM (1x GPU) Standard,$2.99,2.99,USD,1,H100,On-Demand,2025-11-27 12:51:52
-Civo,H100 SXM (1x GPU) Discounted,$2.49,2.49,USD,1,H100,Discounted,2025-11-27 12:51:52
-Civo,H100 SXM (8x GPUs) Standard,$23.92,23.92,USD,8,H100,On-Demand,2025-11-27 12:51:52
-Civo,H100 SXM (8x GPUs) Discounted,$19.92,19.92,USD,8,H100,Discounted,2025-11-27 12:51:52
-Civo,H100 PCI (1x GPU) Standard,$2.49,2.49,USD,1,H100,On-Demand,2025-11-27 12:51:52
-Civo,H100 PCI (1x GPU) Discounted,$1.99,1.99,USD,1,H100,Discounted,2025-11-27 12:51:52
-Civo,H100 PCI (2x GPUs) Standard,$4.98,4.98,USD,2,H100,On-Demand,2025-11-27 12:51:52
-Civo,H100 PCI (2x GPUs) Discounted,$3.98,3.98,USD,2,H100,Discounted,2025-11-27 12:51:52
-Civo,H100 PCI (4x GPUs) Standard,$9.96,9.96,USD,4,H100,On-Demand,2025-11-27 12:51:52
-Civo,H100 PCI (4x GPUs) Discounted,$7.96,7.96,USD,4,H100,Discounted,2025-11-27 12:51:52
-Civo,H100 PCI (8x GPUs) Standard,$19.92,19.92,USD,8,H100,On-Demand,2025-11-27 12:51:52
-Civo,H100 PCI (8x GPUs) Discounted,$15.92,15.92,USD,8,H100,Discounted,2025-11-27 12:51:52
-GPU-Mart,H100 Dedicated Server (Hourly),$4.16/hr,4.16,USD,1,H100,On-Demand,2025-11-27 12:51:52
-Hostkey,H100 (Hourly),€2.00,2.0,EUR,1,H100,On-Demand,2025-11-27 12:51:52
-JarvisLabs,H100,$0.39/hr,0.39,USD,1,H100,On-Demand,2025-11-27 12:51:52
-JarvisLabs,H100 SXM,$2.99/hr,2.99,USD,1,H100,On-Demand,2025-11-27 12:51:52
-JarvisLabs,H100 (Price First),$10.0/hr,10.0,USD,1,H100,On-Demand,2025-11-27 12:51:52
-JarvisLabs,H100 (Line Context),$0.39/hr,0.39,USD,1,H100,On-Demand,2025-11-27 12:51:52
-Google Cloud,H100 (A3 Machine Type),$88.9272/hr (8x GPUs),88.92728,USD,1,H100,On-Demand,2025-11-27 12:51:52
-Google Cloud,H100 (Per GPU from H100 (A3 Machine Type)),$11.12/hr,11.12,USD,1,H100,On-Demand,2025-11-27 12:51:52
-Google Cloud,H100 (A3 Integration),$84.806908493/hr (8x GPUs),84.8069084938,USD,1,H100,On-Demand,2025-11-27 12:51:52
-Google Cloud,H100 (Per GPU from H100 (A3 Integration)),$10.60/hr,10.6,USD,1,H100,On-Demand,2025-11-27 12:51:52
-Genesis Cloud,H100 (HGX),$1.60/hr,1.6,USD,1,H100,On-Demand,2025-11-27 12:51:52
-Genesis Cloud,H200 (HGX),$1.60/hr,1.6,USD,1,H200,On-Demand,2025-11-27 12:51:52
-Genesis Cloud,B200 (HGX),$1.60/hr,1.6,USD,1,H100,On-Demand,2025-11-27 12:51:52
-Genesis Cloud,H100 (HGX Line),$1.60/hr,1.6,USD,1,H100,On-Demand,2025-11-27 12:51:52
-Vast.ai,H200 (API),$4.47/hr,4.47,USD,1,H200,On-Demand,2025-11-27 12:51:52
-Vast.ai,H200 NVL (API),$2.14/hr,2.14,USD,1,H200,On-Demand,2025-11-27 12:51:52
-Latitude.sh,Error,Unable to fetch live pricing from Latitude.sh,,Unknown,1,H100,On-Demand,2025-11-27 12:51:52
-Amazon Web Services,H100 (AWS P5),$6.88/hr,6.88,USD,1,H100,On-Demand,2025-11-27 12:51:52
-Microsoft Azure,H100 (ND96isr - 8x GPUs),$6.17/hr,6.17,USD,8,H100,On-Demand,2025-11-27 12:51:52
-RunPod,H100 PCIe,USD 1.99/hr,1.99,Unknown,1,H100,On-Demand,2025-11-27 12:51:52
-RunPod,H100 SXM,USD 2.69/hr,2.69,Unknown,1,H100,On-Demand,2025-11-27 12:51:52
-RunPod,H100 NVL,USD 2.59/hr,2.59,Unknown,1,H100,On-Demand,2025-11-27 12:51:52
-Atlantic.net,H100 NVL (On-Demand),$1.67/hr,1.67,USD,1,H100,On-Demand,2025-11-27 12:51:52
+HyperStack,H100 SXM,$2.40,2.4,USD,1,H100,On-Demand,2025-11-28 01:49:42
+HyperStack,H100 NVLink,$1.95,1.95,USD,1,H100,On-Demand,2025-11-28 01:49:42
+HyperStack,H100 (Standard),$1.90,1.9,USD,1,H100,On-Demand,2025-11-28 01:49:42
+Atlantic.Net,H100NVL (1x GPU),$3.941,3.941,USD,1,H100,On-Demand,2025-11-28 01:49:42
+Atlantic.Net,H100NVL (4x GPUs),$15.765,15.765,USD,4,H100,On-Demand,2025-11-28 01:49:42
+Atlantic.Net,H100NVL (8x GPUs),$31.531,31.531,USD,8,H100,On-Demand,2025-11-28 01:49:42
+Atlantic.Net,H100NVL,$2648.4,2648.4,USD,1,H100,On-Demand,2025-11-28 01:49:42
+Civo,H100 SXM (1x GPU) Standard,$2.99,2.99,USD,1,H100,On-Demand,2025-11-28 01:49:42
+Civo,H100 SXM (1x GPU) Discounted,$2.49,2.49,USD,1,H100,Discounted,2025-11-28 01:49:42
+Civo,H100 SXM (8x GPUs) Standard,$23.92,23.92,USD,8,H100,On-Demand,2025-11-28 01:49:42
+Civo,H100 SXM (8x GPUs) Discounted,$19.92,19.92,USD,8,H100,Discounted,2025-11-28 01:49:42
+Civo,H100 PCI (1x GPU) Standard,$2.49,2.49,USD,1,H100,On-Demand,2025-11-28 01:49:42
+Civo,H100 PCI (1x GPU) Discounted,$1.99,1.99,USD,1,H100,Discounted,2025-11-28 01:49:42
+Civo,H100 PCI (2x GPUs) Standard,$4.98,4.98,USD,2,H100,On-Demand,2025-11-28 01:49:42
+Civo,H100 PCI (2x GPUs) Discounted,$3.98,3.98,USD,2,H100,Discounted,2025-11-28 01:49:42
+Civo,H100 PCI (4x GPUs) Standard,$9.96,9.96,USD,4,H100,On-Demand,2025-11-28 01:49:42
+Civo,H100 PCI (4x GPUs) Discounted,$7.96,7.96,USD,4,H100,Discounted,2025-11-28 01:49:42
+Civo,H100 PCI (8x GPUs) Standard,$19.92,19.92,USD,8,H100,On-Demand,2025-11-28 01:49:42
+Civo,H100 PCI (8x GPUs) Discounted,$15.92,15.92,USD,8,H100,Discounted,2025-11-28 01:49:42
+GPU-Mart,H100 Dedicated Server (Hourly),$4.16/hr,4.16,USD,1,H100,On-Demand,2025-11-28 01:49:42
+Hostkey,H100 (Hourly),€2.00,2.0,EUR,1,H100,On-Demand,2025-11-28 01:49:42
+JarvisLabs,H100,$0.39/hr,0.39,USD,1,H100,On-Demand,2025-11-28 01:49:42
+JarvisLabs,H100 SXM,$2.99/hr,2.99,USD,1,H100,On-Demand,2025-11-28 01:49:42
+JarvisLabs,H100 (Price First),$10.0/hr,10.0,USD,1,H100,On-Demand,2025-11-28 01:49:42
+JarvisLabs,H100 (Line Context),$0.39/hr,0.39,USD,1,H100,On-Demand,2025-11-28 01:49:42
+Google Cloud,H100 (A3 Machine Type),$88.9272/hr (8x GPUs),88.92728,USD,1,H100,On-Demand,2025-11-28 01:49:42
+Google Cloud,H100 (Per GPU from H100 (A3 Machine Type)),$11.12/hr,11.12,USD,1,H100,On-Demand,2025-11-28 01:49:42
+Google Cloud,H100 (A3 Integration),$84.806908493/hr (8x GPUs),84.8069084938,USD,1,H100,On-Demand,2025-11-28 01:49:42
+Google Cloud,H100 (Per GPU from H100 (A3 Integration)),$10.60/hr,10.6,USD,1,H100,On-Demand,2025-11-28 01:49:42
+Genesis Cloud,H100 (HGX),$1.60/hr,1.6,USD,1,H100,On-Demand,2025-11-28 01:49:42
+Genesis Cloud,H200 (HGX),$1.60/hr,1.6,USD,1,H200,On-Demand,2025-11-28 01:49:42
+Genesis Cloud,B200 (HGX),$1.60/hr,1.6,USD,1,H100,On-Demand,2025-11-28 01:49:42
+Genesis Cloud,H100 (HGX Line),$1.60/hr,1.6,USD,1,H100,On-Demand,2025-11-28 01:49:42
+Vast.ai,H200 (API),$8.90/hr,8.9,USD,1,H200,On-Demand,2025-11-28 01:49:42
+Vast.ai,H200 NVL (API),$2.14/hr,2.14,USD,1,H200,On-Demand,2025-11-28 01:49:42
+Vast.ai,H100 SXM (API),$2.94/hr,2.94,USD,1,H100,On-Demand,2025-11-28 01:49:42
+Latitude.sh,Error,Unable to fetch live pricing from Latitude.sh,,Unknown,1,H100,On-Demand,2025-11-28 01:49:42
+Amazon Web Services,H100 (AWS P5),$6.88/hr,6.88,USD,1,H100,On-Demand,2025-11-28 01:49:42
+Microsoft Azure,H100 (ND96isr - 8x GPUs),$6.17/hr,6.17,USD,8,H100,On-Demand,2025-11-28 01:49:42
+RunPod,H100 PCIe,USD 1.99/hr,1.99,Unknown,1,H100,On-Demand,2025-11-28 01:49:42
+RunPod,H100 SXM,USD 2.69/hr,2.69,Unknown,1,H100,On-Demand,2025-11-28 01:49:42
+RunPod,H100 NVL,USD 2.59/hr,2.59,Unknown,1,H100,On-Demand,2025-11-28 01:49:42
+Atlantic.net,H100 NVL (On-Demand),$1.67/hr,1.67,USD,1,H100,On-Demand,2025-11-28 01:49:42
