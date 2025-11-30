@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-11-30 02:02:56",
+  "timestamp": "2025-11-30 12:44:27",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -51,9 +51,9 @@
       "H100 (HGX Line)": "$1.60/hr"
     },
     "Vast.ai": {
-      "H200 NVL (API)": "$2.20/hr",
-      "H200 (API)": "$8.90/hr",
-      "H100 NVL (API)": "$2.11/hr"
+      "H200 (API)": "$8.94/hr",
+      "H200 NVL (API)": "$2.40/hr",
+      "H100 NVL (API)": "$2.10/hr"
     },
     "Latitude.sh": {
       "Error": "Unable to fetch live pricing from Latitude.sh"
@@ -99,6 +99,6 @@
       "variant": "H100NVL",
       "price": "$2648.4/hr"
     },
-    "last_updated": "2025-11-30T02:03:23.454224"
+    "last_updated": "2025-11-30T12:45:04.887280"
   }
 }
