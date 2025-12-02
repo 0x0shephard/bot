@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-01 12:52:04",
+  "timestamp": "2025-12-02 01:53:14",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -113,7 +113,7 @@
       "4\u00d7H100 HGX": "\u20b91,576"
     },
     "Seeweb": {
-      "H100 SXM (80GB)": "\u20ac1.60"
+      "H100 SXM (80GB)": "\u20ac2.35"
     },
     "AtlasCloud": {
       "H100 GPU Instance": "$3.50"
