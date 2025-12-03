@@ -143,17 +143,18 @@ def fix_cluster_pricing(row):
     """Fix cluster pricing for known providers with multi-GPU configurations"""
     name = row["GPU_Variant"].lower()
     provider = row["Provider"]
-    
+
     # Google Cloud A3 machine types are 8x GPU clusters
-    if provider == "Google Cloud" and ("a3 machine type" in name or "a3 integration" in name):
+    # Check for all A3 variants: machine type, integration, mega, high, unknown
+    if provider == "Google Cloud" and "a3" in name:
         if "per gpu" not in name:  # If it's not already per-GPU pricing
             return 8
-    
+
     # Microsoft Azure ND96isr is 8x GPU cluster
     if provider == "Microsoft Azure" and "nd96isr" in name:
         if "per gpu" not in name:  # If it's not already per-GPU pricing
             return 1
-    
+
     return row["EffectiveGPUCount"]
 
 df["EffectiveGPUCount"] = df.apply(fix_cluster_pricing, axis=1)
