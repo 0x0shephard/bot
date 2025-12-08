@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-08 01:55:54",
+  "timestamp": "2025-12-08 12:53:18",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -45,16 +45,7 @@
       "H100 (Line Context)": "$0.39/hr"
     },
     "Google Cloud": {
-      "H100 (A3 Machine Type)": "$93.400712807/hr (8x GPUs)",
-      "H100 (Per GPU from H100 (A3 Machine Type))": "$11.68/hr",
-      "H100 (A3 Integration)": "$88.490000119/hr (8x GPUs)",
-      "H100 (Per GPU from H100 (A3 Integration))": "$11.06/hr",
-      "H100 (A3 Unknown - Table)": "$84.806908493/hr",
-      "H100 (Per GPU from A3 Unknown)": "$10.60/hr",
-      "H100 (A3 Mega - Table)": "$93.400712807/hr",
-      "H100 (Per GPU from A3 Mega)": "$11.68/hr",
-      "H100 (A3 High - Table)": "$88.490000119/hr",
-      "H100 (Per GPU from A3 High)": "$11.06/hr"
+      "Error": "Unable to fetch live pricing from Google Cloud"
     },
     "Genesis Cloud": {
       "H100 (HGX)": "$1.60/hr",
@@ -63,9 +54,9 @@
       "H100 (HGX Line)": "$1.60/hr"
     },
     "Vast.ai": {
-      "H200 (API)": "$1.13/hr",
-      "H200 NVL (API)": "$2.14/hr",
-      "H100 NVL (API)": "$2.10/hr"
+      "H200 (API)": "$4.47/hr",
+      "H200 NVL (API)": "$4.54/hr",
+      "H100 SXM (API)": "$3.23/hr"
     },
     "Latitude.sh": {
       "Error": "Unable to fetch live pricing from Latitude.sh"
@@ -87,7 +78,7 @@
   },
   "summary": {
     "total_providers": 15,
-    "total_h100_variants": 53,
+    "total_h100_variants": 44,
     "providers_with_data": [
       "HyperStack",
       "CUDO Compute",
@@ -112,6 +103,6 @@
       "variant": "H100NVL",
       "price": "$2648.4/hr"
     },
-    "last_updated": "2025-12-08T01:56:19.828487"
+    "last_updated": "2025-12-08T12:53:40.220227"
   }
 }
