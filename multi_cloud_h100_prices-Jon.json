@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-08 12:51:42",
+  "timestamp": "2025-12-09 01:54:21",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -135,7 +135,7 @@
       "H100 (Per GPU - Dedicated Monthly)": "\u20ac1.38"
     },
     "HydraHost": {
-      "H100 (per card-hour)": "$3.50",
+      "H100 (per card-hour)": "$3.25",
       "H100": "$2.30"
     },
     "VoltagePark": {
