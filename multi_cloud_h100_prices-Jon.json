@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-12 01:56:46",
+  "timestamp": "2025-12-12 12:51:56",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -92,11 +92,9 @@
       "H100 SXM5 (Dynamic Pricing)": "$1.00"
     },
     "LeaderGPU": {
-      "H100 (8x GPUs - NVLink)": "\u20ac19.11",
       "H100 (2x GPUs - Summer Promo)": "\u20ac3.97",
       "H100 (2x GPUs - Regular)": "\u20ac3.97",
-      "H100 (2x GPUs - per hour)": "\u20ac22.20",
-      "H100 (8x GPUs - per hour)": "\u20ac22.20"
+      "H100 (2x GPUs - per hour)": "\u20ac22.20"
     },
     "Baseten": {
       "H100 (80GB VRAM)": "$6.50",
@@ -156,7 +154,7 @@
   },
   "summary": {
     "total_providers": 32,
-    "total_h100_variants": 88,
+    "total_h100_variants": 86,
     "providers_with_data": [
       "HyperStack",
       "CUDO Compute",
@@ -287,11 +285,9 @@
       ],
       "EUR": [
         "Gcore: H100 SXM (8x GPUs - GPU Cloud)",
-        "LeaderGPU: H100 (8x GPUs - NVLink)",
         "LeaderGPU: H100 (2x GPUs - Summer Promo)",
         "LeaderGPU: H100 (2x GPUs - Regular)",
         "LeaderGPU: H100 (2x GPUs - per hour)",
-        "LeaderGPU: H100 (8x GPUs - per hour)",
         "Seeweb: H100 SXM (80GB)",
         "Leaseweb: H100 (2x GPUs - Dedicated Monthly)",
         "Leaseweb: H100 (Per GPU - Dedicated Monthly)"
