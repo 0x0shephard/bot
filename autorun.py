@@ -21,7 +21,7 @@ from web3 import Web3
 load_dotenv()
 
 # Configuration
-SEPOLIA_RPC_URL = os.getenv("SEPOLIA_RPC_URL", "https://rpc.sepolia.org")
+SEPOLIA_RPC_URL = os.getenv("SEPOLIA_RPC_URL", "https://eth-sepolia.g.alchemy.com/v2/PBl0lLA410KGD5_NieO6L")
 MULTI_ASSET_ORACLE_ADDRESS = os.getenv(
     "MULTI_ASSET_ORACLE_ADDRESS",
     "0xB44d652354d12Ac56b83112c6ece1fa2ccEfc683",
