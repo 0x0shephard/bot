@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-16 12:54:54",
+  "timestamp": "2025-12-17 01:53:36",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -39,12 +39,11 @@
       "H100 (Hourly)": "€2.00"
     },
     "JarvisLabs": {
-      "H100": "$2.99/hr",
-      "H200": "$10.0/hr",
+      "H100": "$10.0/hr",
       "H100 SXM": "$2.99/hr",
-      "H100 (Price First)": "$0.39/hr",
+      "H100 (Price First)": "$2.99/hr",
       "H200 (Price First)": "$0.39/hr",
-      "H100 (Line Context)": "$0.39/hr"
+      "H100 (Line Context)": "$10./hr"
     },
     "Google Cloud": {
       "H100 (A3 Machine Type)": "$88.490000119/hr (8x GPUs)",
@@ -65,8 +64,9 @@
       "H100 (HGX Line)": "$1.60/hr"
     },
     "Vast.ai": {
-      "H200 (API)": "$1.90/hr",
-      "H200 NVL (API)": "$4.06/hr"
+      "H200 (API)": "$7.90/hr",
+      "H200 NVL (API)": "$2.07/hr",
+      "H100 NVL (API)": "$1.96/hr"
     },
     "Latitude.sh": {
       "Error": "Unable to fetch live pricing from Latitude.sh"
@@ -105,7 +105,7 @@
     ],
     "cheapest": {
       "provider": "JarvisLabs",
-      "variant": "H100 (Price First)",
+      "variant": "H200 (Price First)",
       "price": "$0.39/hr"
     },
     "most_expensive": {
@@ -113,6 +113,6 @@
       "variant": "H100NVL",
       "price": "$2648.4/hr"
     },
-    "last_updated": "2025-12-16T12:55:16.273094"
+    "last_updated": "2025-12-17T01:54:00.004598"
   }
 }
