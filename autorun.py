@@ -32,6 +32,9 @@ MULTI_ASSET_ORACLE_ADDRESS = os.getenv(
 # Hardcoded Supabase base URL (for testing)
 SUPABASE_BASE_URL = "https://basxvmmtxwlxylpukqjj.supabase.co/functions/v1"
 
+# Supabase anon key for edge function authentication
+SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY", "")
+
 # Retry configuration
 MAX_RETRIES = 3
 RETRY_DELAY = 5  # seconds
@@ -98,8 +101,9 @@ class MarketPrices:
 class PricePusher:
     """Fetches prices from blockchain and pushes to database."""
 
-    def __init__(self, rpc_url: str, oracle_address: str, base_url: str):
+    def __init__(self, rpc_url: str, oracle_address: str, base_url: str, anon_key: str = ""):
         self.base_url = base_url
+        self.anon_key = anon_key
         self.w3 = Web3(Web3.HTTPProvider(rpc_url))
         if not self.w3.is_connected():
             raise ConnectionError(f"Failed to connect to RPC: {rpc_url}")
@@ -117,6 +121,10 @@ class PricePusher:
         print(f"   Latest block: {self.w3.eth.block_number}")
         print(f"   Oracle: {oracle_address}")
         print(f"   Database URL: {base_url}")
+        if self.anon_key:
+            print(f"   Supabase Auth: Enabled (using apikey)")
+        else:
+            print(f"   Supabase Auth: Disabled (may fail on protected endpoints)")
         print("=" * 60)
 
     def get_oracle_price(self, asset_id: str) -> Optional[float]:
@@ -213,11 +221,17 @@ class PricePusher:
             # Retry logic for actual requests
             for attempt in range(1, MAX_RETRIES + 1):
                 try:
+                    # Build headers with optional Supabase authentication
+                    headers = {"Content-Type": "application/json"}
+                    if self.anon_key:
+                        headers["apikey"] = self.anon_key
+                        headers["Authorization"] = f"Bearer {self.anon_key}"
+                    
                     # Call market-specific edge function
                     response = requests.post(
                         endpoint,
                         json=payload,
-                        headers={"Content-Type": "application/json"},
+                        headers=headers,
                         timeout=10,
                     )
 
@@ -296,6 +310,11 @@ Each market has its own edge function and database table for better data isolati
         help="Supabase base URL (for edge functions)",
     )
     parser.add_argument(
+        "--anon-key",
+        default=SUPABASE_ANON_KEY,
+        help="Supabase anon key for edge function authentication",
+    )
+    parser.add_argument(
         "--dry-run",
         action="store_true",
         help="Fetch prices and show what would be pushed without sending requests",
@@ -304,7 +323,7 @@ Each market has its own edge function and database table for better data isolati
 
     try:
         # Initialize pusher
-        pusher = PricePusher(args.rpc_url, args.oracle, args.db_url)
+        pusher = PricePusher(args.rpc_url, args.oracle, args.db_url, args.anon_key)
 
         # Fetch prices from blockchain
         prices = pusher.fetch_market_prices()
