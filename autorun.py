@@ -33,7 +33,7 @@ MULTI_ASSET_ORACLE_ADDRESS = os.getenv(
 SUPABASE_BASE_URL = "https://basxvmmtxwlxylpukqjj.supabase.co/functions/v1"
 
 # Supabase anon key for edge function authentication
-SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY", "")
+SUPABASE_ANON_KEY = os.getenv("SUPABASE_ANON_KEY", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJhc3h2bW10eHdseHlscHVrcWpqIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MzEwMTk5NCwiZXhwIjoyMDY4Njc3OTk0fQ.cDkQFagsaoi7x9ySktt4tSVwHKSTKAWRusDXLvpbW38")
 
 # Retry configuration
 MAX_RETRIES = 3
