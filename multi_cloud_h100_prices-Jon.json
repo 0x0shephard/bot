@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-20 01:50:07",
+  "timestamp": "2025-12-20 12:45:31",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -107,8 +107,16 @@
     "Modal": {
       "H100": "$3.95"
     },
-    "Seeweb": {
-      "H100 SXM (80GB)": "\u20ac2.35"
+    "E2E Networks": {
+      "1\u00d7H100 SXM (80GB) - Regular": "\u20b9450",
+      "2\u00d7H100 SXM (80GB) - Regular": "\u20b9816",
+      "4\u00d7H100 SXM (80GB) - Regular": "\u20b91,560",
+      "8\u00d7H100 SXM (80GB) - Regular": "\u20b93,040",
+      "1\u00d7H100 - Spot": "\u20b9175",
+      "2\u00d7H100 - Spot": "\u20b9350",
+      "4\u00d7H100 - Spot": "\u20b9700",
+      "8\u00d7H100 HGX": "\u20b93,152",
+      "4\u00d7H100 HGX": "\u20b91,576"
     },
     "AtlasCloud": {
       "H100 GPU Instance": "$3.50"
@@ -143,7 +151,7 @@
   },
   "summary": {
     "total_providers": 31,
-    "total_h100_variants": 77,
+    "total_h100_variants": 85,
     "providers_with_data": [
       "HyperStack",
       "CUDO Compute",
@@ -168,7 +176,7 @@
       "Baseten",
       "Fal.AI",
       "Modal",
-      "Seeweb",
+      "E2E Networks",
       "AtlasCloud",
       "Crusoe",
       "Leaseweb",
@@ -260,14 +268,22 @@
         "ShaktiCloud: H100 Kubernetes (per GPU)",
         "ShaktiCloud: H100 Serverless 80GB (per hour)",
         "ShaktiCloud: H100 Azure ML (per GPU)",
-        "AceCloud: H100 GPU"
+        "AceCloud: H100 GPU",
+        "E2E Networks: 1\u00d7H100 SXM (80GB) - Regular",
+        "E2E Networks: 2\u00d7H100 SXM (80GB) - Regular",
+        "E2E Networks: 4\u00d7H100 SXM (80GB) - Regular",
+        "E2E Networks: 8\u00d7H100 SXM (80GB) - Regular",
+        "E2E Networks: 1\u00d7H100 - Spot",
+        "E2E Networks: 2\u00d7H100 - Spot",
+        "E2E Networks: 4\u00d7H100 - Spot",
+        "E2E Networks: 8\u00d7H100 HGX",
+        "E2E Networks: 4\u00d7H100 HGX"
       ],
       "EUR": [
         "Gcore: H100 SXM (8x GPUs - GPU Cloud)",
         "LeaderGPU: H100 (2x GPUs - Summer Promo)",
         "LeaderGPU: H100 (2x GPUs - Regular)",
         "LeaderGPU: H100 (2x GPUs - per hour)",
-        "Seeweb: H100 SXM (80GB)",
         "Leaseweb: H100 (2x GPUs - Dedicated Monthly)",
         "Leaseweb: H100 (Per GPU - Dedicated Monthly)"
       ]
