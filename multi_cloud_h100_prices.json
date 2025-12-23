@@ -1,11 +1,6 @@
 {
-  "timestamp": "2025-12-23 01:58:56",
+  "timestamp": "2025-12-23 12:53:39",
   "providers": {
-    "HyperStack": {
-      "H100 SXM": "$2.40",
-      "H100 NVLink": "$1.95",
-      "H100 (Standard)": "$1.90"
-    },
     "CUDO Compute": {
       "H100 PCIe (On-Demand)": "$2.45",
       "H100 PCIe (Reserved)": "$1.79",
@@ -63,9 +58,9 @@
       "H100 (HGX Line)": "$1.60/hr"
     },
     "Vast.ai": {
-      "H100 NVL (API)": "$2.13/hr",
-      "H200 (API)": "$10.00/hr",
-      "H200 NVL (API)": "$4.38/hr"
+      "H100 NVL (API)": "$1.07/hr",
+      "H200 (API)": "$1.98/hr",
+      "H200 NVL (API)": "$8.48/hr"
     },
     "Latitude.sh": {
       "Error": "Unable to fetch live pricing from Latitude.sh"
@@ -86,10 +81,9 @@
     }
   },
   "summary": {
-    "total_providers": 15,
-    "total_h100_variants": 53,
+    "total_providers": 14,
+    "total_h100_variants": 50,
     "providers_with_data": [
-      "HyperStack",
       "CUDO Compute",
       "Atlantic.Net",
       "Civo",
@@ -112,6 +106,6 @@
       "variant": "H100NVL",
       "price": "$2648.4/hr"
     },
-    "last_updated": "2025-12-23T01:59:17.638589"
+    "last_updated": "2025-12-23T12:54:02.706918"
   }
 }
