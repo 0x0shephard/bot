@@ -1,6 +1,11 @@
 {
-  "timestamp": "2025-12-23 12:52:48",
+  "timestamp": "2025-12-24 01:55:48",
   "providers": {
+    "HyperStack": {
+      "H100 SXM": "$2.40",
+      "H100 NVLink": "$1.95",
+      "H100 (Standard)": "$1.90"
+    },
     "CUDO Compute": {
       "H100 PCIe (On-Demand)": "$2.45",
       "H100 PCIe (Reserved)": "$1.79",
@@ -41,6 +46,11 @@
     "Nebius": {
       "HGX H100 (On-Demand)": "$2.95"
     },
+    "TaigaCloud": {
+      "H100 SXM (1x GPU)": "$11.20",
+      "H100 SXM (4x GPUs)": "$11.20",
+      "H100 SXM (8x GPUs)": "$22.40"
+    },
     "Neysa.ai": {
       "H100 SXM (80GB)": "$2.55"
     },
@@ -52,6 +62,11 @@
     },
     "GMICloud": {
       "H100 (per GPU)": "$2.10"
+    },
+    "Lambda Labs": {
+      "H100 1-Click Clusters (Reserved)": "$2.29",
+      "H100": "$3.79",
+      "H100 SXM": "$2.99"
     },
     "Qubrid": {
       "H100 (80GB - 1x GPU)": "$2.73"
@@ -138,9 +153,10 @@
     }
   },
   "summary": {
-    "total_providers": 29,
-    "total_h100_variants": 77,
+    "total_providers": 32,
+    "total_h100_variants": 86,
     "providers_with_data": [
+      "HyperStack",
       "CUDO Compute",
       "Atlantic.Net",
       "Civo",
@@ -148,9 +164,11 @@
       "Gcore",
       "Koyeb",
       "Nebius",
+      "TaigaCloud",
       "Neysa.ai",
       "ShaktiCloud",
       "GMICloud",
+      "Lambda Labs",
       "Qubrid",
       "EdgeVana",
       "Replicate",
@@ -183,6 +201,9 @@
     },
     "currencies": {
       "USD": [
+        "HyperStack: H100 SXM",
+        "HyperStack: H100 NVLink",
+        "HyperStack: H100 (Standard)",
         "CUDO Compute: H100 PCIe (On-Demand)",
         "CUDO Compute: H100 PCIe (Reserved)",
         "CUDO Compute: H100 SXM (On-Demand)",
@@ -207,8 +228,14 @@
         "Koyeb: H100 (2x GPUs)",
         "Koyeb: H100 (4x GPUs)",
         "Nebius: HGX H100 (On-Demand)",
+        "TaigaCloud: H100 SXM (1x GPU)",
+        "TaigaCloud: H100 SXM (4x GPUs)",
+        "TaigaCloud: H100 SXM (8x GPUs)",
         "Neysa.ai: H100 SXM (80GB)",
         "GMICloud: H100 (per GPU)",
+        "Lambda Labs: H100 1-Click Clusters (Reserved)",
+        "Lambda Labs: H100",
+        "Lambda Labs: H100 SXM",
         "Qubrid: H100 (80GB - 1x GPU)",
         "EdgeVana: H100 Node",
         "Replicate: H100 GPU",
