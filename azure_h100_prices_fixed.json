@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-01-01 02:10:24",
+  "timestamp": "2026-01-01 12:52:40",
   "provider": "Microsoft Azure",
   "prices": {
-    "H100 (ND96isr - 8x GPUs)": "$5.39/hr"
+    "H100 (ND96isr - 8x GPUs)": "$5.69/hr"
   }
 }

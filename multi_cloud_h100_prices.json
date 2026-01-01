@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-01 02:09:57",
+  "timestamp": "2026-01-01 12:52:19",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -64,8 +64,8 @@
     },
     "Vast.ai": {
       "H100 NVL (API)": "$2.40/hr",
-      "H200 (API)": "$1.98/hr",
-      "H200 NVL (API)": "$8.32/hr"
+      "H200 NVL (API)": "$4.16/hr",
+      "H200 (API)": "$3.95/hr"
     },
     "Latitude.sh": {
       "Error": "Unable to fetch live pricing from Latitude.sh"
@@ -74,7 +74,7 @@
       "H100 (AWS P5)": "$6.88/hr"
     },
     "Microsoft Azure": {
-      "H100 (ND96isr - 8x GPUs)": "$5.39/hr"
+      "H100 (ND96isr - 8x GPUs)": "$5.69/hr"
     },
     "RunPod": {
       "H100 PCIe": "USD 1.99/hr",
@@ -112,6 +112,6 @@
       "variant": "H100NVL",
       "price": "$2648.4/hr"
     },
-    "last_updated": "2026-01-01T02:10:24.553715"
+    "last_updated": "2026-01-01T12:52:40.823452"
   }
 }
