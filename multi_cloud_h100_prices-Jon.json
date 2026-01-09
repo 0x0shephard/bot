@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-08 12:54:56",
+  "timestamp": "2026-01-09 02:01:22",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -50,9 +50,6 @@
       "H100 SXM (1x GPU)": "$11.20",
       "H100 SXM (4x GPUs)": "$11.20",
       "H100 SXM (8x GPUs)": "$22.40"
-    },
-    "Neysa.ai": {
-      "H100 SXM (80GB)": "$2.55"
     },
     "ShaktiCloud": {
       "H100 SLURM (per GPU)": "\u20b9365",
@@ -141,13 +138,17 @@
       "H100": "$1.99",
       "H100 (Starting Price)": "$1.99"
     },
+    "SharonAI": {
+      "H100 NVL": "$0.50",
+      "H100": "$0.50"
+    },
     "Ori": {
       "H100 (On-Demand)": "$2.90"
     }
   },
   "summary": {
     "total_providers": 30,
-    "total_h100_variants": 83,
+    "total_h100_variants": 84,
     "providers_with_data": [
       "HyperStack",
       "CUDO Compute",
@@ -158,7 +159,6 @@
       "Koyeb",
       "Nebius",
       "TaigaCloud",
-      "Neysa.ai",
       "ShaktiCloud",
       "GMICloud",
       "Lambda Labs",
@@ -178,6 +178,7 @@
       "Leaseweb",
       "HydraHost",
       "VoltagePark",
+      "SharonAI",
       "Ori"
     ],
     "cheapest_usd": {
@@ -222,7 +223,6 @@
         "TaigaCloud: H100 SXM (1x GPU)",
         "TaigaCloud: H100 SXM (4x GPUs)",
         "TaigaCloud: H100 SXM (8x GPUs)",
-        "Neysa.ai: H100 SXM (80GB)",
         "GMICloud: H100 (per GPU)",
         "Lambda Labs: H100 1-Click Clusters (Reserved)",
         "Lambda Labs: H100",
@@ -253,6 +253,8 @@
         "VoltagePark: H100 (On-Demand InfiniBand)",
         "VoltagePark: H100",
         "VoltagePark: H100 (Starting Price)",
+        "SharonAI: H100 NVL",
+        "SharonAI: H100",
         "Ori: H100 (On-Demand)"
       ],
       "INR": [
