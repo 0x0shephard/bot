@@ -30,7 +30,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pandas numpy requests beautifulsoup4 selenium webdriver-manager lxml openpyxl web3 python-dotenv
+        pip install pandas numpy requests beautifulsoup4 selenium webdriver-manager lxml openpyxl web3 python-dotenv supabase
         # Add any other dependencies your scrapers need
     
     - name: Install Chrome and ChromeDriver (if needed for selenium)
@@ -178,6 +178,15 @@ jobs:
         echo "Running autorun.py..."
         python autorun.py
         echo "autorun.py completed"
+
+    - name: Push H100 Hyperscaler Prices to Supabase
+      env:
+        SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+        SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+      run: |
+        echo "Pushing H100 hyperscaler prices to Supabase..."
+        python push_h100_hyperscalers.py || echo "⚠️ push_h100_hyperscalers.py failed (non-blocking)"
+        echo "Hyperscaler push completed"
 
     - name: Upload artifacts (backup)
       uses: actions/upload-artifact@v4
