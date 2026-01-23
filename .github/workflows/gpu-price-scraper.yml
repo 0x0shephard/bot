@@ -30,7 +30,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pandas numpy requests beautifulsoup4 selenium webdriver-manager lxml openpyxl web3 python-dotenv supabase
+        pip install pandas numpy requests beautifulsoup4 selenium webdriver-manager lxml openpyxl web3 eth-account python-dotenv supabase
         # Add any other dependencies your scrapers need
     
     - name: Install Chrome and ChromeDriver (if needed for selenium)
@@ -111,6 +111,68 @@ jobs:
           echo "⚠️ h100_gpu_index.csv not found, skipping contract push"
         fi
         echo "Contract push step completed"
+
+    - name: Step 8 - Push Individual Provider Prices to Contract
+      env:
+        SEPOLIA_RPC_URL: ${{ secrets.SEPOLIA_RPC_URL }}
+        ORACLE_UPDATER_PRIVATE_KEY: ${{ secrets.ORACLE_UPDATER_PRIVATE_KEY }}
+      run: |
+        echo "Pushing individual H100 provider prices to Sepolia contract..."
+        if [ -f "provider_averages.csv" ]; then
+          # Extract prices and apply discounts (AWS: 44%, Azure: 65%, GCP: 65%)
+          AWS_PRICE=$(python -c "
+          import pandas as pd
+          df = pd.read_csv('provider_averages.csv')
+          row = df[df['Provider'] == 'Amazon Web Services']
+          if not row.empty:
+              price = float(row['AvgNormalizedPrice'].iloc[0])
+              print(f'{price * (1 - 0.44):.4f}')
+          else:
+              print('0')
+          " 2>/dev/null || echo "0")
+
+          AZURE_PRICE=$(python -c "
+          import pandas as pd
+          df = pd.read_csv('provider_averages.csv')
+          row = df[df['Provider'] == 'Microsoft Azure']
+          if not row.empty:
+              price = float(row['AvgNormalizedPrice'].iloc[0])
+              print(f'{price * (1 - 0.65):.4f}')
+          else:
+              print('0')
+          " 2>/dev/null || echo "0")
+
+          GCP_PRICE=$(python -c "
+          import pandas as pd
+          df = pd.read_csv('provider_averages.csv')
+          row = df[df['Provider'] == 'Google Cloud']
+          if not row.empty:
+              price = float(row['AvgNormalizedPrice'].iloc[0])
+              print(f'{price * (1 - 0.65):.4f}')
+          else:
+              print('0')
+          " 2>/dev/null || echo "0")
+
+          echo "Extracted prices (after discounts):"
+          echo "  AWS: \$${AWS_PRICE}/hr"
+          echo "  Azure: \$${AZURE_PRICE}/hr"
+          echo "  GCP: \$${GCP_PRICE}/hr"
+
+          # Only push if we have valid prices
+          if [ "$AWS_PRICE" != "0" ] || [ "$AZURE_PRICE" != "0" ] || [ "$GCP_PRICE" != "0" ]; then
+            ARGS=""
+            [ "$AWS_PRICE" != "0" ] && ARGS="$ARGS --aws $AWS_PRICE"
+            [ "$AZURE_PRICE" != "0" ] && ARGS="$ARGS --azure $AZURE_PRICE"
+            [ "$GCP_PRICE" != "0" ] && ARGS="$ARGS --gcp $GCP_PRICE"
+
+            python push_h100_individual_prices.py $ARGS --batch || echo "⚠️ Individual prices push failed (non-blocking)"
+          else
+            echo "⚠️ No valid provider prices found, skipping"
+          fi
+        else
+          echo "⚠️ provider_averages.csv not found, skipping individual prices push"
+        fi
+        echo "Individual provider prices push completed"
 
     - name: Display Results
       run: |
