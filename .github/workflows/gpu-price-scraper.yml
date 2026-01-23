@@ -119,56 +119,51 @@ jobs:
       run: |
         echo "Pushing individual H100 provider prices to Sepolia contract..."
         if [ -f "provider_averages.csv" ]; then
-          # Extract prices and apply discounts (AWS: 44%, Azure: 65%, GCP: 65%)
-          AWS_PRICE=$(python -c "
-          import pandas as pd
-          df = pd.read_csv('provider_averages.csv')
-          row = df[df['Provider'] == 'Amazon Web Services']
-          if not row.empty:
-              price = float(row['AvgNormalizedPrice'].iloc[0])
-              print(f'{price * (1 - 0.44):.4f}')
-          else:
-              print('0')
-          " 2>/dev/null || echo "0")
+          # Extract prices and apply discounts using a single Python script
+          python3 << 'EXTRACT_PRICES'
+        import pandas as pd
+        import subprocess
+        import sys
+        import os
 
-          AZURE_PRICE=$(python -c "
-          import pandas as pd
-          df = pd.read_csv('provider_averages.csv')
-          row = df[df['Provider'] == 'Microsoft Azure']
-          if not row.empty:
-              price = float(row['AvgNormalizedPrice'].iloc[0])
-              print(f'{price * (1 - 0.65):.4f}')
-          else:
-              print('0')
-          " 2>/dev/null || echo "0")
+        # Discounts: AWS 44%, Azure 65%, GCP 65%
+        PROVIDERS = {
+            'Amazon Web Services': 0.44,
+            'Microsoft Azure': 0.65,
+            'Google Cloud': 0.65,
+        }
 
-          GCP_PRICE=$(python -c "
-          import pandas as pd
-          df = pd.read_csv('provider_averages.csv')
-          row = df[df['Provider'] == 'Google Cloud']
-          if not row.empty:
-              price = float(row['AvgNormalizedPrice'].iloc[0])
-              print(f'{price * (1 - 0.65):.4f}')
-          else:
-              print('0')
-          " 2>/dev/null || echo "0")
+        df = pd.read_csv('provider_averages.csv')
+        prices = {}
 
-          echo "Extracted prices (after discounts):"
-          echo "  AWS: \$${AWS_PRICE}/hr"
-          echo "  Azure: \$${AZURE_PRICE}/hr"
-          echo "  GCP: \$${GCP_PRICE}/hr"
+        for provider, discount in PROVIDERS.items():
+            row = df[df['Provider'] == provider]
+            if not row.empty:
+                original = float(row['AvgNormalizedPrice'].iloc[0])
+                effective = original * (1 - discount)
+                prices[provider] = effective
+                print(f"  {provider}: ${original:.2f} -> ${effective:.4f} (after {int(discount*100)}% discount)")
 
-          # Only push if we have valid prices
-          if [ "$AWS_PRICE" != "0" ] || [ "$AZURE_PRICE" != "0" ] || [ "$GCP_PRICE" != "0" ]; then
-            ARGS=""
-            [ "$AWS_PRICE" != "0" ] && ARGS="$ARGS --aws $AWS_PRICE"
-            [ "$AZURE_PRICE" != "0" ] && ARGS="$ARGS --azure $AZURE_PRICE"
-            [ "$GCP_PRICE" != "0" ] && ARGS="$ARGS --gcp $GCP_PRICE"
+        if not prices:
+            print("No valid provider prices found, skipping")
+            sys.exit(0)
 
-            python push_h100_individual_prices.py $ARGS --batch || echo "⚠️ Individual prices push failed (non-blocking)"
-          else
-            echo "⚠️ No valid provider prices found, skipping"
-          fi
+        # Build command arguments
+        args = []
+        if 'Amazon Web Services' in prices:
+            args.extend(['--aws', str(round(prices['Amazon Web Services'], 4))])
+        if 'Microsoft Azure' in prices:
+            args.extend(['--azure', str(round(prices['Microsoft Azure'], 4))])
+        if 'Google Cloud' in prices:
+            args.extend(['--gcp', str(round(prices['Google Cloud'], 4))])
+
+        if args:
+            args.append('--batch')
+            cmd = ['python', 'push_h100_individual_prices.py'] + args
+            print(f"\nRunning: {' '.join(cmd)}")
+            result = subprocess.run(cmd, env=os.environ)
+            sys.exit(result.returncode)
+        EXTRACT_PRICES
         else
           echo "⚠️ provider_averages.csv not found, skipping individual prices push"
         fi
