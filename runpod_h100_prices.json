@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-05 02:11:12",
+  "timestamp": "2026-01-23 12:27:55",
   "provider": "RunPod",
   "providers": {
     "RunPod": {
@@ -9,7 +9,7 @@
         "H100 PCIe": {
           "gpu_model": "H100",
           "gpu_memory": "80GB",
-          "price_per_hour": 1.99,
+          "price_per_hour": 2.39,
           "currency": "USD",
           "availability": "on-demand"
         },
@@ -23,7 +23,7 @@
         "H100 NVL": {
           "gpu_model": "H100",
           "gpu_memory": "80GB",
-          "price_per_hour": 2.59,
+          "price_per_hour": 3.07,
           "currency": "USD",
           "availability": "on-demand"
         }

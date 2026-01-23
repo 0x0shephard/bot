@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-05 02:10:05",
+  "timestamp": "2026-01-23 12:26:43",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -51,12 +51,9 @@
       "H100 SXM (4x GPUs)": "$11.20",
       "H100 SXM (8x GPUs)": "$22.40"
     },
-    "Neysa.ai": {
-      "H100 SXM (80GB)": "$2.55"
-    },
     "ShaktiCloud": {
       "H100 SLURM (per GPU)": "\u20b9365",
-      "H100 Kubernetes (per GPU)": "\u20b9332",
+      "H100 Kubernetes (per GPU)": "\u20b9365",
       "H100 Serverless 80GB (per hour)": "\u20b924300.00",
       "H100 Azure ML (per GPU)": "\u20b9264"
     },
@@ -78,9 +75,6 @@
       "H100 GPU": "$5.49",
       "H100": "$0.001525"
     },
-    "AceCloud": {
-      "H100 GPU": "\u20b920000"
-    },
     "Massed Compute": {
       "H100 SXM5": "$21.60",
       "H100 NVL": "$5.06",
@@ -92,9 +86,11 @@
       "H100 SXM5 (Dynamic Pricing)": "$2.29"
     },
     "LeaderGPU": {
+      "H100 (8x GPUs - NVLink)": "\u20ac19.11",
       "H100 (2x GPUs - Summer Promo)": "\u20ac3.97",
       "H100 (2x GPUs - Regular)": "\u20ac3.97",
-      "H100 (2x GPUs - per hour)": "\u20ac22.20"
+      "H100 (2x GPUs - per hour)": "\u20ac22.20",
+      "H100 (8x GPUs - per hour)": "\u20ac22.20"
     },
     "Baseten": {
       "H100 (80GB VRAM)": "$6.50",
@@ -106,17 +102,6 @@
     },
     "Modal": {
       "H100": "$3.95"
-    },
-    "E2E Networks": {
-      "1\u00d7H100 SXM (80GB) - Regular": "\u20b9450",
-      "2\u00d7H100 SXM (80GB) - Regular": "\u20b9816",
-      "4\u00d7H100 SXM (80GB) - Regular": "\u20b91,560",
-      "8\u00d7H100 SXM (80GB) - Regular": "\u20b93,040",
-      "1\u00d7H100 - Spot": "\u20b9175",
-      "2\u00d7H100 - Spot": "\u20b9350",
-      "4\u00d7H100 - Spot": "\u20b9700",
-      "8\u00d7H100 HGX": "\u20b93,152",
-      "4\u00d7H100 HGX": "\u20b91,576"
     },
     "Seeweb": {
       "H100 SXM (80GB)": "\u20ac2.35"
@@ -141,8 +126,7 @@
     "VoltagePark": {
       "H100 (On-Demand Ethernet)": "$1.99",
       "H100 (On-Demand InfiniBand)": "$2.49",
-      "H100": "$1.99",
-      "H100 (Starting Price)": "$1.99"
+      "H100": "$1.99"
     },
     "SharonAI": {
       "H100 NVL": "$0.50",
@@ -153,8 +137,8 @@
     }
   },
   "summary": {
-    "total_providers": 32,
-    "total_h100_variants": 86,
+    "total_providers": 29,
+    "total_h100_variants": 76,
     "providers_with_data": [
       "HyperStack",
       "CUDO Compute",
@@ -165,21 +149,18 @@
       "Koyeb",
       "Nebius",
       "TaigaCloud",
-      "Neysa.ai",
       "ShaktiCloud",
       "GMICloud",
       "Lambda Labs",
       "Qubrid",
       "EdgeVana",
       "Replicate",
-      "AceCloud",
       "Massed Compute",
       "DataCrunch",
       "LeaderGPU",
       "Baseten",
       "Fal.AI",
       "Modal",
-      "E2E Networks",
       "Seeweb",
       "AtlasCloud",
       "Crusoe",
@@ -231,7 +212,6 @@
         "TaigaCloud: H100 SXM (1x GPU)",
         "TaigaCloud: H100 SXM (4x GPUs)",
         "TaigaCloud: H100 SXM (8x GPUs)",
-        "Neysa.ai: H100 SXM (80GB)",
         "GMICloud: H100 (per GPU)",
         "Lambda Labs: H100 1-Click Clusters (Reserved)",
         "Lambda Labs: H100",
@@ -261,7 +241,6 @@
         "VoltagePark: H100 (On-Demand Ethernet)",
         "VoltagePark: H100 (On-Demand InfiniBand)",
         "VoltagePark: H100",
-        "VoltagePark: H100 (Starting Price)",
         "SharonAI: H100 NVL",
         "SharonAI: H100",
         "Ori: H100 (On-Demand)"
@@ -271,23 +250,15 @@
         "ShaktiCloud: H100 SLURM (per GPU)",
         "ShaktiCloud: H100 Kubernetes (per GPU)",
         "ShaktiCloud: H100 Serverless 80GB (per hour)",
-        "ShaktiCloud: H100 Azure ML (per GPU)",
-        "AceCloud: H100 GPU",
-        "E2E Networks: 1\u00d7H100 SXM (80GB) - Regular",
-        "E2E Networks: 2\u00d7H100 SXM (80GB) - Regular",
-        "E2E Networks: 4\u00d7H100 SXM (80GB) - Regular",
-        "E2E Networks: 8\u00d7H100 SXM (80GB) - Regular",
-        "E2E Networks: 1\u00d7H100 - Spot",
-        "E2E Networks: 2\u00d7H100 - Spot",
-        "E2E Networks: 4\u00d7H100 - Spot",
-        "E2E Networks: 8\u00d7H100 HGX",
-        "E2E Networks: 4\u00d7H100 HGX"
+        "ShaktiCloud: H100 Azure ML (per GPU)"
       ],
       "EUR": [
         "Gcore: H100 SXM (8x GPUs - GPU Cloud)",
+        "LeaderGPU: H100 (8x GPUs - NVLink)",
         "LeaderGPU: H100 (2x GPUs - Summer Promo)",
         "LeaderGPU: H100 (2x GPUs - Regular)",
         "LeaderGPU: H100 (2x GPUs - per hour)",
+        "LeaderGPU: H100 (8x GPUs - per hour)",
         "Seeweb: H100 SXM (80GB)",
         "Leaseweb: H100 (2x GPUs - Dedicated Monthly)",
         "Leaseweb: H100 (Per GPU - Dedicated Monthly)"
