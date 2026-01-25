@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-24 12:49:45",
+  "timestamp": "2026-01-25 02:12:20",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -17,20 +17,6 @@
       "H100NVL (4x GPUs)": "$15.765",
       "H100NVL (8x GPUs)": "$31.531",
       "H100NVL": "$2648.4"
-    },
-    "Civo": {
-      "H100 SXM (1x GPU) Standard": "$2.99",
-      "H100 SXM (1x GPU) Discounted": "$2.49",
-      "H100 SXM (8x GPUs) Standard": "$23.92",
-      "H100 SXM (8x GPUs) Discounted": "$19.92",
-      "H100 PCI (1x GPU) Standard": "$2.49",
-      "H100 PCI (1x GPU) Discounted": "$1.99",
-      "H100 PCI (2x GPUs) Standard": "$4.98",
-      "H100 PCI (2x GPUs) Discounted": "$3.98",
-      "H100 PCI (4x GPUs) Standard": "$9.96",
-      "H100 PCI (4x GPUs) Discounted": "$7.96",
-      "H100 PCI (8x GPUs) Standard": "$19.92",
-      "H100 PCI (8x GPUs) Discounted": "$15.92"
     },
     "OVHcloud": {
       "H100 (AI Training/Notebooks)": "\u20b9281.6"
@@ -144,13 +130,12 @@
     }
   },
   "summary": {
-    "total_providers": 29,
-    "total_h100_variants": 83,
+    "total_providers": 28,
+    "total_h100_variants": 71,
     "providers_with_data": [
       "HyperStack",
       "CUDO Compute",
       "Atlantic.Net",
-      "Civo",
       "OVHcloud",
       "Gcore",
       "Koyeb",
@@ -200,18 +185,6 @@
         "Atlantic.Net: H100NVL (4x GPUs)",
         "Atlantic.Net: H100NVL (8x GPUs)",
         "Atlantic.Net: H100NVL",
-        "Civo: H100 SXM (1x GPU) Standard",
-        "Civo: H100 SXM (1x GPU) Discounted",
-        "Civo: H100 SXM (8x GPUs) Standard",
-        "Civo: H100 SXM (8x GPUs) Discounted",
-        "Civo: H100 PCI (1x GPU) Standard",
-        "Civo: H100 PCI (1x GPU) Discounted",
-        "Civo: H100 PCI (2x GPUs) Standard",
-        "Civo: H100 PCI (2x GPUs) Discounted",
-        "Civo: H100 PCI (4x GPUs) Standard",
-        "Civo: H100 PCI (4x GPUs) Discounted",
-        "Civo: H100 PCI (8x GPUs) Standard",
-        "Civo: H100 PCI (8x GPUs) Discounted",
         "Koyeb: H100 (1x GPU)",
         "Koyeb: H100 (2x GPUs)",
         "Koyeb: H100 (4x GPUs)",
