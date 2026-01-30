@@ -1,13 +1,13 @@
 Provider,AvgNormalizedPrice,VariantCount,StdDevNormalizedPrice,AvgPricePerGPU,AvgOriginalPrice
 Replicate,0.0282,2,0.0377,0.0282,2.7458
 AtlasCloud,0.035,1,,0.035,3.5
+Gcore,0.2289,1,,0.2289,1.8311
 JarvisLabs,0.39,3,0.0,0.39,0.39
-Gcore,0.4129,1,,0.4129,3.3032
 Atlantic.net,1.5944,1,,1.67,1.67
 Genesis Cloud,1.6,4,0.0,1.6,1.6
 Leaseweb,1.6516,2,0.0,1.6516,2.4774
 Fal.AI,1.89,2,0.0,1.89,1.89
-Vast.ai,1.9331,3,0.357,1.99,1.99
+Vast.ai,2.0392,3,1.0991,2.0533,2.0533
 HyperStack,2.0539,6,0.2686,2.0833,2.0833
 CUDO Compute,2.0577,8,0.6297,1.8425,1.8425
 GMICloud,2.1,1,,2.1,2.1
