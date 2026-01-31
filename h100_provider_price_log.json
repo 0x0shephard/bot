@@ -430,5 +430,32 @@
         "price_scaled": 3882200000000000000
       }
     ]
+  },
+  {
+    "timestamp": "2026-01-31T02:23:13.679200+00:00",
+    "tx_hash": "f79de819c77ced10f86ab0bbf19234b7e809957990cb2fc9201c84cbd7335bc3",
+    "contract_address": "0xB44d652354d12Ac56b83112c6ece1fa2ccEfc683",
+    "network": "sepolia",
+    "updater_address": "0xCc624fFA5df1F3F4b30aa8abd30186a86254F406",
+    "updates": [
+      {
+        "asset_name": "AWS_H100_HOURLY",
+        "asset_id": "0x7d262bdf6fe868e6f4fbaae8df4383382d51684d63ed56221ae3657e10f822f6",
+        "price_usd": 3.8528,
+        "price_scaled": 3852800000000000000
+      },
+      {
+        "asset_name": "AZURE_H100_HOURLY",
+        "asset_id": "0x9c7133267a94b0099c1cc21d1c7aef7d7daeb63a0fe81021715a9247be2e10a7",
+        "price_usd": 2.121,
+        "price_scaled": 2121000000000000000
+      },
+      {
+        "asset_name": "GCP_H100_HOURLY",
+        "asset_id": "0x80b8897ba24f84fcb99b7b482f45ae335104fa06f096a7d4718870ce143c892b",
+        "price_usd": 3.8822,
+        "price_scaled": 3882200000000000000
+      }
+    ]
   }
 ]
