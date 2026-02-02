@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-02 02:35:06",
+  "timestamp": "2026-02-02 13:08:58",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -22,7 +22,7 @@
       "H100 (AI Training/Notebooks)": "\u20b9281.6"
     },
     "Gcore": {
-      "H100 SXM (8x GPUs - GPU Cloud)": "\u20ac12.24 (\u20ac1.53/GPU)"
+      "H100 SXM (8x GPUs - GPU Cloud)": "\u20ac22.04 (\u20ac2.76/GPU)"
     },
     "Koyeb": {
       "H100 (1x GPU)": "$2.50",
