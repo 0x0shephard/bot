@@ -1,4 +1,4 @@
 Provider,GPU_Variant,Price_Original,Price_Numeric,Currency,GPU_Count,GPU_Type,Pricing_Model,Timestamp
-RunPod,H100 PCIe,$2.39/hr,2.39,USD,1,H100,On-Demand,2026-02-04 02:27:43
-RunPod,H100 SXM,$2.69/hr,2.69,USD,1,H100,On-Demand,2026-02-04 02:27:43
-RunPod,H100 NVL,$3.07/hr,3.07,USD,1,H100,On-Demand,2026-02-04 02:27:43
+RunPod,H100 PCIe,$2.39/hr,2.39,USD,1,H100,On-Demand,2026-02-04 13:10:09
+RunPod,H100 SXM,$2.69/hr,2.69,USD,1,H100,On-Demand,2026-02-04 13:10:09
+RunPod,H100 NVL,$3.07/hr,3.07,USD,1,H100,On-Demand,2026-02-04 13:10:09
