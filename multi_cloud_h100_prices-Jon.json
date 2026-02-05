@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-05 02:28:30",
+  "timestamp": "2026-02-05 13:11:05",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -22,11 +22,7 @@
       "H100 (AI Training/Notebooks)": "\u20b9281.6"
     },
     "Gcore": {
-      "H100 SXM (8x GPUs - GPU Cloud)": "\u20ac22.04 (\u20ac2.76/GPU)",
-      "H100 (1x GPU - Inference)": "\u20ac4",
-      "H100 (2x GPUs - Inference)": "\u20ac8",
-      "H100 (4x GPUs - Inference)": "\u20ac16",
-      "H100 (8x GPUs - Inference)": "\u20ac32"
+      "H100 SXM (8x GPUs - GPU Cloud)": "\u20ac22.04 (\u20ac2.76/GPU)"
     },
     "Koyeb": {
       "H100 (1x GPU)": "$2.50",
@@ -64,9 +60,6 @@
     "Replicate": {
       "H100 GPU": "$5.49",
       "H100": "$0.001525"
-    },
-    "AceCloud": {
-      "H100 GPU": "\u20b920000"
     },
     "Massed Compute": {
       "H100 SXM5": "$21.60",
@@ -129,17 +122,13 @@
       "H100 (On-Demand InfiniBand)": "$2.49",
       "H100": "$1.99"
     },
-    "SharonAI": {
-      "H100 NVL": "$0.50",
-      "H100": "$0.50"
-    },
     "Ori": {
       "H100 (On-Demand)": "$2.90"
     }
   },
   "summary": {
-    "total_providers": 30,
-    "total_h100_variants": 75,
+    "total_providers": 28,
+    "total_h100_variants": 68,
     "providers_with_data": [
       "HyperStack",
       "CUDO Compute",
@@ -155,7 +144,6 @@
       "Qubrid",
       "EdgeVana",
       "Replicate",
-      "AceCloud",
       "Massed Compute",
       "DataCrunch",
       "LeaderGPU",
@@ -169,7 +157,6 @@
       "Leaseweb",
       "HydraHost",
       "VoltagePark",
-      "SharonAI",
       "Ori"
     ],
     "cheapest_usd": {
@@ -231,8 +218,6 @@
         "VoltagePark: H100 (On-Demand Ethernet)",
         "VoltagePark: H100 (On-Demand InfiniBand)",
         "VoltagePark: H100",
-        "SharonAI: H100 NVL",
-        "SharonAI: H100",
         "Ori: H100 (On-Demand)"
       ],
       "INR": [
@@ -241,7 +226,6 @@
         "ShaktiCloud: H100 Kubernetes (per GPU)",
         "ShaktiCloud: H100 Serverless 80GB (per hour)",
         "ShaktiCloud: H100 Azure ML (per GPU)",
-        "AceCloud: H100 GPU",
         "E2E Networks: 1\u00d7H100 SXM (80GB) - Regular",
         "E2E Networks: 2\u00d7H100 SXM (80GB) - Regular",
         "E2E Networks: 4\u00d7H100 SXM (80GB) - Regular",
@@ -254,10 +238,6 @@
       ],
       "EUR": [
         "Gcore: H100 SXM (8x GPUs - GPU Cloud)",
-        "Gcore: H100 (1x GPU - Inference)",
-        "Gcore: H100 (2x GPUs - Inference)",
-        "Gcore: H100 (4x GPUs - Inference)",
-        "Gcore: H100 (8x GPUs - Inference)",
         "LeaderGPU: H100 (8x GPUs - NVLink)",
         "LeaderGPU: H100 (8x GPUs - per hour)",
         "Seeweb: H100 SXM (80GB)",
