@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-06 13:08:41",
+  "timestamp": "2026-02-07 02:24:29",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -33,7 +33,7 @@
       "HGX H100 (On-Demand)": "$2.95"
     },
     "TaigaCloud": {
-      "H100 SXM (1x GPU)": "$11.20",
+      "H100 SXM (1x GPU)": "$2.80",
       "H100 SXM (4x GPUs)": "$11.20",
       "H100 SXM (8x GPUs)": "$22.40"
     },
@@ -122,13 +122,17 @@
       "H100 (On-Demand InfiniBand)": "$2.49",
       "H100": "$1.99"
     },
+    "SharonAI": {
+      "H100 NVL": "$0.50",
+      "H100": "$0.50"
+    },
     "Ori": {
       "H100 (On-Demand)": "$2.90"
     }
   },
   "summary": {
-    "total_providers": 28,
-    "total_h100_variants": 68,
+    "total_providers": 29,
+    "total_h100_variants": 70,
     "providers_with_data": [
       "HyperStack",
       "CUDO Compute",
@@ -157,6 +161,7 @@
       "Leaseweb",
       "HydraHost",
       "VoltagePark",
+      "SharonAI",
       "Ori"
     ],
     "cheapest_usd": {
@@ -218,6 +223,8 @@
         "VoltagePark: H100 (On-Demand Ethernet)",
         "VoltagePark: H100 (On-Demand InfiniBand)",
         "VoltagePark: H100",
+        "SharonAI: H100 NVL",
+        "SharonAI: H100",
         "Ori: H100 (On-Demand)"
       ],
       "INR": [
