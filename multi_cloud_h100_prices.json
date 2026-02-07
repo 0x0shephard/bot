@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-07 02:25:18",
+  "timestamp": "2026-02-07 12:58:43",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -49,9 +49,8 @@
     },
     "Vast.ai": {
       "H100 NVL (API)": "$1.70/hr",
-      "H200 (API)": "$2.13/hr",
-      "H200 NVL (API)": "$8.41/hr",
-      "H100 SXM (API)": "$2.56/hr"
+      "H200 NVL (API)": "$5.53/hr",
+      "H200 (API)": "$4.27/hr"
     },
     "Latitude.sh": {
       "H100 (Standard)": "$2.41/hr",
@@ -78,7 +77,7 @@
   },
   "summary": {
     "total_providers": 14,
-    "total_h100_variants": 46,
+    "total_h100_variants": 45,
     "providers_with_data": [
       "HyperStack",
       "CUDO Compute",
@@ -102,6 +101,6 @@
       "variant": "H100NVL",
       "price": "$2648.4/hr"
     },
-    "last_updated": "2026-02-07T02:25:43.815720"
+    "last_updated": "2026-02-07T12:59:09.674462"
   }
 }
