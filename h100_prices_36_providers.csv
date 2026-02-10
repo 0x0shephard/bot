@@ -1,72 +1,73 @@
 Provider,GPU_Variant,Price_Original,Price_Numeric,Currency,GPU_Count,GPU_Type,Pricing_Model,Timestamp
-HyperStack,H100 SXM,$2.40,2.4,USD,1,H100,On-Demand,2026-02-09 13:18:18
-HyperStack,H100 NVLink,$1.95,1.95,USD,1,H100,On-Demand,2026-02-09 13:18:18
-HyperStack,H100 (Standard),$1.90,1.9,USD,1,H100,On-Demand,2026-02-09 13:18:18
-CUDO Compute,H100 PCIe (On-Demand),$2.45,2.45,USD,1,H100,On-Demand,2026-02-09 13:18:18
-CUDO Compute,H100 PCIe (Reserved),$1.79,1.79,USD,1,H100,Reserved,2026-02-09 13:18:18
-CUDO Compute,H100 SXM (On-Demand),$1.79,1.79,USD,1,H100,On-Demand,2026-02-09 13:18:18
-CUDO Compute,H100 SXM (Reserved),$1.79,1.79,USD,1,H100,Reserved,2026-02-09 13:18:18
-Atlantic.Net,H100NVL (1x GPU),$3.941,3.941,USD,1,H100,On-Demand,2026-02-09 13:18:18
-Atlantic.Net,H100NVL (4x GPUs),$15.765,15.765,USD,4,H100,On-Demand,2026-02-09 13:18:18
-Atlantic.Net,H100NVL (8x GPUs),$31.531,31.531,USD,8,H100,On-Demand,2026-02-09 13:18:18
-Atlantic.Net,H100NVL,$2648.4,2648.4,USD,1,H100,On-Demand,2026-02-09 13:18:18
-OVHcloud,H100 (AI Training/Notebooks),₹281.6,281.6,INR,1,H100,On-Demand,2026-02-09 13:18:18
-Gcore,H100 SXM (8x GPUs - GPU Cloud),€22.04 (€2.76/GPU),,EUR,8,H100,On-Demand,2026-02-09 13:18:18
-Koyeb,H100 (1x GPU),$2.50,2.5,USD,1,H100,On-Demand,2026-02-09 13:18:18
-Koyeb,H100 (2x GPUs),$5.0,5.0,USD,2,H100,On-Demand,2026-02-09 13:18:18
-Koyeb,H100 (4x GPUs),$10.0,10.0,USD,4,H100,On-Demand,2026-02-09 13:18:18
-Nebius,HGX H100 (On-Demand),$2.95,2.95,USD,1,H100,On-Demand,2026-02-09 13:18:18
-TaigaCloud,H100 SXM (1x GPU),$2.80,2.8,USD,1,H100,On-Demand,2026-02-09 13:18:18
-TaigaCloud,H100 SXM (4x GPUs),$11.20,11.2,USD,4,H100,On-Demand,2026-02-09 13:18:18
-TaigaCloud,H100 SXM (8x GPUs),$22.40,22.4,USD,8,H100,On-Demand,2026-02-09 13:18:18
-ShaktiCloud,H100 SLURM (per GPU),₹365,365.0,INR,1,H100,On-Demand,2026-02-09 13:18:18
-ShaktiCloud,H100 Kubernetes (per GPU),₹365,365.0,INR,1,H100,On-Demand,2026-02-09 13:18:18
-ShaktiCloud,H100 Serverless 80GB (per hour),₹24300.00,24300.0,INR,1,H100,On-Demand,2026-02-09 13:18:18
-ShaktiCloud,H100 Azure ML (per GPU),₹264,264.0,INR,1,H100,On-Demand,2026-02-09 13:18:18
-GMICloud,H100 (per GPU),$2.10,2.1,USD,1,H100,On-Demand,2026-02-09 13:18:18
-Lambda Labs,H100 1-Click Clusters (Reserved),$2.29,2.29,USD,1,H100,Reserved,2026-02-09 13:18:18
-Lambda Labs,H100,$3.79,3.79,USD,1,H100,On-Demand,2026-02-09 13:18:18
-Lambda Labs,H100 SXM,$2.99,2.99,USD,1,H100,On-Demand,2026-02-09 13:18:18
-Qubrid,H100 (80GB - 1x GPU),$2.73,2.73,USD,1,H100,On-Demand,2026-02-09 13:18:18
-EdgeVana,H100 Node,$2.50,2.5,USD,1,H100,On-Demand,2026-02-09 13:18:18
-Replicate,H100 GPU,$5.49,5.49,USD,1,H100,On-Demand,2026-02-09 13:18:18
-Replicate,H100,$0.001525,0.001525,USD,1,H100,On-Demand,2026-02-09 13:18:18
-AceCloud,H100 GPU,₹20000,20000.0,INR,1,H100,On-Demand,2026-02-09 13:18:18
-Massed Compute,H100 SXM5,$21.60,21.6,USD,1,H100,On-Demand,2026-02-09 13:18:18
-Massed Compute,H100 NVL,$5.06,5.06,USD,1,H100,On-Demand,2026-02-09 13:18:18
-Massed Compute,H100 PCIe,$2.35,2.35,USD,1,H100,On-Demand,2026-02-09 13:18:18
-DataCrunch,H100 SXM5 (Pay As You Go),$2.29,2.29,USD,1,H100,On-Demand,2026-02-09 13:18:18
-DataCrunch,H100 SXM5 (Spot Price),$2.29,2.29,USD,1,H100,Spot,2026-02-09 13:18:18
-DataCrunch,H100 SXM5 (Dynamic Pricing),$2.29,2.29,USD,1,H100,On-Demand,2026-02-09 13:18:18
-LeaderGPU,H100 (8x GPUs - NVLink),€19.11,19.11,EUR,8,H100,On-Demand,2026-02-09 13:18:18
-LeaderGPU,H100 (8x GPUs - per hour),€15.00,15.0,EUR,8,H100,On-Demand,2026-02-09 13:18:18
-Baseten,H100 (80GB VRAM),$6.50,6.5,USD,1,H100,On-Demand,2026-02-09 13:18:18
-Baseten,H100 MIG (40GB VRAM),$3.75,3.75,USD,1,H100,On-Demand,2026-02-09 13:18:18
-Fal.AI,H100 (80GB),$1.89,1.89,USD,1,H100,On-Demand,2026-02-09 13:18:18
-Fal.AI,H100,$1.89,1.89,USD,1,H100,On-Demand,2026-02-09 13:18:18
-Modal,H100,$3.95,3.95,USD,1,H100,On-Demand,2026-02-09 13:18:18
-E2E Networks,1×H100 SXM (80GB) - Regular,₹450,450.0,INR,1,H100,On-Demand,2026-02-09 13:18:18
-E2E Networks,2×H100 SXM (80GB) - Regular,₹816,816.0,INR,1,H100,On-Demand,2026-02-09 13:18:18
-E2E Networks,4×H100 SXM (80GB) - Regular,"₹1,560",1560.0,INR,1,H100,On-Demand,2026-02-09 13:18:18
-E2E Networks,8×H100 SXM (80GB) - Regular,"₹3,040",3040.0,INR,1,H100,On-Demand,2026-02-09 13:18:18
-E2E Networks,1×H100 - Spot,₹175,175.0,INR,1,H100,Spot,2026-02-09 13:18:18
-E2E Networks,2×H100 - Spot,₹350,350.0,INR,1,H100,Spot,2026-02-09 13:18:18
-E2E Networks,4×H100 - Spot,₹700,700.0,INR,1,H100,Spot,2026-02-09 13:18:18
-E2E Networks,8×H100 HGX,"₹3,152",3152.0,INR,1,H100,On-Demand,2026-02-09 13:18:18
-E2E Networks,4×H100 HGX,"₹1,576",1576.0,INR,1,H100,On-Demand,2026-02-09 13:18:18
-Seeweb,H100 SXM (80GB),€2.35,2.35,EUR,1,H100,On-Demand,2026-02-09 13:18:18
-AtlasCloud,H100 GPU Instance,$3.50,3.5,USD,1,H100,On-Demand,2026-02-09 13:18:18
-Crusoe,H100 80GB SXM (On-Demand),$3.90,3.9,USD,1,H100,On-Demand,2026-02-09 13:18:18
-Crusoe,H100 80GB SXM (6-month reserved),$3.12,3.12,USD,1,H100,Reserved,2026-02-09 13:18:18
-Crusoe,H100 80GB SXM (1-year reserved),$2.93,2.93,USD,1,H100,Reserved,2026-02-09 13:18:18
-Crusoe,H100 80GB SXM (3-year reserved),$2.54,2.54,USD,1,H100,Reserved,2026-02-09 13:18:18
-Leaseweb,H100 (2x GPUs - Dedicated Monthly),€2.76,2.76,EUR,2,H100,Monthly,2026-02-09 13:18:18
-Leaseweb,H100 (Per GPU - Dedicated Monthly),€1.38,1.38,EUR,1,H100,Monthly,2026-02-09 13:18:18
-HydraHost,H100 (per card-hour),$3.40,3.4,USD,1,H100,On-Demand,2026-02-09 13:18:18
-HydraHost,H100,$2.30,2.3,USD,1,H100,On-Demand,2026-02-09 13:18:18
-VoltagePark,H100 (On-Demand Ethernet),$1.99,1.99,USD,1,H100,On-Demand,2026-02-09 13:18:18
-VoltagePark,H100 (On-Demand InfiniBand),$2.49,2.49,USD,1,H100,On-Demand,2026-02-09 13:18:18
-VoltagePark,H100,$1.99,1.99,USD,1,H100,On-Demand,2026-02-09 13:18:18
-SharonAI,H100 NVL,$0.50,0.5,USD,1,H100,On-Demand,2026-02-09 13:18:18
-SharonAI,H100,$0.50,0.5,USD,1,H100,On-Demand,2026-02-09 13:18:18
-Ori,H100 (On-Demand),$2.90,2.9,USD,1,H100,On-Demand,2026-02-09 13:18:18
+HyperStack,H100 SXM,$2.40,2.4,USD,1,H100,On-Demand,2026-02-10 02:44:39
+HyperStack,H100 NVLink,$1.95,1.95,USD,1,H100,On-Demand,2026-02-10 02:44:39
+HyperStack,H100 (Standard),$1.90,1.9,USD,1,H100,On-Demand,2026-02-10 02:44:39
+CUDO Compute,H100 PCIe (On-Demand),$2.45,2.45,USD,1,H100,On-Demand,2026-02-10 02:44:39
+CUDO Compute,H100 PCIe (Reserved),$1.79,1.79,USD,1,H100,Reserved,2026-02-10 02:44:39
+CUDO Compute,H100 SXM (On-Demand),$1.79,1.79,USD,1,H100,On-Demand,2026-02-10 02:44:39
+CUDO Compute,H100 SXM (Reserved),$1.79,1.79,USD,1,H100,Reserved,2026-02-10 02:44:39
+Atlantic.Net,H100NVL (1x GPU),$3.941,3.941,USD,1,H100,On-Demand,2026-02-10 02:44:39
+Atlantic.Net,H100NVL (4x GPUs),$15.765,15.765,USD,4,H100,On-Demand,2026-02-10 02:44:39
+Atlantic.Net,H100NVL (8x GPUs),$31.531,31.531,USD,8,H100,On-Demand,2026-02-10 02:44:39
+Atlantic.Net,H100NVL,$2648.4,2648.4,USD,1,H100,On-Demand,2026-02-10 02:44:39
+Civo,H100 SXM (1x GPU) Standard,$2.99,2.99,USD,1,H100,On-Demand,2026-02-10 02:44:39
+Civo,H100 SXM (1x GPU) Discounted,$2.49,2.49,USD,1,H100,Discounted,2026-02-10 02:44:39
+Civo,H100 SXM (8x GPUs) Standard,$23.92,23.92,USD,8,H100,On-Demand,2026-02-10 02:44:39
+Civo,H100 SXM (8x GPUs) Discounted,$19.92,19.92,USD,8,H100,Discounted,2026-02-10 02:44:39
+Civo,H100 PCI (1x GPU) Standard,$2.49,2.49,USD,1,H100,On-Demand,2026-02-10 02:44:39
+Civo,H100 PCI (1x GPU) Discounted,$1.99,1.99,USD,1,H100,Discounted,2026-02-10 02:44:39
+Civo,H100 PCI (2x GPUs) Standard,$4.98,4.98,USD,2,H100,On-Demand,2026-02-10 02:44:39
+Civo,H100 PCI (2x GPUs) Discounted,$3.98,3.98,USD,2,H100,Discounted,2026-02-10 02:44:39
+Civo,H100 PCI (4x GPUs) Standard,$9.96,9.96,USD,4,H100,On-Demand,2026-02-10 02:44:39
+Civo,H100 PCI (4x GPUs) Discounted,$7.96,7.96,USD,4,H100,Discounted,2026-02-10 02:44:39
+Civo,H100 PCI (8x GPUs) Standard,$19.92,19.92,USD,8,H100,On-Demand,2026-02-10 02:44:39
+Civo,H100 PCI (8x GPUs) Discounted,$15.92,15.92,USD,8,H100,Discounted,2026-02-10 02:44:39
+OVHcloud,H100 (AI Training/Notebooks),₹281.6,281.6,INR,1,H100,On-Demand,2026-02-10 02:44:39
+Gcore,H100 SXM (8x GPUs - GPU Cloud),€22.04 (€2.76/GPU),,EUR,8,H100,On-Demand,2026-02-10 02:44:39
+Koyeb,H100 (1x GPU),$2.50,2.5,USD,1,H100,On-Demand,2026-02-10 02:44:39
+Koyeb,H100 (2x GPUs),$5.0,5.0,USD,2,H100,On-Demand,2026-02-10 02:44:39
+Koyeb,H100 (4x GPUs),$10.0,10.0,USD,4,H100,On-Demand,2026-02-10 02:44:39
+Nebius,HGX H100 (On-Demand),$2.95,2.95,USD,1,H100,On-Demand,2026-02-10 02:44:39
+TaigaCloud,H100 SXM (1x GPU),$2.80,2.8,USD,1,H100,On-Demand,2026-02-10 02:44:39
+TaigaCloud,H100 SXM (4x GPUs),$11.20,11.2,USD,4,H100,On-Demand,2026-02-10 02:44:39
+TaigaCloud,H100 SXM (8x GPUs),$22.40,22.4,USD,8,H100,On-Demand,2026-02-10 02:44:39
+Neysa.ai,H100 SXM (80GB),$4.39,4.39,USD,1,H100,On-Demand,2026-02-10 02:44:39
+ShaktiCloud,H100 SLURM (per GPU),₹365,365.0,INR,1,H100,On-Demand,2026-02-10 02:44:39
+ShaktiCloud,H100 Kubernetes (per GPU),₹365,365.0,INR,1,H100,On-Demand,2026-02-10 02:44:39
+ShaktiCloud,H100 Serverless 80GB (per hour),₹24300.00,24300.0,INR,1,H100,On-Demand,2026-02-10 02:44:39
+ShaktiCloud,H100 Azure ML (per GPU),₹264,264.0,INR,1,H100,On-Demand,2026-02-10 02:44:39
+GMICloud,H100 (per GPU),$2.10,2.1,USD,1,H100,On-Demand,2026-02-10 02:44:39
+Lambda Labs,H100 1-Click Clusters (Reserved),$2.29,2.29,USD,1,H100,Reserved,2026-02-10 02:44:39
+Lambda Labs,H100,$3.79,3.79,USD,1,H100,On-Demand,2026-02-10 02:44:39
+Lambda Labs,H100 SXM,$2.99,2.99,USD,1,H100,On-Demand,2026-02-10 02:44:39
+Qubrid,H100 (80GB - 1x GPU),$2.73,2.73,USD,1,H100,On-Demand,2026-02-10 02:44:39
+EdgeVana,H100 Node,$2.50,2.5,USD,1,H100,On-Demand,2026-02-10 02:44:39
+Replicate,H100 GPU,$5.49,5.49,USD,1,H100,On-Demand,2026-02-10 02:44:39
+Replicate,H100,$0.001525,0.001525,USD,1,H100,On-Demand,2026-02-10 02:44:39
+Massed Compute,H100 SXM5,$21.60,21.6,USD,1,H100,On-Demand,2026-02-10 02:44:39
+Massed Compute,H100 NVL,$5.06,5.06,USD,1,H100,On-Demand,2026-02-10 02:44:39
+Massed Compute,H100 PCIe,$2.35,2.35,USD,1,H100,On-Demand,2026-02-10 02:44:39
+DataCrunch,H100 SXM5 (Pay As You Go),$2.29,2.29,USD,1,H100,On-Demand,2026-02-10 02:44:39
+DataCrunch,H100 SXM5 (Spot Price),$2.29,2.29,USD,1,H100,Spot,2026-02-10 02:44:39
+DataCrunch,H100 SXM5 (Dynamic Pricing),$2.29,2.29,USD,1,H100,On-Demand,2026-02-10 02:44:39
+LeaderGPU,H100 (8x GPUs - NVLink),€19.11,19.11,EUR,8,H100,On-Demand,2026-02-10 02:44:39
+LeaderGPU,H100 (8x GPUs - per hour),€15.00,15.0,EUR,8,H100,On-Demand,2026-02-10 02:44:39
+Baseten,H100 (80GB VRAM),$6.50,6.5,USD,1,H100,On-Demand,2026-02-10 02:44:39
+Baseten,H100 MIG (40GB VRAM),$3.75,3.75,USD,1,H100,On-Demand,2026-02-10 02:44:39
+Fal.AI,H100 (80GB),$1.89,1.89,USD,1,H100,On-Demand,2026-02-10 02:44:39
+Fal.AI,H100,$1.89,1.89,USD,1,H100,On-Demand,2026-02-10 02:44:39
+Modal,H100,$3.95,3.95,USD,1,H100,On-Demand,2026-02-10 02:44:39
+Seeweb,H100 SXM (80GB),€2.35,2.35,EUR,1,H100,On-Demand,2026-02-10 02:44:39
+AtlasCloud,H100 GPU Instance,$3.50,3.5,USD,1,H100,On-Demand,2026-02-10 02:44:39
+Crusoe,H100 80GB SXM (On-Demand),$3.90,3.9,USD,1,H100,On-Demand,2026-02-10 02:44:39
+Crusoe,H100 80GB SXM (6-month reserved),$3.12,3.12,USD,1,H100,Reserved,2026-02-10 02:44:39
+Crusoe,H100 80GB SXM (1-year reserved),$2.93,2.93,USD,1,H100,Reserved,2026-02-10 02:44:39
+Crusoe,H100 80GB SXM (3-year reserved),$2.54,2.54,USD,1,H100,Reserved,2026-02-10 02:44:39
+Leaseweb,H100 (2x GPUs - Dedicated Monthly),€2.76,2.76,EUR,2,H100,Monthly,2026-02-10 02:44:39
+Leaseweb,H100 (Per GPU - Dedicated Monthly),€1.38,1.38,EUR,1,H100,Monthly,2026-02-10 02:44:39
+HydraHost,H100 (per card-hour),$3.40,3.4,USD,1,H100,On-Demand,2026-02-10 02:44:39
+HydraHost,H100,$2.30,2.3,USD,1,H100,On-Demand,2026-02-10 02:44:39
+VoltagePark,H100 (On-Demand Ethernet),$1.99,1.99,USD,1,H100,On-Demand,2026-02-10 02:44:39
+VoltagePark,H100 (On-Demand InfiniBand),$2.49,2.49,USD,1,H100,On-Demand,2026-02-10 02:44:39
+VoltagePark,H100,$1.99,1.99,USD,1,H100,On-Demand,2026-02-10 02:44:39
+Ori,H100 (On-Demand),$2.90,2.9,USD,1,H100,On-Demand,2026-02-10 02:44:39
