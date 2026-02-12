@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-12 02:36:38",
+  "timestamp": "2026-02-12 13:17:45",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -100,17 +100,6 @@
     "Modal": {
       "H100": "$3.95"
     },
-    "E2E Networks": {
-      "1\u00d7H100 SXM (80GB) - Regular": "\u20b9450",
-      "2\u00d7H100 SXM (80GB) - Regular": "\u20b9816",
-      "4\u00d7H100 SXM (80GB) - Regular": "\u20b91,560",
-      "8\u00d7H100 SXM (80GB) - Regular": "\u20b93,040",
-      "1\u00d7H100 - Spot": "\u20b9175",
-      "2\u00d7H100 - Spot": "\u20b9350",
-      "4\u00d7H100 - Spot": "\u20b9700",
-      "8\u00d7H100 HGX": "\u20b93,152",
-      "4\u00d7H100 HGX": "\u20b91,576"
-    },
     "Seeweb": {
       "H100 SXM (80GB)": "\u20ac2.35"
     },
@@ -141,8 +130,8 @@
     }
   },
   "summary": {
-    "total_providers": 29,
-    "total_h100_variants": 80,
+    "total_providers": 28,
+    "total_h100_variants": 71,
     "providers_with_data": [
       "HyperStack",
       "CUDO Compute",
@@ -165,7 +154,6 @@
       "Baseten",
       "Fal.AI",
       "Modal",
-      "E2E Networks",
       "Seeweb",
       "AtlasCloud",
       "Crusoe",
@@ -252,16 +240,7 @@
         "ShaktiCloud: H100 SLURM (per GPU)",
         "ShaktiCloud: H100 Kubernetes (per GPU)",
         "ShaktiCloud: H100 Serverless 80GB (per hour)",
-        "ShaktiCloud: H100 Azure ML (per GPU)",
-        "E2E Networks: 1\u00d7H100 SXM (80GB) - Regular",
-        "E2E Networks: 2\u00d7H100 SXM (80GB) - Regular",
-        "E2E Networks: 4\u00d7H100 SXM (80GB) - Regular",
-        "E2E Networks: 8\u00d7H100 SXM (80GB) - Regular",
-        "E2E Networks: 1\u00d7H100 - Spot",
-        "E2E Networks: 2\u00d7H100 - Spot",
-        "E2E Networks: 4\u00d7H100 - Spot",
-        "E2E Networks: 8\u00d7H100 HGX",
-        "E2E Networks: 4\u00d7H100 HGX"
+        "ShaktiCloud: H100 Azure ML (per GPU)"
       ],
       "EUR": [
         "Gcore: H100 SXM (8x GPUs - GPU Cloud)",
