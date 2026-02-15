@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-02-15 02:38:26",
+  "timestamp": "2026-02-15 12:59:40",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -75,9 +75,6 @@
       "H100 GPU": "$5.49",
       "H100": "$0.001525"
     },
-    "AceCloud": {
-      "H100 GPU": "\u20b920000"
-    },
     "Massed Compute": {
       "H100 SXM5": "$21.60",
       "H100 NVL": "$5.06",
@@ -126,10 +123,6 @@
       "H100 80GB SXM (1-year reserved)": "$2.93",
       "H100 80GB SXM (3-year reserved)": "$2.54"
     },
-    "Leaseweb": {
-      "H100 (2x GPUs - Dedicated Monthly)": "\u20ac2.76",
-      "H100 (Per GPU - Dedicated Monthly)": "\u20ac1.38"
-    },
     "HydraHost": {
       "H100 (per card-hour)": "$3.40",
       "H100": "$2.30"
@@ -139,17 +132,13 @@
       "H100 (On-Demand InfiniBand)": "$2.49",
       "H100": "$1.99"
     },
-    "SharonAI": {
-      "H100 NVL": "$0.50",
-      "H100": "$0.50"
-    },
     "Ori": {
       "H100 (On-Demand)": "$2.90"
     }
   },
   "summary": {
-    "total_providers": 31,
-    "total_h100_variants": 83,
+    "total_providers": 28,
+    "total_h100_variants": 78,
     "providers_with_data": [
       "HyperStack",
       "CUDO Compute",
@@ -166,7 +155,6 @@
       "Qubrid",
       "EdgeVana",
       "Replicate",
-      "AceCloud",
       "Massed Compute",
       "DataCrunch",
       "LeaderGPU",
@@ -177,10 +165,8 @@
       "Seeweb",
       "AtlasCloud",
       "Crusoe",
-      "Leaseweb",
       "HydraHost",
       "VoltagePark",
-      "SharonAI",
       "Ori"
     ],
     "cheapest_usd": {
@@ -254,8 +240,6 @@
         "VoltagePark: H100 (On-Demand Ethernet)",
         "VoltagePark: H100 (On-Demand InfiniBand)",
         "VoltagePark: H100",
-        "SharonAI: H100 NVL",
-        "SharonAI: H100",
         "Ori: H100 (On-Demand)"
       ],
       "INR": [
@@ -264,7 +248,6 @@
         "ShaktiCloud: H100 Kubernetes (per GPU)",
         "ShaktiCloud: H100 Serverless 80GB (per hour)",
         "ShaktiCloud: H100 Azure ML (per GPU)",
-        "AceCloud: H100 GPU",
         "E2E Networks: 1\u00d7H100 SXM (80GB) - Regular",
         "E2E Networks: 2\u00d7H100 SXM (80GB) - Regular",
         "E2E Networks: 4\u00d7H100 SXM (80GB) - Regular",
@@ -279,9 +262,7 @@
         "Gcore: H100 SXM (8x GPUs - GPU Cloud)",
         "LeaderGPU: H100 (8x GPUs - NVLink)",
         "LeaderGPU: H100 (8x GPUs - per hour)",
-        "Seeweb: H100 SXM (80GB)",
-        "Leaseweb: H100 (2x GPUs - Dedicated Monthly)",
-        "Leaseweb: H100 (Per GPU - Dedicated Monthly)"
+        "Seeweb: H100 SXM (80GB)"
       ]
     }
   }
