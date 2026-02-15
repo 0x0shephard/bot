@@ -2,21 +2,23 @@ Provider,AvgNormalizedPrice,VariantCount,StdDevNormalizedPrice,AvgPricePerGPU,Av
 Replicate,0.0282,2,0.0377,0.0282,2.7458
 AtlasCloud,0.035,1,,0.035,3.5
 Gcore,0.4092,1,,0.4092,3.2739
+SharonAI,0.4887,2,0.016,0.5,0.5
 Atlantic.net,1.5944,1,,1.67,1.67
 Genesis Cloud,1.6,4,0.0,1.6,1.6
 Leaseweb,1.637,2,0.0,1.637,2.4554
+Vast.ai,1.7367,2,0.4713,1.77,1.77
 Fal.AI,1.89,2,0.0,1.89,1.89
 HyperStack,2.0539,6,0.2686,2.0833,2.0833
 GMICloud,2.1,1,,2.1,2.1
 Latitude.sh,2.1458,6,0.3138,2.1458,4.1383
 VoltagePark,2.1567,3,0.2887,2.1567,2.1567
 CUDO Compute,2.1702,8,0.5053,1.955,1.955
+AceCloud,2.208,1,,2.208,220.8
 DataCrunch,2.29,3,0.0,2.29,2.29
-Vast.ai,2.3116,3,1.468,2.36,2.36
 Hostkey,2.3724,1,,2.3724,2.3724
 LeaderGPU,2.4647,2,0.3402,2.5288,20.2306
-Koyeb,2.5,3,0.0,2.5,5.8333
 EdgeVana,2.5,1,,2.5,2.5
+Koyeb,2.5,3,0.0,2.5,5.8333
 Civo,2.7099,24,0.2918,2.4067,9.71
 Qubrid,2.73,1,,2.73,2.73
 Seeweb,2.7876,1,,2.7876,2.7876
