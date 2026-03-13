@@ -481,18 +481,5 @@ if __name__ == "__main__":
         else:
             print("No previous history available to carry forward. Keeping calculated value.")
 
-    # Contingency 2: If change >= 50% vs last stored price, carry forward last stored price (no averaging)
-    elif last_price is not None and significant_change(full_price, last_price):
-        print(f"Detected >=50% change from last stored price ({last_price:.4f} -> {full_price:.4f}). Carrying forward last stored price.")
-        full_price = last_price
-        # Carry forward last component prices if available
-        hist = load_price_history(1)
-        if not hist.empty:
-            if 'hyperscalers_only_price' in hist.columns and not hist['hyperscalers_only_price'].dropna().empty:
-                hyperscaler_price = float(hist['hyperscalers_only_price'].dropna().iloc[-1])
-            if 'non_hyperscalers_only_price' in hist.columns and not hist['non_hyperscalers_only_price'].dropna().empty:
-                non_hyperscaler_price = float(hist['non_hyperscalers_only_price'].dropna().iloc[-1])
-        final_source = 'carry_forward_prev'
-
     append_price_history(full_price, hyperscaler_price, non_hyperscaler_price, final_source)
     print(f"Appended price record (source={final_source}) to {HISTORY_FILE}")

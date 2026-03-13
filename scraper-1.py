@@ -142,37 +142,154 @@ class GoogleCloudScraper(CloudProviderScraper):
     def extract_h100_prices(self, soup: BeautifulSoup) -> Dict[str, str]:
         """Extract H100 prices from Google Cloud with live API-based pricing"""
         h100_prices = {}
-        
+
+        # Primary method: extract from inline script blob on the GPU pricing page
+        print("  Method 0: Extracting from gpus-pricing page script data...")
+        h100_prices = self._try_gpus_pricing_script_extraction()
+
+        if h100_prices:
+            return h100_prices
+
         # Try multiple methods to get real pricing from Google Cloud
         print("  Method 1: Trying Google Cloud API endpoints...")
         h100_prices = self._try_google_api_endpoints()
-        
+
         if h100_prices:
             return h100_prices
-            
+
         print("  Method 2: Trying A3 machine type extraction...")
         h100_prices = self._try_a3_machine_type_extraction()
-        
+
         if h100_prices:
             return h100_prices
-            
+
         print("  Method 3: Trying Cloud Pricing API...")
         h100_prices = self._try_cloud_pricing_api()
-        
+
         if h100_prices:
             return h100_prices
-            
+
         print("  Method 4: Trying alternative Google Cloud pages...")
         h100_prices = self._try_alternative_gcp_pages()
-        
+
         if h100_prices:
             return h100_prices
-        
+
         # Final fallback - return error instead of unrealistic values
         print("  All live methods failed - unable to extract real-time pricing")
         return {
             'Error': 'Unable to fetch live pricing from Google Cloud'
         }
+
+    def _try_gpus_pricing_script_extraction(self) -> Dict[str, str]:
+        """
+        Fetch the accelerator-optimized VM pricing page and extract A3/H100
+        prices from the inline JavaScript data blob.
+
+        Google embeds the full pricing table as a nested JSON/array structure
+        inside a large <script> tag.  The relevant structure looks like:
+            "a3-highgpu-8g" ... "Nvidia H100" ... "$X.XX / 1 hour"
+        where the on-demand price for the 8-GPU machine follows the machine
+        type string within ~500 characters in the script blob.
+        """
+        h100_prices = {}
+        # This page has the A3 High/Mega (H100) machine pricing embedded in
+        # a ~3.5 MB script blob and is publicly accessible without auth.
+        url = "https://cloud.google.com/products/compute/pricing/accelerator-optimized"
+
+        try:
+            print(f"    Fetching: {url}")
+            headers = {
+                'User-Agent': (
+                    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+                    'AppleWebKit/537.36 (KHTML, like Gecko) '
+                    'Chrome/120.0.0.0 Safari/537.36'
+                ),
+                'Accept': (
+                    'text/html,application/xhtml+xml,application/xml;'
+                    'q=0.9,image/avif,image/webp,*/*;q=0.8'
+                ),
+                'Accept-Language': 'en-US,en;q=0.9',
+                'Accept-Encoding': 'gzip, deflate, br',
+                'Referer': 'https://cloud.google.com/',
+            }
+            response = requests.get(url, headers=headers, timeout=45)
+
+            if response.status_code != 200:
+                print(f"    Status: {response.status_code}")
+                return h100_prices
+
+            raw_html = response.text
+            print(f"    Got content length: {len(raw_html)}")
+
+            soup = BeautifulSoup(raw_html, 'html.parser')
+
+            # The pricing script is ~3.5 MB and contains a3-highgpu keywords.
+            script_text = None
+            for script in soup.find_all('script'):
+                txt = script.string or ''
+                if len(txt) > 1000000 and 'a3-highgpu' in txt:
+                    script_text = txt
+                    print(f"    Found pricing script (len={len(txt)})")
+                    break
+
+            if not script_text:
+                print("    No A3 pricing script found in page")
+                return h100_prices
+
+            # Pattern: a3-highgpu-8g machine type string followed (within
+            # ~500 chars) by the first on-demand hourly price entry.
+            # Confirmed structure from live page:
+            #   "a3-highgpu-8g" ... "Nvidia H100" ... "$126.64 / 1 hour"
+            # The on-demand machine price for us-central1 is ~$88-127/hr.
+            a3_high_pattern = re.compile(
+                r'a3-highgpu-8g.{0,800}?"\$([0-9]+\.?[0-9]*) / 1 hour"',
+                re.DOTALL | re.IGNORECASE,
+            )
+            for m in a3_high_pattern.finditer(script_text):
+                try:
+                    price = float(m.group(1))
+                    # Full a3-highgpu-8g machine: 8x H100, 208 vCPUs, 1871 GB
+                    # On-demand price range observed: $88-$127/hr
+                    if 50 < price < 500:
+                        per_gpu = price / 8
+                        h100_prices['H100 (A3 High 8x, on-demand)'] = f"${price:.2f}/hr"
+                        h100_prices['H100 (A3 High, per GPU est.)'] = f"${per_gpu:.2f}/hr"
+                        print(
+                            f"    A3 High found: ${price:.2f}/hr machine "
+                            f"(~${per_gpu:.2f}/hr per GPU)"
+                        )
+                        break
+                except ValueError:
+                    continue
+
+            # Also try A3 Mega (a3-megagpu-8g, H100 Mega variant)
+            a3_mega_pattern = re.compile(
+                r'a3-megagpu-8g.{0,800}?"\$([0-9]+\.?[0-9]*) / 1 hour"',
+                re.DOTALL | re.IGNORECASE,
+            )
+            for m in a3_mega_pattern.finditer(script_text):
+                try:
+                    price = float(m.group(1))
+                    if 50 < price < 500:
+                        per_gpu = price / 8
+                        h100_prices['H100 Mega (A3 Mega 8x, on-demand)'] = f"${price:.2f}/hr"
+                        h100_prices['H100 Mega (A3 Mega, per GPU est.)'] = f"${per_gpu:.2f}/hr"
+                        print(
+                            f"    A3 Mega found: ${price:.2f}/hr machine "
+                            f"(~${per_gpu:.2f}/hr per GPU)"
+                        )
+                        break
+                except ValueError:
+                    continue
+
+            if not h100_prices:
+                print("    Could not locate A3/H100 prices in script blob")
+
+        except requests.RequestException as e:
+            print(f"    Request error: {str(e)[:80]}")
+
+        return h100_prices
 
     def _try_google_api_endpoints(self) -> Dict[str, str]:
         """Try various Google Cloud API endpoints for live pricing"""
