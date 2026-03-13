@@ -17,6 +17,7 @@ Usage:
 """
 
 import json
+import math
 import os
 import sys
 from dataclasses import dataclass
@@ -427,29 +428,35 @@ Environment Variables:
     # Build update list
     updates: List[PriceUpdate] = []
 
-    if args.aws:
+    if args.aws and not math.isnan(args.aws):
         updates.append(PriceUpdate(
             asset_name="AWS_H100_HOURLY",
             asset_id=H100_ASSET_IDS["AWS_H100_HOURLY"],
             price_usd=args.aws,
             price_scaled=int(args.aws * (10 ** PRICE_DECIMALS)),
         ))
+    elif args.aws:
+        print("  WARNING: Skipping AWS_H100_HOURLY — price is NaN")
 
-    if args.azure:
+    if args.azure and not math.isnan(args.azure):
         updates.append(PriceUpdate(
             asset_name="AZURE_H100_HOURLY",
             asset_id=H100_ASSET_IDS["AZURE_H100_HOURLY"],
             price_usd=args.azure,
             price_scaled=int(args.azure * (10 ** PRICE_DECIMALS)),
         ))
+    elif args.azure:
+        print("  WARNING: Skipping AZURE_H100_HOURLY — price is NaN")
 
-    if args.gcp:
+    if args.gcp and not math.isnan(args.gcp):
         updates.append(PriceUpdate(
             asset_name="GCP_H100_HOURLY",
             asset_id=H100_ASSET_IDS["GCP_H100_HOURLY"],
             price_usd=args.gcp,
             price_scaled=int(args.gcp * (10 ** PRICE_DECIMALS)),
         ))
+    elif args.gcp:
+        print("  WARNING: Skipping GCP_H100_HOURLY — price is NaN")
 
     if not updates:
         print("\nNo price updates specified.")
