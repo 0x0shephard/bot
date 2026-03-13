@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-05 02:10:57",
+  "timestamp": "2026-03-13 23:08:47",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -10,7 +10,7 @@
       "H100 PCIe (On-Demand)": "$2.45",
       "H100 PCIe (Reserved)": "$1.79",
       "H100 SXM (On-Demand)": "$1.79",
-      "H100 SXM (Reserved)": "$1.34"
+      "H100 SXM (Reserved)": "$1.79"
     },
     "Atlantic.Net": {
       "H100NVL (1x GPU)": "$3.941",
@@ -39,22 +39,18 @@
       "H100 (Hourly)": "€2.00"
     },
     "JarvisLabs": {
-      "H100": "$0.39/hr",
+      "H100": "$10.0/hr",
+      "H200": "$0.39/hr",
       "H100 SXM": "$2.99/hr",
-      "H100 (Price First)": "$10.0/hr",
-      "H100 (Line Context)": "$0.39/hr"
+      "H100 (Price First)": "$2.99/hr",
+      "H200 (Price First)": "$2.99/hr",
+      "H100 (Line Context)": "$10./hr"
     },
     "Google Cloud": {
-      "H100 (A3 Machine Type)": "$88.490000119/hr (8x GPUs)",
-      "H100 (Per GPU from H100 (A3 Machine Type))": "$11.06/hr",
-      "H100 (A3 Integration)": "$88.490000119/hr (8x GPUs)",
-      "H100 (Per GPU from H100 (A3 Integration))": "$11.06/hr",
-      "H100 (A3 Unknown - Table)": "$84.806908493/hr",
-      "H100 (Per GPU from A3 Unknown)": "$10.60/hr",
-      "H100 (A3 Mega - Table)": "$93.400712807/hr",
-      "H100 (Per GPU from A3 Mega)": "$11.68/hr",
-      "H100 (A3 High - Table)": "$88.490000119/hr",
-      "H100 (Per GPU from A3 High)": "$11.06/hr"
+      "H100 (A3 High 8x, on-demand)": "$126.64/hr",
+      "H100 (A3 High, per GPU est.)": "$15.83/hr",
+      "H100 Mega (A3 Mega 8x, on-demand)": "$119.96/hr",
+      "H100 Mega (A3 Mega, per GPU est.)": "$14.99/hr"
     },
     "Genesis Cloud": {
       "H100 (HGX)": "$1.60/hr",
@@ -63,23 +59,24 @@
       "H100 (HGX Line)": "$1.60/hr"
     },
     "Vast.ai": {
-      "H200 (API)": "$4.03/hr",
-      "H200 NVL (API)": "$8.54/hr",
-      "H100 NVL (API)": "$1.20/hr"
+      "H200 (API)": "$7.95/hr",
+      "H100 NVL (API)": "$1.52/hr"
     },
     "Latitude.sh": {
-      "Error": "Unable to fetch live pricing from Latitude.sh"
+      "H100 (Standard)": "$1.00/hr",
+      "H100 (Accelerate Small - 1x GPU)": "$1.68/hr",
+      "H100 (VM Small - 1x GPU)": "$1.57/hr"
     },
     "Amazon Web Services": {
       "H100 (AWS P5)": "$6.88/hr"
     },
     "Microsoft Azure": {
-      "H100 (ND96isr - 8x GPUs)": "$6.06/hr"
+      "H100 (ND96isr - 8x GPUs)": "$6.04/hr"
     },
     "RunPod": {
-      "H100 PCIe": "USD 1.99/hr",
+      "H100 PCIe": "USD 2.39/hr",
       "H100 SXM": "USD 2.69/hr",
-      "H100 NVL": "USD 2.59/hr"
+      "H100 NVL": "USD 3.07/hr"
     },
     "Atlantic.net": {
       "H100 NVL (On-Demand)": "$1.67/hr"
@@ -87,7 +84,7 @@
   },
   "summary": {
     "total_providers": 15,
-    "total_h100_variants": 53,
+    "total_h100_variants": 50,
     "providers_with_data": [
       "HyperStack",
       "CUDO Compute",
@@ -104,7 +101,7 @@
     ],
     "cheapest": {
       "provider": "JarvisLabs",
-      "variant": "H100",
+      "variant": "H200",
       "price": "$0.39/hr"
     },
     "most_expensive": {
@@ -112,6 +109,6 @@
       "variant": "H100NVL",
       "price": "$2648.4/hr"
     },
-    "last_updated": "2026-01-05T02:11:21.165113"
+    "last_updated": "2026-03-13T23:09:03.210452"
   }
 }
