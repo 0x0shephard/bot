@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-16 02:47:05",
+  "timestamp": "2026-03-16 13:22:59",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -17,20 +17,6 @@
       "H100NVL (4x GPUs)": "$15.765",
       "H100NVL (8x GPUs)": "$31.531",
       "H100NVL": "$2648.4"
-    },
-    "Civo": {
-      "H100 SXM (1x GPU) Standard": "$2.99",
-      "H100 SXM (1x GPU) Discounted": "$2.49",
-      "H100 SXM (8x GPUs) Standard": "$23.92",
-      "H100 SXM (8x GPUs) Discounted": "$19.92",
-      "H100 PCI (1x GPU) Standard": "$2.49",
-      "H100 PCI (1x GPU) Discounted": "$1.99",
-      "H100 PCI (2x GPUs) Standard": "$4.98",
-      "H100 PCI (2x GPUs) Discounted": "$3.98",
-      "H100 PCI (4x GPUs) Standard": "$9.96",
-      "H100 PCI (4x GPUs) Discounted": "$7.96",
-      "H100 PCI (8x GPUs) Standard": "$19.92",
-      "H100 PCI (8x GPUs) Discounted": "$15.92"
     },
     "GPU-Mart": {
       "H100 Dedicated Server (Hourly)": "$4.16/hr"
@@ -59,8 +45,8 @@
       "H100 (HGX Line)": "$1.60/hr"
     },
     "Vast.ai": {
-      "H200 (API)": "$1.99/hr",
-      "H100 NVL (API)": "$1.60/hr"
+      "H200 (API)": "$7.74/hr",
+      "H100 NVL (API)": "$1.52/hr"
     },
     "Latitude.sh": {
       "H100 (Standard)": "$1.00/hr",
@@ -83,13 +69,12 @@
     }
   },
   "summary": {
-    "total_providers": 15,
-    "total_h100_variants": 50,
+    "total_providers": 14,
+    "total_h100_variants": 38,
     "providers_with_data": [
       "HyperStack",
       "CUDO Compute",
       "Atlantic.Net",
-      "Civo",
       "GPU-Mart",
       "Hostkey",
       "JarvisLabs",
@@ -109,6 +94,6 @@
       "variant": "H100NVL",
       "price": "$2648.4/hr"
     },
-    "last_updated": "2026-03-16T02:47:28.143550"
+    "last_updated": "2026-03-16T13:23:25.195753"
   }
 }
