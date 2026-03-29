@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-29 02:47:56",
+  "timestamp": "2026-03-29 13:04:29",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -50,6 +50,9 @@
       "H100 SXM (1x GPU)": "$2.80",
       "H100 SXM (4x GPUs)": "$11.20",
       "H100 SXM (8x GPUs)": "$22.40"
+    },
+    "Neysa.ai": {
+      "H100 SXM (80GB)": "$4.39"
     },
     "ShaktiCloud": {
       "H100 SLURM (per GPU)": "\u20b9365",
@@ -140,8 +143,8 @@
     }
   },
   "summary": {
-    "total_providers": 29,
-    "total_h100_variants": 79,
+    "total_providers": 30,
+    "total_h100_variants": 80,
     "providers_with_data": [
       "HyperStack",
       "CUDO Compute",
@@ -152,6 +155,7 @@
       "Koyeb",
       "Nebius",
       "TaigaCloud",
+      "Neysa.ai",
       "ShaktiCloud",
       "GMICloud",
       "Lambda Labs",
@@ -215,6 +219,7 @@
         "TaigaCloud: H100 SXM (1x GPU)",
         "TaigaCloud: H100 SXM (4x GPUs)",
         "TaigaCloud: H100 SXM (8x GPUs)",
+        "Neysa.ai: H100 SXM (80GB)",
         "GMICloud: H100 (per GPU)",
         "Lambda Labs: H100",
         "Lambda Labs: H100 SXM",
