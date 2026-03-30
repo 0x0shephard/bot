@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-30 02:50:49",
+  "timestamp": "2026-03-30 13:42:13",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -77,9 +77,6 @@
       "H100 GPU": "$5.49",
       "H100": "$0.001525"
     },
-    "AceCloud": {
-      "H100 GPU": "\u20b91.74"
-    },
     "Massed Compute": {
       "H100 SXM5": "$22.00",
       "H100 NVL": "$5.16"
@@ -141,17 +138,13 @@
       "H100 (On-Demand InfiniBand)": "$2.49",
       "H100": "$1.99"
     },
-    "SharonAI": {
-      "H100 NVL": "$0.50",
-      "H100": "$0.50"
-    },
     "Ori": {
       "H100 (On-Demand)": "$2.90"
     }
   },
   "summary": {
-    "total_providers": 32,
-    "total_h100_variants": 83,
+    "total_providers": 30,
+    "total_h100_variants": 80,
     "providers_with_data": [
       "HyperStack",
       "CUDO Compute",
@@ -169,7 +162,6 @@
       "Qubrid",
       "EdgeVana",
       "Replicate",
-      "AceCloud",
       "Massed Compute",
       "DataCrunch",
       "LeaderGPU",
@@ -183,7 +175,6 @@
       "Leaseweb",
       "HydraHost",
       "VoltagePark",
-      "SharonAI",
       "Ori"
     ],
     "cheapest_usd": {
@@ -255,8 +246,6 @@
         "VoltagePark: H100 (On-Demand Ethernet)",
         "VoltagePark: H100 (On-Demand InfiniBand)",
         "VoltagePark: H100",
-        "SharonAI: H100 NVL",
-        "SharonAI: H100",
         "Ori: H100 (On-Demand)"
       ],
       "INR": [
@@ -265,7 +254,6 @@
         "ShaktiCloud: H100 Kubernetes (per GPU)",
         "ShaktiCloud: H100 Serverless 80GB (per hour)",
         "ShaktiCloud: H100 Azure ML (per GPU)",
-        "AceCloud: H100 GPU",
         "E2E Networks: 1\u00d7H100 SXM (80GB) - Regular",
         "E2E Networks: 2\u00d7H100 SXM (80GB) - Regular",
         "E2E Networks: 4\u00d7H100 SXM (80GB) - Regular",
