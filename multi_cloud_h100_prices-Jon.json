@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-02 13:22:49",
+  "timestamp": "2026-04-03 02:42:08",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -134,14 +134,11 @@
       "H100 (On-Demand Ethernet)": "$1.99",
       "H100 (On-Demand InfiniBand)": "$2.49",
       "H100": "$1.99"
-    },
-    "Ori": {
-      "H100 (On-Demand)": "$2.90"
     }
   },
   "summary": {
-    "total_providers": 29,
-    "total_h100_variants": 79,
+    "total_providers": 28,
+    "total_h100_variants": 78,
     "providers_with_data": [
       "HyperStack",
       "CUDO Compute",
@@ -170,8 +167,7 @@
       "Crusoe",
       "Leaseweb",
       "HydraHost",
-      "VoltagePark",
-      "Ori"
+      "VoltagePark"
     ],
     "cheapest_usd": {
       "provider": "Replicate",
@@ -240,8 +236,7 @@
         "HydraHost: H100 (per card-hour)",
         "VoltagePark: H100 (On-Demand Ethernet)",
         "VoltagePark: H100 (On-Demand InfiniBand)",
-        "VoltagePark: H100",
-        "Ori: H100 (On-Demand)"
+        "VoltagePark: H100"
       ],
       "INR": [
         "OVHcloud: H100 (AI Training/Notebooks)",
