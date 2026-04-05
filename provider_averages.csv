@@ -2,7 +2,6 @@ Provider,AvgNormalizedPrice,VariantCount,StdDevNormalizedPrice,AvgPricePerGPU,Av
 Replicate,0.0282,2,0.0377,0.0282,2.7458
 AtlasCloud,0.035,1,,0.035,3.5
 Gcore,0.2881,1,,0.2881,2.305
-SharonAI,0.4887,2,0.016,0.5,0.5
 Latitude.sh,1.4167,3,0.365,1.4167,1.4167
 Leaseweb,1.5904,2,0.0,1.5904,2.3856
 Atlantic.net,1.5944,1,,1.67,1.67
@@ -36,7 +35,7 @@ Microsoft Azure,6.04,2,0.0,6.04,6.04
 Amazon Web Services,6.88,1,,6.88,6.88
 Baseten,6.9997,2,0.7067,5.125,5.125
 GMICloud,8.0,1,,8.0,8.0
-Massed Compute,13.4632,2,12.0728,13.58,13.58
+Massed Compute,9.7527,3,10.3088,9.67,9.67
 Google Cloud,15.4112,4,0.4835,15.4112,69.355
 ShaktiCloud,71.7002,4,135.984,71.7002,71.7002
 Atlantic.Net,634.9567,8,1168.7439,665.0559,674.9092
