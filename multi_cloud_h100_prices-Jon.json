@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-09 13:50:38",
+  "timestamp": "2026-04-10 02:52:47",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -51,14 +51,11 @@
       "H100 SXM (4x GPUs)": "$11.20",
       "H100 SXM (8x GPUs)": "$22.40"
     },
-    "Neysa.ai": {
-      "H100 SXM (80GB)": "$4.39"
-    },
     "GMICloud": {
       "H100 (per GPU)": "$8.00"
     },
     "Lambda Labs": {
-      "H100": "$4.62",
+      "H100": "$9.86",
       "H100 SXM": "$3.99"
     },
     "Qubrid": {
@@ -72,9 +69,8 @@
       "H100": "$0.001525"
     },
     "Massed Compute": {
-      "H100 SXM5": "$21.60",
-      "H100 NVL": "$5.06",
-      "H100 PCIe": "$2.35"
+      "H100 SXM5": "$22.00",
+      "H100 NVL": "$5.16"
     },
     "DataCrunch": {
       "H100 SXM5 (Pay As You Go)": "$2.29",
@@ -97,17 +93,6 @@
     },
     "Modal": {
       "H100": "$3.95"
-    },
-    "E2E Networks": {
-      "1\u00d7H100 SXM (80GB) - Regular": "\u20b9450",
-      "2\u00d7H100 SXM (80GB) - Regular": "\u20b9816",
-      "4\u00d7H100 SXM (80GB) - Regular": "\u20b91,560",
-      "8\u00d7H100 SXM (80GB) - Regular": "\u20b93,040",
-      "1\u00d7H100 - Spot": "\u20b9175",
-      "2\u00d7H100 - Spot": "\u20b9350",
-      "4\u00d7H100 - Spot": "\u20b9700",
-      "8\u00d7H100 HGX": "\u20b93,152",
-      "4\u00d7H100 HGX": "\u20b91,576"
     },
     "Seeweb": {
       "H100 SXM (80GB)": "\u20ac2.35"
@@ -135,8 +120,8 @@
     }
   },
   "summary": {
-    "total_providers": 28,
-    "total_h100_variants": 76,
+    "total_providers": 26,
+    "total_h100_variants": 65,
     "providers_with_data": [
       "HyperStack",
       "CUDO Compute",
@@ -147,7 +132,6 @@
       "Koyeb",
       "Nebius",
       "TaigaCloud",
-      "Neysa.ai",
       "GMICloud",
       "Lambda Labs",
       "Qubrid",
@@ -159,7 +143,6 @@
       "Baseten",
       "Fal.AI",
       "Modal",
-      "E2E Networks",
       "Seeweb",
       "AtlasCloud",
       "Crusoe",
@@ -209,7 +192,6 @@
         "TaigaCloud: H100 SXM (1x GPU)",
         "TaigaCloud: H100 SXM (4x GPUs)",
         "TaigaCloud: H100 SXM (8x GPUs)",
-        "Neysa.ai: H100 SXM (80GB)",
         "GMICloud: H100 (per GPU)",
         "Lambda Labs: H100",
         "Lambda Labs: H100 SXM",
@@ -219,7 +201,6 @@
         "Replicate: H100",
         "Massed Compute: H100 SXM5",
         "Massed Compute: H100 NVL",
-        "Massed Compute: H100 PCIe",
         "DataCrunch: H100 SXM5 (Pay As You Go)",
         "DataCrunch: H100 SXM5 (Spot Price)",
         "DataCrunch: H100 SXM5 (Dynamic Pricing)",
@@ -239,16 +220,7 @@
         "VoltagePark: H100"
       ],
       "INR": [
-        "OVHcloud: H100 (AI Training/Notebooks)",
-        "E2E Networks: 1\u00d7H100 SXM (80GB) - Regular",
-        "E2E Networks: 2\u00d7H100 SXM (80GB) - Regular",
-        "E2E Networks: 4\u00d7H100 SXM (80GB) - Regular",
-        "E2E Networks: 8\u00d7H100 SXM (80GB) - Regular",
-        "E2E Networks: 1\u00d7H100 - Spot",
-        "E2E Networks: 2\u00d7H100 - Spot",
-        "E2E Networks: 4\u00d7H100 - Spot",
-        "E2E Networks: 8\u00d7H100 HGX",
-        "E2E Networks: 4\u00d7H100 HGX"
+        "OVHcloud: H100 (AI Training/Notebooks)"
       ],
       "EUR": [
         "Gcore: H100 SXM (8x GPUs - GPU Cloud)",
