@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-19 13:10:25",
+  "timestamp": "2026-04-20 03:21:43",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -36,7 +36,11 @@
       "H100 (AI Training/Notebooks)": "\u20b9281.6"
     },
     "Gcore": {
-      "H100 SXM (8x GPUs - GPU Cloud)": "\u20ac16.00 (\u20ac2.00/GPU)"
+      "H100 SXM (8x GPUs - GPU Cloud)": "\u20ac22.04 (\u20ac2.76/GPU)",
+      "H100 (1x GPU - Inference)": "\u20ac4",
+      "H100 (2x GPUs - Inference)": "\u20ac8",
+      "H100 (4x GPUs - Inference)": "\u20ac16",
+      "H100 (8x GPUs - Inference)": "\u20ac32"
     },
     "Koyeb": {
       "H100 (1x GPU)": "$2.50",
@@ -50,6 +54,9 @@
       "H100 SXM (1x GPU)": "$2.80",
       "H100 SXM (4x GPUs)": "$11.20",
       "H100 SXM (8x GPUs)": "$22.40"
+    },
+    "Neysa.ai": {
+      "H100 SXM (80GB)": "$4.39"
     },
     "ShaktiCloud": {
       "H100 SLURM (per GPU)": "\u20b9386",
@@ -75,9 +82,8 @@
       "H100": "$0.001525"
     },
     "Massed Compute": {
-      "H100 SXM5": "$21.60",
-      "H100 NVL": "$5.06",
-      "H100 PCIe": "$2.35"
+      "H100 SXM5": "$22.00",
+      "H100 NVL": "$5.16"
     },
     "DataCrunch": {
       "H100 SXM5 (Pay As You Go)": "$2.29",
@@ -138,8 +144,8 @@
     }
   },
   "summary": {
-    "total_providers": 28,
-    "total_h100_variants": 79,
+    "total_providers": 29,
+    "total_h100_variants": 83,
     "providers_with_data": [
       "HyperStack",
       "CUDO Compute",
@@ -150,6 +156,7 @@
       "Koyeb",
       "Nebius",
       "TaigaCloud",
+      "Neysa.ai",
       "ShaktiCloud",
       "GMICloud",
       "Lambda Labs",
@@ -212,6 +219,7 @@
         "TaigaCloud: H100 SXM (1x GPU)",
         "TaigaCloud: H100 SXM (4x GPUs)",
         "TaigaCloud: H100 SXM (8x GPUs)",
+        "Neysa.ai: H100 SXM (80GB)",
         "GMICloud: H100 (per GPU)",
         "Lambda Labs: H100",
         "Lambda Labs: H100 SXM",
@@ -221,7 +229,6 @@
         "Replicate: H100",
         "Massed Compute: H100 SXM5",
         "Massed Compute: H100 NVL",
-        "Massed Compute: H100 PCIe",
         "DataCrunch: H100 SXM5 (Pay As You Go)",
         "DataCrunch: H100 SXM5 (Spot Price)",
         "DataCrunch: H100 SXM5 (Dynamic Pricing)",
@@ -258,6 +265,10 @@
       ],
       "EUR": [
         "Gcore: H100 SXM (8x GPUs - GPU Cloud)",
+        "Gcore: H100 (1x GPU - Inference)",
+        "Gcore: H100 (2x GPUs - Inference)",
+        "Gcore: H100 (4x GPUs - Inference)",
+        "Gcore: H100 (8x GPUs - Inference)",
         "LeaderGPU: H100 (8x GPUs - NVLink)",
         "LeaderGPU: H100 (2x GPUs - Summer Promo)",
         "LeaderGPU: H100 (2x GPUs - Regular)",
