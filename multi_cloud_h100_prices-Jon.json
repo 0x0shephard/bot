@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-25 13:13:23",
+  "timestamp": "2026-04-26 03:24:23",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -101,17 +101,6 @@
     "Modal": {
       "H100": "$3.95"
     },
-    "E2E Networks": {
-      "1\u00d7H100 SXM (80GB) - Regular": "\u20b9450",
-      "2\u00d7H100 SXM (80GB) - Regular": "\u20b9816",
-      "4\u00d7H100 SXM (80GB) - Regular": "\u20b91,560",
-      "8\u00d7H100 SXM (80GB) - Regular": "\u20b93,040",
-      "1\u00d7H100 - Spot": "\u20b9175",
-      "2\u00d7H100 - Spot": "\u20b9350",
-      "4\u00d7H100 - Spot": "\u20b9700",
-      "8\u00d7H100 HGX": "\u20b93,152",
-      "4\u00d7H100 HGX": "\u20b91,576"
-    },
     "Seeweb": {
       "H100 SXM (80GB)": "\u20ac2.35"
     },
@@ -135,11 +124,15 @@
       "H100 (On-Demand Ethernet)": "$1.99",
       "H100 (On-Demand InfiniBand)": "$2.49",
       "H100": "$1.99"
+    },
+    "SharonAI": {
+      "H100 NVL": "$0.50",
+      "H100": "$0.50"
     }
   },
   "summary": {
     "total_providers": 28,
-    "total_h100_variants": 79,
+    "total_h100_variants": 72,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -162,13 +155,13 @@
       "Baseten",
       "Fal.AI",
       "Modal",
-      "E2E Networks",
       "Seeweb",
       "AtlasCloud",
       "Crusoe",
       "Leaseweb",
       "HydraHost",
-      "VoltagePark"
+      "VoltagePark",
+      "SharonAI"
     ],
     "cheapest_usd": {
       "provider": "Replicate",
@@ -234,23 +227,16 @@
         "HydraHost: H100 (per card-hour)",
         "VoltagePark: H100 (On-Demand Ethernet)",
         "VoltagePark: H100 (On-Demand InfiniBand)",
-        "VoltagePark: H100"
+        "VoltagePark: H100",
+        "SharonAI: H100 NVL",
+        "SharonAI: H100"
       ],
       "INR": [
         "OVHcloud: H100 (AI Training/Notebooks)",
         "ShaktiCloud: H100 SLURM (per GPU)",
         "ShaktiCloud: H100 Kubernetes (per GPU)",
         "ShaktiCloud: H100 Serverless 80GB (per hour)",
-        "ShaktiCloud: H100 Azure ML (per GPU)",
-        "E2E Networks: 1\u00d7H100 SXM (80GB) - Regular",
-        "E2E Networks: 2\u00d7H100 SXM (80GB) - Regular",
-        "E2E Networks: 4\u00d7H100 SXM (80GB) - Regular",
-        "E2E Networks: 8\u00d7H100 SXM (80GB) - Regular",
-        "E2E Networks: 1\u00d7H100 - Spot",
-        "E2E Networks: 2\u00d7H100 - Spot",
-        "E2E Networks: 4\u00d7H100 - Spot",
-        "E2E Networks: 8\u00d7H100 HGX",
-        "E2E Networks: 4\u00d7H100 HGX"
+        "ShaktiCloud: H100 Azure ML (per GPU)"
       ],
       "EUR": [
         "Gcore: H100 SXM (8x GPUs - GPU Cloud)",
