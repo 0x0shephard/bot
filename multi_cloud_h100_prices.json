@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-29 03:33:52",
+  "timestamp": "2026-04-29 14:08:30",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -54,11 +54,6 @@
       "B200 (HGX)": "$1.60/hr",
       "H100 (HGX Line)": "$1.60/hr"
     },
-    "Vast.ai": {
-      "H200 (API)": "$3.98/hr",
-      "H100 NVL (API)": "$1.51/hr",
-      "H100 SXM (API)": "$1.47/hr"
-    },
     "Latitude.sh": {
       "H100 (Standard)": "$1.00/hr",
       "H100 (Accelerate Small - 1x GPU)": "$1.68/hr",
@@ -80,8 +75,8 @@
     }
   },
   "summary": {
-    "total_providers": 14,
-    "total_h100_variants": 49,
+    "total_providers": 13,
+    "total_h100_variants": 46,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -91,7 +86,6 @@
       "JarvisLabs",
       "Google Cloud",
       "Genesis Cloud",
-      "Vast.ai",
       "Latitude.sh",
       "Amazon Web Services"
     ],
@@ -105,6 +99,6 @@
       "variant": "H100NVL",
       "price": "$2648.4/hr"
     },
-    "last_updated": "2026-04-29T03:34:10.959758"
+    "last_updated": "2026-04-29T14:08:46.968675"
   }
 }
