@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-05 03:22:08",
+  "timestamp": "2026-05-05 16:03:43",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -71,9 +71,13 @@
       "H100 GPU": "$5.49",
       "H100": "$0.001525"
     },
+    "AceCloud": {
+      "H100 GPU": "\u20b91.74"
+    },
     "Massed Compute": {
-      "H100 SXM5": "$22.00",
-      "H100 NVL": "$5.16"
+      "H100 SXM5": "$21.60",
+      "H100 NVL": "$5.06",
+      "H100 PCIe": "$2.35"
     },
     "DataCrunch": {
       "H100 SXM5 (Pay As You Go)": "$2.29",
@@ -134,8 +138,8 @@
     }
   },
   "summary": {
-    "total_providers": 28,
-    "total_h100_variants": 75,
+    "total_providers": 29,
+    "total_h100_variants": 77,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -152,6 +156,7 @@
       "Qubrid",
       "EdgeVana",
       "Replicate",
+      "AceCloud",
       "Massed Compute",
       "DataCrunch",
       "LeaderGPU",
@@ -214,6 +219,7 @@
         "Replicate: H100",
         "Massed Compute: H100 SXM5",
         "Massed Compute: H100 NVL",
+        "Massed Compute: H100 PCIe",
         "DataCrunch: H100 SXM5 (Pay As You Go)",
         "DataCrunch: H100 SXM5 (Spot Price)",
         "DataCrunch: H100 SXM5 (Dynamic Pricing)",
@@ -238,6 +244,7 @@
         "ShaktiCloud: H100 Kubernetes (per GPU)",
         "ShaktiCloud: H100 Serverless 80GB (per hour)",
         "ShaktiCloud: H100 Azure ML (per GPU)",
+        "AceCloud: H100 GPU",
         "E2E Networks: 1\u00d7H100 SXM (80GB) - Regular",
         "E2E Networks: 2\u00d7H100 SXM (80GB) - Regular",
         "E2E Networks: 4\u00d7H100 SXM (80GB) - Regular",
