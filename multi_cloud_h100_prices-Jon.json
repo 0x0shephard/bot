@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-04 14:10:40",
+  "timestamp": "2026-05-05 03:22:08",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -120,6 +120,10 @@
       "H100 80GB SXM (1-year reserved)": "$2.93",
       "H100 80GB SXM (3-year reserved)": "$2.54"
     },
+    "Leaseweb": {
+      "H100 (2x GPUs - Dedicated Monthly)": "\u20ac2.76",
+      "H100 (Per GPU - Dedicated Monthly)": "\u20ac1.38"
+    },
     "HydraHost": {
       "H100 (per card-hour)": "$2.30"
     },
@@ -130,8 +134,8 @@
     }
   },
   "summary": {
-    "total_providers": 27,
-    "total_h100_variants": 73,
+    "total_providers": 28,
+    "total_h100_variants": 75,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -158,6 +162,7 @@
       "Seeweb",
       "AtlasCloud",
       "Crusoe",
+      "Leaseweb",
       "HydraHost",
       "VoltagePark"
     ],
@@ -249,7 +254,9 @@
         "LeaderGPU: H100 (2x GPUs - Summer Promo)",
         "LeaderGPU: H100 (2x GPUs - Regular)",
         "LeaderGPU: H100 (2x GPUs - per hour)",
-        "Seeweb: H100 SXM (80GB)"
+        "Seeweb: H100 SXM (80GB)",
+        "Leaseweb: H100 (2x GPUs - Dedicated Monthly)",
+        "Leaseweb: H100 (Per GPU - Dedicated Monthly)"
       ]
     }
   }

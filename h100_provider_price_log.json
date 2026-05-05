@@ -1,32 +1,5 @@
 [
   {
-    "timestamp": "2026-03-15T02:47:36.780798+00:00",
-    "tx_hash": "c47d75bb5525505c9ba31fb187e33183b0db1a97212030d5d86d6898b76aa0fc",
-    "contract_address": "0xB44d652354d12Ac56b83112c6ece1fa2ccEfc683",
-    "network": "sepolia",
-    "updater_address": "0xCc624fFA5df1F3F4b30aa8abd30186a86254F406",
-    "updates": [
-      {
-        "asset_name": "AWS_H100_HOURLY",
-        "asset_id": "0x7d262bdf6fe868e6f4fbaae8df4383382d51684d63ed56221ae3657e10f822f6",
-        "price_usd": 3.8528,
-        "price_scaled": 3852800000000000000
-      },
-      {
-        "asset_name": "AZURE_H100_HOURLY",
-        "asset_id": "0x9c7133267a94b0099c1cc21d1c7aef7d7daeb63a0fe81021715a9247be2e10a7",
-        "price_usd": 2.114,
-        "price_scaled": 2114000000000000000
-      },
-      {
-        "asset_name": "GCP_H100_HOURLY",
-        "asset_id": "0x80b8897ba24f84fcb99b7b482f45ae335104fa06f096a7d4718870ce143c892b",
-        "price_usd": 5.3939,
-        "price_scaled": 5393900000000000000
-      }
-    ]
-  },
-  {
     "timestamp": "2026-03-15T13:03:01.003007+00:00",
     "tx_hash": "3267c9e61dc8ccbdc322c6b414502186fbdba9f74ab1071913cbbbd009e6cf04",
     "contract_address": "0xB44d652354d12Ac56b83112c6ece1fa2ccEfc683",
@@ -2675,6 +2648,33 @@
   {
     "timestamp": "2026-05-04T14:12:00.667705+00:00",
     "tx_hash": "0af2221077bfee368a565d8c493a4e814c8a80678898387367304ba7ea727e38",
+    "contract_address": "0xB44d652354d12Ac56b83112c6ece1fa2ccEfc683",
+    "network": "sepolia",
+    "updater_address": "0xCc624fFA5df1F3F4b30aa8abd30186a86254F406",
+    "updates": [
+      {
+        "asset_name": "AWS_H100_HOURLY",
+        "asset_id": "0x7d262bdf6fe868e6f4fbaae8df4383382d51684d63ed56221ae3657e10f822f6",
+        "price_usd": 3.8528,
+        "price_scaled": 3852800000000000000
+      },
+      {
+        "asset_name": "AZURE_H100_HOURLY",
+        "asset_id": "0x9c7133267a94b0099c1cc21d1c7aef7d7daeb63a0fe81021715a9247be2e10a7",
+        "price_usd": 2.114,
+        "price_scaled": 2114000000000000000
+      },
+      {
+        "asset_name": "GCP_H100_HOURLY",
+        "asset_id": "0x80b8897ba24f84fcb99b7b482f45ae335104fa06f096a7d4718870ce143c892b",
+        "price_usd": 5.3939,
+        "price_scaled": 5393900000000000000
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-05-05T03:23:36.561421+00:00",
+    "tx_hash": "40cb4376026a9a1fb61376b714609fa083577ee5f2f8e5808bb6d97305b030d5",
     "contract_address": "0xB44d652354d12Ac56b83112c6ece1fa2ccEfc683",
     "network": "sepolia",
     "updater_address": "0xCc624fFA5df1F3F4b30aa8abd30186a86254F406",
