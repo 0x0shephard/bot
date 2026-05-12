@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Push oracle index prices to Supabase database.
 
-This script reads oracle/index prices from the MultiAssetOracle contract and pushes
+This script reads oracle/index prices from the ByteStrike CuOracle contract and pushes
 them to the database via market-specific Supabase edge functions.
 
 Each market has its own endpoint and database table for better data isolation.
@@ -23,10 +23,10 @@ from web3 import Web3
 load_dotenv()
 
 # Configuration
-SEPOLIA_RPC_URL = os.getenv("SEPOLIA_RPC_URL", "https://eth-sepolia.g.alchemy.com/v2/PBl0lLA410KGD5_NieO6L")
-MULTI_ASSET_ORACLE_ADDRESS = os.getenv(
-    "MULTI_ASSET_ORACLE_ADDRESS",
-    "0xB44d652354d12Ac56b83112c6ece1fa2ccEfc683",
+SEPOLIA_RPC_URL = os.getenv("SEPOLIA_RPC_URL", "https://rpc.sepolia.org")
+CU_ORACLE_ADDRESS = os.getenv(
+    "CU_ORACLE_ADDRESS",
+    os.getenv("MULTI_ASSET_ORACLE_ADDRESS", "0x97f557594bA32e51c0eA215B1886111F24E957af"),
 )
 
 # Hardcoded Supabase base URL (for testing)
@@ -41,23 +41,23 @@ RETRY_DELAY = 5  # seconds
 
 # Market-specific edge function endpoints (hardcoded for testing)
 MARKET_ENDPOINTS = {
-    "H100_HOURLY": f"{SUPABASE_BASE_URL}/fetch-price",  # Existing H100-PERP endpoint
+    "H100_HOURLY": f"{SUPABASE_BASE_URL}/fetch-price",  # Existing H100 index endpoint
     "H100_HYPERSCALERS_HOURLY": f"{SUPABASE_BASE_URL}/push-h100-hyperscalers-price",  # HyperScalers
     "H100_NON_HYPERSCALERS_HOURLY": f"{SUPABASE_BASE_URL}/push-h100-non-hyperscalers-price",  # non-HyperScalers
 }
 
 # Asset IDs (keccak256 hashes)
 ASSET_IDS = {
-    "H100_HOURLY": "0x82af7da7090d6235dbc9f8cfccfb82eee2e9cb33d50be18eabf66c158261796a",
-    "H100_HYPERSCALERS_HOURLY": "0x4907d2c1e61b87a99a260f8529c3c4f9e2374edae1f5ab1464a8e79d0f2c26de",
-    "H100_NON_HYPERSCALERS_HOURLY": "0xd6e43f59d2c94773a52e2c20f09762901247d1aaf2090d0b99e85c55c9833626",
+    "H100_HOURLY": "0xa9d8df3b447ff129b06fedc7de1d9692d53d107f0233181fb333b0dd0fe7ff33",
+    "H100_HYPERSCALERS_HOURLY": "0x79bd03720e349eb16eb997b6c27d1abaf8534556adb4719e484d5030f87bb3bf",
+    "H100_NON_HYPERSCALERS_HOURLY": "0x03e18761e22317ee1d8c89c0c8d944f1592ec6ef26b7264b391e3ba6aae51e65",
 }
 
 # Market configuration with database table names
 MARKETS = {
     "H100_HOURLY": {
-        "market_id": "0x2bc0c3f3ef82289c7da8a9335c83ea4f2b5b8bd62b67c4f4e0dba00b304c2937",
-        "market_name": "H100-PERP",
+        "market_id": "0xa583a10b2c0991c6f416501cbea19895d7becde9398eff1b7f60ef1120547d53",
+        "market_name": "H100-GPU-PERP",
         "display_name": "H100 GPU",
         "table_name": "price_data",  # Existing H100 table
     },
@@ -68,23 +68,30 @@ MARKETS = {
         "table_name": "h100_hyperscalers_perp_prices",
     },
     "H100_NON_HYPERSCALERS_HOURLY": {
-        "market_id": "0x9d2d658888da74a10ac9263fc14dcac4a834dd53e8edf664b4cc3b2b4a23f214",
-        "market_name": "H100-non-HyperScalers-PERP",
+        "market_id": "0x477dc2e232406bbfce22f7ed7abfde0177a869d41729ed1f3e169f1014716ce8",
+        "market_name": "H100-non-HyperScalers-PERP-V2",
         "display_name": "H100 non-HyperScalers",
         "table_name": "h100_non_hyperscalers_perp_prices",
     },
 }
 
-# MultiAssetOracle ABI (minimal - just getPrice)
+# CuOracle ABI (minimal - just getLatestPrice)
 ORACLE_ABI = [
     {
         "type": "function",
-        "name": "getPrice",
+        "name": "getLatestPrice",
         "inputs": [
-            {"name": "assetId", "type": "bytes32", "internalType": "bytes32"}
+            {"name": "_assetId", "type": "bytes32", "internalType": "bytes32"}
         ],
         "outputs": [
-            {"name": "", "type": "uint256", "internalType": "uint256"}
+            {
+                "name": "",
+                "type": "tuple",
+                "components": [
+                    {"name": "price", "type": "uint256"},
+                    {"name": "lastUpdatedAt", "type": "uint256"},
+                ],
+            }
         ],
         "stateMutability": "view",
     },
@@ -119,7 +126,7 @@ class PricePusher:
         print(f"Connected to Ethereum")
         print(f"   Chain ID: {self.w3.eth.chain_id}")
         print(f"   Latest block: {self.w3.eth.block_number}")
-        print(f"   Oracle: {oracle_address}")
+        print(f"   CuOracle: {oracle_address}")
         print(f"   Database URL: {base_url}")
         if self.anon_key:
             print(f"   Supabase Auth: Enabled (using apikey)")
@@ -130,7 +137,7 @@ class PricePusher:
     def get_oracle_price(self, asset_id: str) -> Optional[float]:
         """Fetch oracle price for an asset."""
         try:
-            price_raw = self.oracle.functions.getPrice(asset_id).call()
+            price_raw, _last_updated_at = self.oracle.functions.getLatestPrice(asset_id).call()
             return price_raw / 10 ** 18
         except Exception as exc:
             print(f"   ✗ Failed to fetch oracle price: {exc}")
@@ -287,9 +294,9 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Market-specific endpoints:
-  - H100-PERP: /fetch-price → price_data table
+  - H100-GPU-PERP: /fetch-price → price_data table
   - H100-HyperScalers-PERP: /push-h100-hyperscalers-price → h100_hyperscalers_perp_prices table
-  - H100-non-HyperScalers-PERP: /push-h100-non-hyperscalers-price → h100_non_hyperscalers_perp_prices table
+  - H100-non-HyperScalers-PERP-V2: /push-h100-non-hyperscalers-price → h100_non_hyperscalers_perp_prices table
 
 Each market has its own edge function and database table for better data isolation.
         """
@@ -301,8 +308,8 @@ Each market has its own edge function and database table for better data isolati
     )
     parser.add_argument(
         "--oracle",
-        default=MULTI_ASSET_ORACLE_ADDRESS,
-        help="MultiAssetOracle contract address",
+        default=CU_ORACLE_ADDRESS,
+        help="CuOracle contract address",
     )
     parser.add_argument(
         "--db-url",
