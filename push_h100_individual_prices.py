@@ -148,7 +148,8 @@ Examples:
             sys.exit(1)
 
         commit_hashes, reveal_hashes = updater.commit_and_reveal(updates, verify=not args.no_verify)
-        log_updates(updates, commit_hashes, reveal_hashes, updater)
+        if commit_hashes or reveal_hashes:
+            log_updates(updates, commit_hashes, reveal_hashes, updater)
     except Exception as exc:
         print("\nERROR: CUORACLE UPDATE FAILED")
         print(f"  {exc}")
@@ -158,9 +159,12 @@ Examples:
         sys.exit(1)
 
     print("\nSUCCESS: H100 provider prices updated on ByteStrike CuOracle")
-    print("Reveal transactions:")
-    for tx_hash in reveal_hashes:
-        print(f"  https://sepolia.etherscan.io/tx/{tx_hash}")
+    if reveal_hashes:
+        print("Reveal transactions:")
+        for tx_hash in reveal_hashes:
+            print(f"  https://sepolia.etherscan.io/tx/{tx_hash}")
+    else:
+        print("No transactions were needed; all prices already matched.")
 
 
 if __name__ == "__main__":

@@ -204,7 +204,7 @@ class CuOraclePriceUpdater:
             raise PermissionError("CuOracle.updatePrices is owner-only; ORACLE_UPDATER_PRIVATE_KEY must be owner key")
 
     def _fee_fields(self) -> dict:
-        priority_gwei = Decimal(os.getenv("ORACLE_MAX_PRIORITY_FEE_GWEI", "0.001"))
+        priority_gwei = Decimal(os.getenv("ORACLE_MAX_PRIORITY_FEE_GWEI", "0.05"))
         priority_fee = int(priority_gwei * Decimal(10**9))
         latest_block = self.w3.eth.get_block("latest")
         base_fee = latest_block.get("baseFeePerGas")
@@ -267,6 +267,23 @@ class CuOraclePriceUpdater:
         )
         return update
 
+    def _filter_noop_updates(self, updates: List[OraclePriceUpdate]) -> List[OraclePriceUpdate]:
+        force_updates = os.getenv("ORACLE_FORCE_UPDATE", "").lower() in {"1", "true", "yes"}
+        if force_updates:
+            return updates
+
+        filtered: List[OraclePriceUpdate] = []
+        for update in updates:
+            current_price, current_timestamp = self.get_latest_price(update.asset_id)
+            if current_price == update.price_scaled:
+                print(
+                    f"  {update.asset_name} ({update.market}): already {update.price_formatted} "
+                    f"at commit timestamp {current_timestamp}; skipping"
+                )
+                continue
+            filtered.append(update)
+        return filtered
+
     def _verify_revealed_price(self, update: OraclePriceUpdate, receipt: dict) -> Tuple[int, int]:
         attempts = int(os.getenv("ORACLE_VERIFY_ATTEMPTS", "12"))
         delay_seconds = float(os.getenv("ORACLE_VERIFY_RETRY_SECONDS", "2"))
@@ -315,11 +332,16 @@ class CuOraclePriceUpdater:
         updates: Iterable[OraclePriceUpdate],
         verify: bool = True,
     ) -> Tuple[List[str], List[str]]:
-        prepared = [self._prepare_update(update) for update in updates]
-        if not prepared:
+        requested = [self._prepare_update(update) for update in updates]
+        if not requested:
             raise ValueError("No price updates provided")
 
         print("\nPrepared CuOracle updates:")
+        prepared = self._filter_noop_updates(requested)
+        if not prepared:
+            print("  All requested prices already match CuOracle. No transactions needed.")
+            return [], []
+
         for update in prepared:
             current = self.get_latest_price_usd(update.asset_id)
             if current:
