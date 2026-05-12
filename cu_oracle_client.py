@@ -232,8 +232,10 @@ class CuOraclePriceUpdater:
             raise RuntimeError(f"Transaction reverted: {tx_hash.hex()}")
         return tx_hash.hex(), dict(receipt)
 
-    def get_latest_price(self, asset_id: str) -> Tuple[int, int]:
-        price, last_updated_at = self.contract.functions.getLatestPrice(asset_id).call()
+    def get_latest_price(self, asset_id: str, block_identifier="latest") -> Tuple[int, int]:
+        price, last_updated_at = self.contract.functions.getLatestPrice(asset_id).call(
+            block_identifier=block_identifier
+        )
         return int(price), int(last_updated_at)
 
     def get_latest_price_usd(self, asset_id: str) -> Optional[float]:
@@ -258,6 +260,49 @@ class CuOraclePriceUpdater:
             text=f"{update.asset_id}:{update.price_scaled}:{time.time_ns()}:{secrets.token_hex(16)}"
         )
         return update
+
+    def _verify_revealed_price(self, update: OraclePriceUpdate, receipt: dict) -> Tuple[int, int]:
+        attempts = int(os.getenv("ORACLE_VERIFY_ATTEMPTS", "12"))
+        delay_seconds = float(os.getenv("ORACLE_VERIFY_RETRY_SECONDS", "2"))
+        reveal_block = int(receipt["blockNumber"])
+        latest_seen = None
+        last_updated_seen = None
+        last_error = None
+
+        for attempt in range(1, attempts + 1):
+            try:
+                chain_head = int(self.w3.eth.block_number)
+                if chain_head < reveal_block:
+                    time.sleep(delay_seconds)
+                    continue
+
+                latest, last_updated_at = self.get_latest_price(update.asset_id, block_identifier=reveal_block)
+                latest_seen = latest
+                last_updated_seen = last_updated_at
+                if latest == update.price_scaled:
+                    return latest, last_updated_at
+
+                latest, last_updated_at = self.get_latest_price(update.asset_id)
+                latest_seen = latest
+                last_updated_seen = last_updated_at
+                if latest == update.price_scaled:
+                    return latest, last_updated_at
+            except Exception as exc:
+                last_error = exc
+
+            if attempt < attempts:
+                print(
+                    f"  {update.asset_name}: verification read not fresh yet "
+                    f"(attempt {attempt}/{attempts}); retrying..."
+                )
+                time.sleep(delay_seconds)
+
+        detail = f"expected {update.price_scaled}, got {latest_seen}"
+        if last_updated_seen is not None:
+            detail += f", lastUpdatedAt {last_updated_seen}"
+        if last_error is not None:
+            detail += f", last error {last_error}"
+        raise RuntimeError(f"Verification failed for {update.asset_name}: {detail}")
 
     def commit_and_reveal(
         self,
@@ -297,6 +342,7 @@ class CuOraclePriceUpdater:
         time.sleep(wait_seconds)
 
         reveal_hashes: List[str] = []
+        reveal_receipts: List[dict] = []
         print("\nRevealing prices...")
         for update in prepared:
             tx_hash, receipt = self._send_transaction(
@@ -304,16 +350,13 @@ class CuOraclePriceUpdater:
                 gas_limit=120_000,
             )
             reveal_hashes.append(tx_hash)
+            reveal_receipts.append(receipt)
             print(f"  reveal {update.asset_name}: {tx_hash} (gas {receipt['gasUsed']:,})")
 
         if verify:
             print("\nVerifying revealed prices...")
-            for update in prepared:
-                latest, last_updated_at = self.get_latest_price(update.asset_id)
-                if latest != update.price_scaled:
-                    raise RuntimeError(
-                        f"Verification failed for {update.asset_name}: expected {update.price_scaled}, got {latest}"
-                    )
+            for update, receipt in zip(prepared, reveal_receipts):
+                _latest, last_updated_at = self._verify_revealed_price(update, receipt)
                 print(f"  {update.asset_name}: {update.price_formatted} at commit timestamp {last_updated_at}")
         else:
             print("\nSkipping on-chain verification (--no-verify)")
