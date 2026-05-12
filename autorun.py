@@ -23,7 +23,7 @@ from web3 import Web3
 load_dotenv()
 
 # Configuration
-SEPOLIA_RPC_URL = os.getenv("SEPOLIA_RPC_URL", "https://rpc.sepolia.org")
+SEPOLIA_RPC_URL = os.getenv("SEPOLIA_RPC_URL", "https://ethereum-sepolia-rpc.publicnode.com")
 CU_ORACLE_ADDRESS = os.getenv(
     "CU_ORACLE_ADDRESS",
     os.getenv("MULTI_ASSET_ORACLE_ADDRESS", "0x97f557594bA32e51c0eA215B1886111F24E957af"),
@@ -112,6 +112,12 @@ class PricePusher:
         self.base_url = base_url
         self.anon_key = anon_key
         self.w3 = Web3(Web3.HTTPProvider(rpc_url))
+        if not self.w3.is_connected():
+            fallback_rpc_url = os.getenv("SEPOLIA_FALLBACK_RPC_URL", "https://ethereum-sepolia-rpc.publicnode.com")
+            if fallback_rpc_url and fallback_rpc_url != rpc_url:
+                print(f"Primary Sepolia RPC failed: {rpc_url}")
+                print(f"Trying fallback Sepolia RPC: {fallback_rpc_url}")
+                self.w3 = Web3(Web3.HTTPProvider(fallback_rpc_url))
         if not self.w3.is_connected():
             raise ConnectionError(f"Failed to connect to RPC: {rpc_url}")
 

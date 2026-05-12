@@ -166,6 +166,12 @@ class CuOraclePriceUpdater:
     def __init__(self, rpc_url: str, private_key: str, oracle_address: Optional[str] = None):
         self.w3 = Web3(Web3.HTTPProvider(rpc_url))
         if not self.w3.is_connected():
+            fallback_rpc_url = os.getenv("SEPOLIA_FALLBACK_RPC_URL", "https://ethereum-sepolia-rpc.publicnode.com")
+            if fallback_rpc_url and fallback_rpc_url != rpc_url:
+                print(f"Primary Sepolia RPC failed: {rpc_url}")
+                print(f"Trying fallback Sepolia RPC: {fallback_rpc_url}")
+                self.w3 = Web3(Web3.HTTPProvider(fallback_rpc_url))
+        if not self.w3.is_connected():
             raise ConnectionError(f"Failed to connect to Sepolia RPC: {rpc_url}")
 
         self.account = Account.from_key(private_key)

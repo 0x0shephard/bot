@@ -100,6 +100,7 @@ jobs:
     - name: Step 7 - Push H100 Index Prices to Sepolia CuOracle
       env:
         SEPOLIA_RPC_URL: ${{ secrets.SEPOLIA_RPC_URL }}
+        SEPOLIA_FALLBACK_RPC_URL: "https://ethereum-sepolia-rpc.publicnode.com"
         ORACLE_UPDATER_PRIVATE_KEY: ${{ secrets.ORACLE_UPDATER_PRIVATE_KEY }}
         CU_ORACLE_ADDRESS: "0x97f557594bA32e51c0eA215B1886111F24E957af"
         ORACLE_REVEAL_WAIT_SECONDS: "3"
@@ -117,6 +118,7 @@ jobs:
     - name: Step 8 - Push Individual Provider Prices to Contract
       env:
         SEPOLIA_RPC_URL: ${{ secrets.SEPOLIA_RPC_URL }}
+        SEPOLIA_FALLBACK_RPC_URL: "https://ethereum-sepolia-rpc.publicnode.com"
         ORACLE_UPDATER_PRIVATE_KEY: ${{ secrets.ORACLE_UPDATER_PRIVATE_KEY }}
         CU_ORACLE_ADDRESS: "0x97f557594bA32e51c0eA215B1886111F24E957af"
         ORACLE_REVEAL_WAIT_SECONDS: "3"
@@ -235,6 +237,10 @@ jobs:
         fi
 
     - name: Run autorun.py
+      env:
+        SEPOLIA_RPC_URL: ${{ secrets.SEPOLIA_RPC_URL }}
+        SEPOLIA_FALLBACK_RPC_URL: "https://ethereum-sepolia-rpc.publicnode.com"
+        CU_ORACLE_ADDRESS: "0x97f557594bA32e51c0eA215B1886111F24E957af"
       run: |
         echo "Running autorun.py..."
         python autorun.py

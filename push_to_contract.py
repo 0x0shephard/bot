@@ -20,7 +20,7 @@ from cu_oracle_client import (
 
 load_dotenv()
 
-SEPOLIA_RPC_URL = os.getenv("SEPOLIA_RPC_URL", "https://rpc.sepolia.org")
+SEPOLIA_RPC_URL = os.getenv("SEPOLIA_RPC_URL", "https://ethereum-sepolia-rpc.publicnode.com")
 PRIVATE_KEY = os.getenv("ORACLE_UPDATER_PRIVATE_KEY") or os.getenv("PRIVATE_KEY")
 CU_ORACLE_ADDRESS = os.getenv("CU_ORACLE_ADDRESS", DEFAULT_CU_ORACLE_ADDRESS)
 
