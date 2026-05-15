@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-15 20:37:28",
+  "timestamp": "2026-05-15 20:59:42",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -45,6 +45,9 @@
       "H100 SXM (4x GPUs)": "$11.20",
       "H100 SXM (8x GPUs)": "$22.40"
     },
+    "Neysa.ai": {
+      "H100 SXM (80GB)": "$4.39"
+    },
     "ShaktiCloud": {
       "H100 SLURM (per GPU)": "\u20b9386",
       "H100 Kubernetes (per GPU)": "\u20b9386",
@@ -64,10 +67,13 @@
     "EdgeVana": {
       "H100 Node": "$2.50"
     },
+    "Replicate": {
+      "H100 GPU": "$5.49",
+      "H100": "$0.001525"
+    },
     "Massed Compute": {
-      "H100 SXM5": "$21.60",
-      "H100 NVL": "$5.06",
-      "H100 PCIe": "$2.35"
+      "H100 SXM5": "$22.00",
+      "H100 NVL": "$5.16"
     },
     "DataCrunch": {
       "H100 SXM5 (Pay As You Go)": "$2.29",
@@ -128,8 +134,8 @@
     }
   },
   "summary": {
-    "total_providers": 26,
-    "total_h100_variants": 73,
+    "total_providers": 28,
+    "total_h100_variants": 75,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -139,11 +145,13 @@
       "Koyeb",
       "Nebius",
       "TaigaCloud",
+      "Neysa.ai",
       "ShaktiCloud",
       "GMICloud",
       "Lambda Labs",
       "Qubrid",
       "EdgeVana",
+      "Replicate",
       "Massed Compute",
       "DataCrunch",
       "LeaderGPU",
@@ -159,9 +167,9 @@
       "VoltagePark"
     ],
     "cheapest_usd": {
-      "provider": "Nebius",
-      "variant": "HGX H100 (On-Demand)",
-      "price": "$1.25"
+      "provider": "Replicate",
+      "variant": "H100",
+      "price": "$0.001525"
     },
     "most_expensive_usd": {
       "provider": "Atlantic.Net",
@@ -196,14 +204,16 @@
         "TaigaCloud: H100 SXM (1x GPU)",
         "TaigaCloud: H100 SXM (4x GPUs)",
         "TaigaCloud: H100 SXM (8x GPUs)",
+        "Neysa.ai: H100 SXM (80GB)",
         "GMICloud: H100 (per GPU)",
         "Lambda Labs: H100",
         "Lambda Labs: H100 SXM",
         "Qubrid: H100 (80GB - 1x GPU)",
         "EdgeVana: H100 Node",
+        "Replicate: H100 GPU",
+        "Replicate: H100",
         "Massed Compute: H100 SXM5",
         "Massed Compute: H100 NVL",
-        "Massed Compute: H100 PCIe",
         "DataCrunch: H100 SXM5 (Pay As You Go)",
         "DataCrunch: H100 SXM5 (Spot Price)",
         "DataCrunch: H100 SXM5 (Dynamic Pricing)",
