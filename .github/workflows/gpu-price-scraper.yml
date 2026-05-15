@@ -2,7 +2,8 @@ name: GPU Price Scraper Pipeline
 
 on:
   schedule:
-    - cron: '0 0,12 * * *'  # Runs at 0:00 and 12:00 UTC daily (every 12 hours)
+    - cron: '0,40 0-23/2 * * *'  # Runs at :00 and :40 on even UTC hours
+    - cron: '20 1-23/2 * * *'    # Runs at :20 on odd UTC hours
   workflow_dispatch:  # Manual trigger
   push:
     branches: [ main ]  # Run on push for testing
