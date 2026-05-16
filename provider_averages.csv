@@ -2,7 +2,6 @@ Provider,AvgNormalizedPrice,VariantCount,StdDevNormalizedPrice,AvgPricePerGPU,Av
 Replicate,0.0282,2,0.0377,0.0282,2.7458
 AtlasCloud,0.035,1,,0.035,3.5
 Gcore,0.2907,1,,0.2907,2.3256
-SharonAI,0.4887,2,0.016,0.5,0.5
 Nebius,1.25,1,,1.25,1.25
 Atlantic.net,1.5944,1,,1.67,1.67
 Genesis Cloud,1.6,4,0.0,1.6,1.6
@@ -18,12 +17,12 @@ Koyeb,2.5,3,0.0,2.5,5.8333
 Civo,2.7099,24,0.2918,2.4067,9.71
 Qubrid,2.73,1,,2.73,2.73
 Seeweb,2.7326,1,,2.7326,2.7326
-JarvisLabs,2.7583,6,3.7223,2.7583,2.7583
 TaigaCloud,2.8,3,0.0,2.8,12.1333
 GPU-Mart,2.92,3,0.0,2.92,2.92
 RunPod,2.9321,6,0.0513,2.8167,2.8167
 OVHcloud,2.9343,1,,2.9343,2.9343
 Crusoe,3.1225,4,0.5718,3.1225,3.1225
+JarvisLabs,3.1417,6,3.5438,3.1417,3.1417
 E2E Networks,3.405,9,1.2037,3.405,13.6838
 Modal,3.95,1,,3.95,3.95
 Neysa.ai,4.39,1,,4.39,4.39
