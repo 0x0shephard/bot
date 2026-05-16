@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-16 20:44:36",
+  "timestamp": "2026-05-16 22:08:57",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -71,9 +71,6 @@
       "H100 GPU": "$5.49",
       "H100": "$0.001525"
     },
-    "AceCloud": {
-      "H100 GPU": "\u20b91.74"
-    },
     "Massed Compute": {
       "H100 SXM5": "$22.00",
       "H100 NVL": "$5.16"
@@ -134,15 +131,11 @@
       "H100 (On-Demand Ethernet)": "$1.99",
       "H100 (On-Demand InfiniBand)": "$2.49",
       "H100": "$1.99"
-    },
-    "SharonAI": {
-      "H100 NVL": "$0.50",
-      "H100": "$0.50"
     }
   },
   "summary": {
-    "total_providers": 30,
-    "total_h100_variants": 78,
+    "total_providers": 28,
+    "total_h100_variants": 75,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -159,7 +152,6 @@
       "Qubrid",
       "EdgeVana",
       "Replicate",
-      "AceCloud",
       "Massed Compute",
       "DataCrunch",
       "LeaderGPU",
@@ -172,8 +164,7 @@
       "Crusoe",
       "Leaseweb",
       "HydraHost",
-      "VoltagePark",
-      "SharonAI"
+      "VoltagePark"
     ],
     "cheapest_usd": {
       "provider": "Replicate",
@@ -239,9 +230,7 @@
         "HydraHost: H100 (per card-hour)",
         "VoltagePark: H100 (On-Demand Ethernet)",
         "VoltagePark: H100 (On-Demand InfiniBand)",
-        "VoltagePark: H100",
-        "SharonAI: H100 NVL",
-        "SharonAI: H100"
+        "VoltagePark: H100"
       ],
       "INR": [
         "OVHcloud: H100 (AI Training/Notebooks)",
@@ -249,7 +238,6 @@
         "ShaktiCloud: H100 Kubernetes (per GPU)",
         "ShaktiCloud: H100 Serverless 80GB (per hour)",
         "ShaktiCloud: H100 Azure ML (per GPU)",
-        "AceCloud: H100 GPU",
         "E2E Networks: 1\u00d7H100 SXM (80GB) - Regular",
         "E2E Networks: 2\u00d7H100 SXM (80GB) - Regular",
         "E2E Networks: 4\u00d7H100 SXM (80GB) - Regular",
