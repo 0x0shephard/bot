@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-17 22:11:36",
+  "timestamp": "2026-05-17 22:53:08",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -132,11 +132,15 @@
       "H100 (On-Demand Ethernet)": "$1.99",
       "H100 (On-Demand InfiniBand)": "$2.49",
       "H100": "$1.99"
+    },
+    "SharonAI": {
+      "H100 NVL": "$0.50",
+      "H100": "$0.50"
     }
   },
   "summary": {
-    "total_providers": 28,
-    "total_h100_variants": 76,
+    "total_providers": 29,
+    "total_h100_variants": 78,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -165,7 +169,8 @@
       "Crusoe",
       "Leaseweb",
       "HydraHost",
-      "VoltagePark"
+      "VoltagePark",
+      "SharonAI"
     ],
     "cheapest_usd": {
       "provider": "Replicate",
@@ -232,7 +237,9 @@
         "HydraHost: H100 (per card-hour)",
         "VoltagePark: H100 (On-Demand Ethernet)",
         "VoltagePark: H100 (On-Demand InfiniBand)",
-        "VoltagePark: H100"
+        "VoltagePark: H100",
+        "SharonAI: H100 NVL",
+        "SharonAI: H100"
       ],
       "INR": [
         "OVHcloud: H100 (AI Training/Notebooks)",
