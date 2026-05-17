@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-17 16:16:52",
+  "timestamp": "2026-05-17 16:56:58",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -36,6 +36,9 @@
       "H100 (1x GPU)": "$2.50",
       "H100 (2x GPUs)": "$5.0",
       "H100 (4x GPUs)": "$10.0"
+    },
+    "Nebius": {
+      "HGX H100 (On-Demand)": "$1.25"
     },
     "TaigaCloud": {
       "H100 SXM (1x GPU)": "$2.80",
@@ -126,11 +129,15 @@
       "H100 (On-Demand Ethernet)": "$1.99",
       "H100 (On-Demand InfiniBand)": "$2.49",
       "H100": "$1.99"
+    },
+    "SharonAI": {
+      "H100 NVL": "$0.50",
+      "H100": "$0.50"
     }
   },
   "summary": {
-    "total_providers": 26,
-    "total_h100_variants": 74,
+    "total_providers": 28,
+    "total_h100_variants": 77,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -138,6 +145,7 @@
       "OVHcloud",
       "Gcore",
       "Koyeb",
+      "Nebius",
       "TaigaCloud",
       "ShaktiCloud",
       "GMICloud",
@@ -157,7 +165,8 @@
       "Crusoe",
       "Leaseweb",
       "HydraHost",
-      "VoltagePark"
+      "VoltagePark",
+      "SharonAI"
     ],
     "cheapest_usd": {
       "provider": "Replicate",
@@ -193,6 +202,7 @@
         "Koyeb: H100 (1x GPU)",
         "Koyeb: H100 (2x GPUs)",
         "Koyeb: H100 (4x GPUs)",
+        "Nebius: HGX H100 (On-Demand)",
         "TaigaCloud: H100 SXM (1x GPU)",
         "TaigaCloud: H100 SXM (4x GPUs)",
         "TaigaCloud: H100 SXM (8x GPUs)",
@@ -222,7 +232,9 @@
         "HydraHost: H100 (per card-hour)",
         "VoltagePark: H100 (On-Demand Ethernet)",
         "VoltagePark: H100 (On-Demand InfiniBand)",
-        "VoltagePark: H100"
+        "VoltagePark: H100",
+        "SharonAI: H100 NVL",
+        "SharonAI: H100"
       ],
       "INR": [
         "OVHcloud: H100 (AI Training/Notebooks)",
