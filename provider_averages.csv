@@ -1,32 +1,32 @@
 Provider,AvgNormalizedPrice,VariantCount,StdDevNormalizedPrice,AvgPricePerGPU,AvgOriginalPrice
-AceCloud,0.0002,1,,0.0002,0.0181
 Replicate,0.0282,2,0.0377,0.0282,2.7458
 AtlasCloud,0.035,1,,0.035,3.5
 Gcore,0.2907,1,,0.2907,2.3256
 Nebius,1.25,1,,1.25,1.25
 Atlantic.net,1.5944,1,,1.67,1.67
 Genesis Cloud,1.6,4,0.0,1.6,1.6
-Vast.ai,1.6172,3,0.2799,1.64,1.64
+Leaseweb,1.6047,2,0.0,1.6047,2.407
 Latitude.sh,1.6525,4,0.055,1.6525,1.6525
 Fal.AI,1.89,2,0.0,1.89,1.89
 HyperStack,2.0539,6,0.2686,2.0833,2.0833
 VoltagePark,2.1567,3,0.2887,2.1567,2.1567
 DataCrunch,2.29,3,0.0,2.29,2.29
 HydraHost,2.3,1,,2.3,2.3
-Koyeb,2.5,3,0.0,2.5,5.8333
 EdgeVana,2.5,1,,2.5,2.5
+Koyeb,2.5,3,0.0,2.5,5.8333
 Civo,2.7099,24,0.2918,2.4067,9.71
 Qubrid,2.73,1,,2.73,2.73
 Seeweb,2.7326,1,,2.7326,2.7326
-JarvisLabs,2.7583,6,3.7223,2.7583,2.7583
 TaigaCloud,2.8,3,0.0,2.8,12.1333
 GPU-Mart,2.92,3,0.0,2.92,2.92
 RunPod,2.9321,6,0.0513,2.8167,2.8167
 OVHcloud,2.9343,1,,2.9343,2.9343
 Crusoe,3.1225,4,0.5718,3.1225,3.1225
+JarvisLabs,3.1417,6,3.5438,3.1417,3.1417
 E2E Networks,3.405,9,1.2037,3.405,13.6838
 Modal,3.95,1,,3.95,3.95
 Neysa.ai,4.39,1,,4.39,4.39
+Vast.ai,4.5956,2,4.4468,4.63,4.63
 LeaderGPU,5.615,4,4.9071,5.6512,16.1077
 Microsoft Azure,6.04,2,0.0,6.04,6.04
 Amazon Web Services,6.88,1,,6.88,6.88
