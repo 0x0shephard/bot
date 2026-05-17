@@ -2,7 +2,7 @@ Provider,AvgNormalizedPrice,VariantCount,StdDevNormalizedPrice,AvgPricePerGPU,Av
 Replicate,0.0282,2,0.0377,0.0282,2.7458
 AtlasCloud,0.035,1,,0.035,3.5
 Gcore,0.2907,1,,0.2907,2.3256
-Nebius,1.25,1,,1.25,1.25
+Vast.ai,1.5276,1,,1.6,1.6
 Atlantic.net,1.5944,1,,1.67,1.67
 Genesis Cloud,1.6,4,0.0,1.6,1.6
 Leaseweb,1.6047,2,0.0,1.6047,2.407
@@ -10,11 +10,10 @@ Latitude.sh,1.6525,4,0.055,1.6525,1.6525
 Fal.AI,1.89,2,0.0,1.89,1.89
 HyperStack,2.0539,6,0.2686,2.0833,2.0833
 VoltagePark,2.1567,3,0.2887,2.1567,2.1567
-Vast.ai,2.2338,2,0.9987,2.27,2.27
 DataCrunch,2.29,3,0.0,2.29,2.29
 HydraHost,2.3,1,,2.3,2.3
-EdgeVana,2.5,1,,2.5,2.5
 Koyeb,2.5,3,0.0,2.5,5.8333
+EdgeVana,2.5,1,,2.5,2.5
 Civo,2.7099,24,0.2918,2.4067,9.71
 Qubrid,2.73,1,,2.73,2.73
 Seeweb,2.7326,1,,2.7326,2.7326
@@ -32,7 +31,7 @@ Amazon Web Services,6.88,1,,6.88,6.88
 Lambda Labs,6.925,2,4.1507,6.925,6.925
 Baseten,6.9997,2,0.7067,5.125,5.125
 GMICloud,8.0,1,,8.0,8.0
-Massed Compute,13.4632,2,12.0728,13.58,13.58
+Massed Compute,9.7527,3,10.3088,9.67,9.67
 Google Cloud,15.4112,4,0.4835,15.4112,69.355
 ShaktiCloud,69.5639,4,131.9323,69.5639,69.5639
 Atlantic.Net,634.9567,8,1168.7439,665.0559,674.9092

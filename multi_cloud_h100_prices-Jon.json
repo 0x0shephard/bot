@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-17 14:56:02",
+  "timestamp": "2026-05-17 16:16:52",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -37,9 +37,6 @@
       "H100 (2x GPUs)": "$5.0",
       "H100 (4x GPUs)": "$10.0"
     },
-    "Nebius": {
-      "HGX H100 (On-Demand)": "$1.25"
-    },
     "TaigaCloud": {
       "H100 SXM (1x GPU)": "$2.80",
       "H100 SXM (4x GPUs)": "$11.20",
@@ -69,8 +66,9 @@
       "H100": "$0.001525"
     },
     "Massed Compute": {
-      "H100 SXM5": "$22.00",
-      "H100 NVL": "$5.16"
+      "H100 SXM5": "$21.60",
+      "H100 NVL": "$5.06",
+      "H100 PCIe": "$2.35"
     },
     "DataCrunch": {
       "H100 SXM5 (Pay As You Go)": "$2.29",
@@ -131,7 +129,7 @@
     }
   },
   "summary": {
-    "total_providers": 27,
+    "total_providers": 26,
     "total_h100_variants": 74,
     "providers_with_data": [
       "HyperStack",
@@ -140,7 +138,6 @@
       "OVHcloud",
       "Gcore",
       "Koyeb",
-      "Nebius",
       "TaigaCloud",
       "ShaktiCloud",
       "GMICloud",
@@ -196,7 +193,6 @@
         "Koyeb: H100 (1x GPU)",
         "Koyeb: H100 (2x GPUs)",
         "Koyeb: H100 (4x GPUs)",
-        "Nebius: HGX H100 (On-Demand)",
         "TaigaCloud: H100 SXM (1x GPU)",
         "TaigaCloud: H100 SXM (4x GPUs)",
         "TaigaCloud: H100 SXM (8x GPUs)",
@@ -209,6 +205,7 @@
         "Replicate: H100",
         "Massed Compute: H100 SXM5",
         "Massed Compute: H100 NVL",
+        "Massed Compute: H100 PCIe",
         "DataCrunch: H100 SXM5 (Pay As You Go)",
         "DataCrunch: H100 SXM5 (Spot Price)",
         "DataCrunch: H100 SXM5 (Dynamic Pricing)",
