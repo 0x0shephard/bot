@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-18 21:50:35",
+  "timestamp": "2026-05-18 22:17:33",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -38,8 +38,7 @@
       "H100 (4x GPUs)": "$10.0"
     },
     "Nebius": {
-      "HGX H100 (On-Demand)": "$2.95",
-      "H100 (Commitment Pricing)": "$2.00"
+      "HGX H100 (On-Demand)": "$1.25"
     },
     "TaigaCloud": {
       "H100 SXM (1x GPU)": "$2.80",
@@ -136,7 +135,7 @@
   },
   "summary": {
     "total_providers": 28,
-    "total_h100_variants": 76,
+    "total_h100_variants": 75,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -202,7 +201,6 @@
         "Koyeb: H100 (2x GPUs)",
         "Koyeb: H100 (4x GPUs)",
         "Nebius: HGX H100 (On-Demand)",
-        "Nebius: H100 (Commitment Pricing)",
         "TaigaCloud: H100 SXM (1x GPU)",
         "TaigaCloud: H100 SXM (4x GPUs)",
         "TaigaCloud: H100 SXM (8x GPUs)",

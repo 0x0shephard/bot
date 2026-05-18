@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-18 21:51:17",
+  "timestamp": "2026-05-18 22:18:19",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -32,10 +32,10 @@
       "H100 Plan": "$2.92/hr"
     },
     "JarvisLabs": {
-      "H100": "$2.69/hr",
-      "H200": "$10.0/hr",
+      "H100": "$0.39/hr",
+      "H200": "$0.39/hr",
       "H100 SXM": "$2.69/hr",
-      "H100 (Price First)": "$0.39/hr",
+      "H100 (Price First)": "$10.0/hr",
       "H200 (Price First)": "$2.69/hr",
       "H100 (Line Context)": "$0.39/hr"
     },
@@ -93,7 +93,7 @@
     ],
     "cheapest": {
       "provider": "JarvisLabs",
-      "variant": "H100 (Price First)",
+      "variant": "H100",
       "price": "$0.39/hr"
     },
     "most_expensive": {
@@ -101,6 +101,6 @@
       "variant": "H100NVL",
       "price": "$2648.4/hr"
     },
-    "last_updated": "2026-05-18T21:51:31.909977"
+    "last_updated": "2026-05-18T22:18:40.222083"
   }
 }
