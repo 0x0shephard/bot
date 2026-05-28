@@ -136,6 +136,8 @@ class OraclePriceUpdate:
     price_usd: float
     price_scaled: int
     nonce: Optional[bytes] = None
+    previous_price_scaled: Optional[int] = None
+    previous_timestamp: Optional[int] = None
 
     @property
     def price_formatted(self) -> str:
@@ -269,18 +271,37 @@ class CuOraclePriceUpdater:
 
     def _filter_noop_updates(self, updates: List[OraclePriceUpdate]) -> List[OraclePriceUpdate]:
         force_updates = os.getenv("ORACLE_FORCE_UPDATE", "").lower() in {"1", "true", "yes"}
-        if force_updates:
-            return updates
 
+        try:
+            refresh_threshold_seconds = int(os.getenv("ORACLE_REFRESH_THRESHOLD_SECONDS", str(6 * 60 * 60)))
+        except ValueError:
+            refresh_threshold_seconds = 6 * 60 * 60
+
+        latest_block_timestamp = int(self.w3.eth.get_block("latest")["timestamp"])
         filtered: List[OraclePriceUpdate] = []
         for update in updates:
             current_price, current_timestamp = self.get_latest_price(update.asset_id)
-            if current_price == update.price_scaled:
-                print(
-                    f"  {update.asset_name} ({update.market}): already {update.price_formatted} "
-                    f"at commit timestamp {current_timestamp}; skipping"
-                )
+            update.previous_price_scaled = current_price
+            update.previous_timestamp = current_timestamp
+
+            if force_updates:
+                filtered.append(update)
                 continue
+
+            if current_price == update.price_scaled:
+                age_seconds = latest_block_timestamp - current_timestamp if current_timestamp else None
+                if age_seconds is not None and age_seconds < refresh_threshold_seconds:
+                    print(
+                        f"  {update.asset_name} ({update.market}): already {update.price_formatted} "
+                        f"at commit timestamp {current_timestamp} "
+                        f"(age {age_seconds}s < refresh threshold {refresh_threshold_seconds}s); skipping"
+                    )
+                    continue
+
+                print(
+                    f"  {update.asset_name} ({update.market}): price unchanged but timestamp is stale "
+                    f"(commit timestamp {current_timestamp}, age {age_seconds}s); refreshing"
+                )
             filtered.append(update)
         return filtered
 
@@ -302,13 +323,17 @@ class CuOraclePriceUpdater:
                 latest, last_updated_at = self.get_latest_price(update.asset_id, block_identifier=reveal_block)
                 latest_seen = latest
                 last_updated_seen = last_updated_at
-                if latest == update.price_scaled:
+                if latest == update.price_scaled and (
+                    update.previous_timestamp is None or last_updated_at > update.previous_timestamp
+                ):
                     return latest, last_updated_at
 
                 latest, last_updated_at = self.get_latest_price(update.asset_id)
                 latest_seen = latest
                 last_updated_seen = last_updated_at
-                if latest == update.price_scaled:
+                if latest == update.price_scaled and (
+                    update.previous_timestamp is None or last_updated_at > update.previous_timestamp
+                ):
                     return latest, last_updated_at
             except Exception as exc:
                 last_error = exc

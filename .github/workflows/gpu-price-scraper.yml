@@ -104,6 +104,7 @@ jobs:
         ORACLE_UPDATER_PRIVATE_KEY: ${{ secrets.ORACLE_UPDATER_PRIVATE_KEY }}
         CU_ORACLE_ADDRESS: "0x97f557594bA32e51c0eA215B1886111F24E957af"
         ORACLE_REVEAL_WAIT_SECONDS: "3"
+        ORACLE_REFRESH_THRESHOLD_SECONDS: "21600"
         BOT_MODE: true
       run: |
         echo "Pushing H100 index prices to Sepolia CuOracle..."
@@ -122,6 +123,7 @@ jobs:
         ORACLE_UPDATER_PRIVATE_KEY: ${{ secrets.ORACLE_UPDATER_PRIVATE_KEY }}
         CU_ORACLE_ADDRESS: "0x97f557594bA32e51c0eA215B1886111F24E957af"
         ORACLE_REVEAL_WAIT_SECONDS: "3"
+        ORACLE_REFRESH_THRESHOLD_SECONDS: "21600"
       run: |
         echo "Pushing individual H100 provider prices to Sepolia CuOracle..."
         if [ -f "provider_averages.csv" ]; then
