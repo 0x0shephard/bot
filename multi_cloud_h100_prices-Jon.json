@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-30 04:02:11",
+  "timestamp": "2026-05-31 04:27:32",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -75,8 +75,9 @@
       "H100 GPU": "\u20b91.74"
     },
     "Massed Compute": {
-      "H100 SXM5": "$22.00",
-      "H100 NVL": "$5.16"
+      "H100 SXM5": "$21.60",
+      "H100 NVL": "$5.06",
+      "H100 PCIe": "$2.35"
     },
     "DataCrunch": {
       "H100 SXM5 (Pay As You Go)": "$3.25",
@@ -138,7 +139,7 @@
   },
   "summary": {
     "total_providers": 29,
-    "total_h100_variants": 76,
+    "total_h100_variants": 77,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -218,6 +219,7 @@
         "Replicate: H100",
         "Massed Compute: H100 SXM5",
         "Massed Compute: H100 NVL",
+        "Massed Compute: H100 PCIe",
         "DataCrunch: H100 SXM5 (Pay As You Go)",
         "DataCrunch: H100 SXM5 (Spot Price)",
         "DataCrunch: H100 SXM5 (Dynamic Pricing)",
