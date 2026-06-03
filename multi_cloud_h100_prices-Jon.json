@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-06-02 22:26:37",
+  "timestamp": "2026-06-03 04:55:07",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -48,6 +48,9 @@
       "H100 SXM (1x GPU)": "$2.80",
       "H100 SXM (4x GPUs)": "$11.20",
       "H100 SXM (8x GPUs)": "$22.40"
+    },
+    "Neysa.ai": {
+      "H100 SXM (80GB)": "$4.39"
     },
     "ShaktiCloud": {
       "H100 SLURM (per GPU)": "\u20b9386",
@@ -98,9 +101,6 @@
       "H100 (80GB)": "$1.89",
       "H100": "$1.89"
     },
-    "Modal": {
-      "H100": "$3.95"
-    },
     "E2E Networks": {
       "1\u00d7H100 SXM (80GB) - Regular": "\u20b9450",
       "2\u00d7H100 SXM (80GB) - Regular": "\u20b9816",
@@ -149,6 +149,7 @@
       "Koyeb",
       "Nebius",
       "TaigaCloud",
+      "Neysa.ai",
       "ShaktiCloud",
       "GMICloud",
       "Lambda Labs",
@@ -161,7 +162,6 @@
       "LeaderGPU",
       "Baseten",
       "Fal.AI",
-      "Modal",
       "E2E Networks",
       "Seeweb",
       "AtlasCloud",
@@ -208,6 +208,7 @@
         "TaigaCloud: H100 SXM (1x GPU)",
         "TaigaCloud: H100 SXM (4x GPUs)",
         "TaigaCloud: H100 SXM (8x GPUs)",
+        "Neysa.ai: H100 SXM (80GB)",
         "GMICloud: H100 (per GPU)",
         "Lambda Labs: H100",
         "Lambda Labs: H100 SXM",
@@ -224,7 +225,6 @@
         "Baseten: H100 MIG (40GB VRAM)",
         "Fal.AI: H100 (80GB)",
         "Fal.AI: H100",
-        "Modal: H100",
         "AtlasCloud: H100 GPU Instance",
         "Crusoe: H100 80GB SXM (On-Demand)",
         "Crusoe: H100 80GB SXM (6-month reserved)",
