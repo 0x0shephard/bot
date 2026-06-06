@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-06-05 04:24:00",
+  "timestamp": "2026-06-06 04:06:17",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -30,11 +30,7 @@
       "H100 (AI Training/Notebooks)": "\u20b9281.6"
     },
     "Gcore": {
-      "H100 SXM (8x GPUs - GPU Cloud)": "\u20ac22.04 (\u20ac2.76/GPU)",
-      "H100 (1x GPU - Inference)": "\u20ac4",
-      "H100 (2x GPUs - Inference)": "\u20ac8",
-      "H100 (4x GPUs - Inference)": "\u20ac16",
-      "H100 (8x GPUs - Inference)": "\u20ac32"
+      "H100 (8x GPUs - Inference)": "\u20ac1"
     },
     "Koyeb": {
       "H100 (1x GPU)": "$2.50",
@@ -142,7 +138,7 @@
   },
   "summary": {
     "total_providers": 29,
-    "total_h100_variants": 80,
+    "total_h100_variants": 76,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -258,10 +254,6 @@
         "E2E Networks: 4\u00d7H100 HGX"
       ],
       "EUR": [
-        "Gcore: H100 SXM (8x GPUs - GPU Cloud)",
-        "Gcore: H100 (1x GPU - Inference)",
-        "Gcore: H100 (2x GPUs - Inference)",
-        "Gcore: H100 (4x GPUs - Inference)",
         "Gcore: H100 (8x GPUs - Inference)",
         "LeaderGPU: H100 (8x GPUs - NVLink)",
         "LeaderGPU: H100 (2x GPUs - Summer Promo)",
