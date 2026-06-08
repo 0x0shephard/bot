@@ -1,4 +1,4 @@
-# GPU Price Index Results - Sun Jun  7 17:27:50 UTC 2026
+# GPU Price Index Results - Mon Jun  8 04:51:36 UTC 2026
 
 ## Pipeline Status
 - Scrapers: ✅ Completed
@@ -11,7 +11,7 @@
 ## Latest Index Prices
 ```
 Total_Weight_Percent,Total_Weighted_Price,Full_Index_Price,Hyperscalers_Only_Price,Non_Hyperscalers_Only_Price,Hyperscaler_Weight,Non_Hyperscaler_Weight,Calculation_Date
-78.3535,325.1503860899999,4.149787643053596,4.683891152399232,3.0898606681013963,52.1,26.253500000000003,2026-06-07 17:27:05
+78.63349999999998,325.10941508999986,4.134489944997996,4.683891152399232,3.0557101795842994,52.1,26.5335,2026-06-08 04:48:45
 ```
 
 ## Generated Files
