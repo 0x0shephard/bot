@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-06-15 05:08:13",
+  "timestamp": "2026-06-15 19:53:17",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -30,11 +30,7 @@
       "H100 (AI Training/Notebooks)": "\u20b9281.6"
     },
     "Gcore": {
-      "H100 SXM (8x GPUs - GPU Cloud)": "\u20ac22.04 (\u20ac2.76/GPU)",
-      "H100 (1x GPU - Inference)": "\u20ac4",
-      "H100 (2x GPUs - Inference)": "\u20ac8",
-      "H100 (4x GPUs - Inference)": "\u20ac16",
-      "H100 (8x GPUs - Inference)": "\u20ac32"
+      "H100 (8x GPUs - Inference)": "\u20ac1"
     },
     "Koyeb": {
       "H100 (1x GPU)": "$2.50",
@@ -48,9 +44,6 @@
       "H100 SXM (1x GPU)": "$2.80",
       "H100 SXM (4x GPUs)": "$11.20",
       "H100 SXM (8x GPUs)": "$22.40"
-    },
-    "Neysa.ai": {
-      "H100 SXM (80GB)": "$4.39"
     },
     "ShaktiCloud": {
       "H100 SLURM (per GPU)": "\u20b9386",
@@ -141,8 +134,8 @@
     }
   },
   "summary": {
-    "total_providers": 29,
-    "total_h100_variants": 80,
+    "total_providers": 28,
+    "total_h100_variants": 75,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -152,7 +145,6 @@
       "Koyeb",
       "Nebius",
       "TaigaCloud",
-      "Neysa.ai",
       "ShaktiCloud",
       "GMICloud",
       "Lambda Labs",
@@ -212,7 +204,6 @@
         "TaigaCloud: H100 SXM (1x GPU)",
         "TaigaCloud: H100 SXM (4x GPUs)",
         "TaigaCloud: H100 SXM (8x GPUs)",
-        "Neysa.ai: H100 SXM (80GB)",
         "GMICloud: H100 (per GPU)",
         "Lambda Labs: H100",
         "Lambda Labs: H100 SXM",
@@ -258,10 +249,6 @@
         "E2E Networks: 4\u00d7H100 HGX"
       ],
       "EUR": [
-        "Gcore: H100 SXM (8x GPUs - GPU Cloud)",
-        "Gcore: H100 (1x GPU - Inference)",
-        "Gcore: H100 (2x GPUs - Inference)",
-        "Gcore: H100 (4x GPUs - Inference)",
         "Gcore: H100 (8x GPUs - Inference)",
         "LeaderGPU: H100 (8x GPUs - NVLink)",
         "LeaderGPU: H100 (2x GPUs - Summer Promo)",
