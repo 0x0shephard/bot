@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-06-17 04:53:08",
+  "timestamp": "2026-06-17 18:27:32",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -97,9 +97,6 @@
       "H100 (80GB)": "$1.89",
       "H100": "$8.50"
     },
-    "Modal": {
-      "H100": "$3.95"
-    },
     "E2E Networks": {
       "1\u00d7H100 SXM (80GB) - Regular": "\u20b9450",
       "2\u00d7H100 SXM (80GB) - Regular": "\u20b9816",
@@ -132,13 +129,12 @@
     },
     "VoltagePark": {
       "H100 (On-Demand Ethernet)": "$1.99",
-      "H100 (On-Demand InfiniBand)": "$2.49",
-      "H100": "$1.99"
+      "H100 (On-Demand InfiniBand)": "$2.49"
     }
   },
   "summary": {
-    "total_providers": 29,
-    "total_h100_variants": 76,
+    "total_providers": 28,
+    "total_h100_variants": 74,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -161,7 +157,6 @@
       "LeaderGPU",
       "Baseten",
       "Fal.AI",
-      "Modal",
       "E2E Networks",
       "Seeweb",
       "AtlasCloud",
@@ -225,7 +220,6 @@
         "Baseten: H100 MIG (40GB VRAM)",
         "Fal.AI: H100 (80GB)",
         "Fal.AI: H100",
-        "Modal: H100",
         "AtlasCloud: H100 GPU Instance",
         "Crusoe: H100 80GB SXM (On-Demand)",
         "Crusoe: H100 80GB SXM (6-month reserved)",
@@ -233,8 +227,7 @@
         "Crusoe: H100 80GB SXM (3-year reserved)",
         "HydraHost: H100 (per card-hour)",
         "VoltagePark: H100 (On-Demand Ethernet)",
-        "VoltagePark: H100 (On-Demand InfiniBand)",
-        "VoltagePark: H100"
+        "VoltagePark: H100 (On-Demand InfiniBand)"
       ],
       "INR": [
         "OVHcloud: H100 (AI Training/Notebooks)",
