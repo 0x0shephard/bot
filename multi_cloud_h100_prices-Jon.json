@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-06-19 05:04:54",
+  "timestamp": "2026-06-19 12:15:07",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -30,7 +30,11 @@
       "H100 (AI Training/Notebooks)": "\u20b9281.6"
     },
     "Gcore": {
-      "H100 (8x GPUs - Inference)": "\u20ac1"
+      "H100 SXM (8x GPUs - GPU Cloud)": "\u20ac22.04 (\u20ac2.76/GPU)",
+      "H100 (1x GPU - Inference)": "\u20ac4",
+      "H100 (2x GPUs - Inference)": "\u20ac8",
+      "H100 (4x GPUs - Inference)": "\u20ac16",
+      "H100 (8x GPUs - Inference)": "\u20ac32"
     },
     "Koyeb": {
       "H100 (1x GPU)": "$2.50",
@@ -123,6 +127,10 @@
       "H100 80GB SXM (1-year reserved)": "$2.93",
       "H100 80GB SXM (3-year reserved)": "$2.54"
     },
+    "Leaseweb": {
+      "H100 (2x GPUs - Dedicated Monthly)": "\u20ac2.76",
+      "H100 (Per GPU - Dedicated Monthly)": "\u20ac1.38"
+    },
     "HydraHost": {
       "H100 (per card-hour)": "$2.30"
     },
@@ -132,8 +140,8 @@
     }
   },
   "summary": {
-    "total_providers": 28,
-    "total_h100_variants": 73,
+    "total_providers": 29,
+    "total_h100_variants": 79,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -161,6 +169,7 @@
       "Seeweb",
       "AtlasCloud",
       "Crusoe",
+      "Leaseweb",
       "HydraHost",
       "VoltagePark"
     ],
@@ -247,12 +256,18 @@
         "E2E Networks: 4\u00d7H100 HGX"
       ],
       "EUR": [
+        "Gcore: H100 SXM (8x GPUs - GPU Cloud)",
+        "Gcore: H100 (1x GPU - Inference)",
+        "Gcore: H100 (2x GPUs - Inference)",
+        "Gcore: H100 (4x GPUs - Inference)",
         "Gcore: H100 (8x GPUs - Inference)",
         "LeaderGPU: H100 (8x GPUs - NVLink)",
         "LeaderGPU: H100 (2x GPUs - Summer Promo)",
         "LeaderGPU: H100 (2x GPUs - Regular)",
         "LeaderGPU: H100 (2x GPUs - per hour)",
-        "Seeweb: H100 SXM (80GB)"
+        "Seeweb: H100 SXM (80GB)",
+        "Leaseweb: H100 (2x GPUs - Dedicated Monthly)",
+        "Leaseweb: H100 (Per GPU - Dedicated Monthly)"
       ]
     }
   }
