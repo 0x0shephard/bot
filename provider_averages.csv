@@ -2,9 +2,9 @@ Provider,AvgNormalizedPrice,VariantCount,StdDevNormalizedPrice,AvgPricePerGPU,Av
 AceCloud,0.0002,1,,0.0002,0.0245
 Replicate,0.0282,2,0.0377,0.0282,2.7458
 AtlasCloud,0.035,1,,0.035,3.5
-Vast.ai,1.478,4,0.2636,1.515,1.515
 Leaseweb,1.5824,2,0.0,1.5824,2.3736
 Atlantic.net,1.5944,1,,1.67,1.67
+Vast.ai,2.0374,3,0.8257,2.0667,2.0667
 HyperStack,2.0539,6,0.2686,2.0833,2.0833
 Nebius,2.15,1,,2.15,2.15
 VoltagePark,2.24,2,0.3536,2.24,2.24
@@ -34,4 +34,5 @@ Baseten,6.9997,2,0.7067,5.125,5.125
 GMICloud,8.0,1,,8.0,8.0
 Massed Compute,15.3478,2,13.8199,15.48,15.48
 Google Cloud,15.4112,4,0.4835,15.4112,69.355
+ShaktiCloud,70.7655,4,134.2114,70.7656,70.7656
 Atlantic.Net,634.9567,8,1168.7439,665.0559,674.9092
