@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-06-25 21:49:53",
+  "timestamp": "2026-06-26 04:17:34",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$2.40",
@@ -12,25 +12,15 @@
       "H100NVL (8x GPUs)": "$31.531",
       "H100NVL": "$2648.4"
     },
-    "Civo": {
-      "H100 SXM (1x GPU) Standard": "$2.99",
-      "H100 SXM (1x GPU) Discounted": "$2.49",
-      "H100 SXM (8x GPUs) Standard": "$23.92",
-      "H100 SXM (8x GPUs) Discounted": "$19.92",
-      "H100 PCI (1x GPU) Standard": "$2.49",
-      "H100 PCI (1x GPU) Discounted": "$1.99",
-      "H100 PCI (2x GPUs) Standard": "$4.98",
-      "H100 PCI (2x GPUs) Discounted": "$3.98",
-      "H100 PCI (4x GPUs) Standard": "$9.96",
-      "H100 PCI (4x GPUs) Discounted": "$7.96",
-      "H100 PCI (8x GPUs) Standard": "$19.92",
-      "H100 PCI (8x GPUs) Discounted": "$15.92"
-    },
     "OVHcloud": {
       "H100 (AI Training/Notebooks)": "\u20b9281.6"
     },
     "Gcore": {
-      "H100 (8x GPUs - Inference)": "\u20ac1"
+      "H100 SXM (8x GPUs - GPU Cloud)": "\u20ac22.04 (\u20ac2.76/GPU)",
+      "H100 (1x GPU - Inference)": "\u20ac4",
+      "H100 (2x GPUs - Inference)": "\u20ac8",
+      "H100 (4x GPUs - Inference)": "\u20ac16",
+      "H100 (8x GPUs - Inference)": "\u20ac32"
     },
     "Koyeb": {
       "H100 (1x GPU)": "$2.50",
@@ -136,12 +126,11 @@
     }
   },
   "summary": {
-    "total_providers": 29,
-    "total_h100_variants": 75,
+    "total_providers": 28,
+    "total_h100_variants": 67,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
-      "Civo",
       "OVHcloud",
       "Gcore",
       "Koyeb",
@@ -188,18 +177,6 @@
         "Atlantic.Net: H100NVL (4x GPUs)",
         "Atlantic.Net: H100NVL (8x GPUs)",
         "Atlantic.Net: H100NVL",
-        "Civo: H100 SXM (1x GPU) Standard",
-        "Civo: H100 SXM (1x GPU) Discounted",
-        "Civo: H100 SXM (8x GPUs) Standard",
-        "Civo: H100 SXM (8x GPUs) Discounted",
-        "Civo: H100 PCI (1x GPU) Standard",
-        "Civo: H100 PCI (1x GPU) Discounted",
-        "Civo: H100 PCI (2x GPUs) Standard",
-        "Civo: H100 PCI (2x GPUs) Discounted",
-        "Civo: H100 PCI (4x GPUs) Standard",
-        "Civo: H100 PCI (4x GPUs) Discounted",
-        "Civo: H100 PCI (8x GPUs) Standard",
-        "Civo: H100 PCI (8x GPUs) Discounted",
         "Koyeb: H100 (1x GPU)",
         "Koyeb: H100 (2x GPUs)",
         "Koyeb: H100 (4x GPUs)",
@@ -252,6 +229,10 @@
         "E2E Networks: 4\u00d7H100 HGX"
       ],
       "EUR": [
+        "Gcore: H100 SXM (8x GPUs - GPU Cloud)",
+        "Gcore: H100 (1x GPU - Inference)",
+        "Gcore: H100 (2x GPUs - Inference)",
+        "Gcore: H100 (4x GPUs - Inference)",
         "Gcore: H100 (8x GPUs - Inference)",
         "LeaderGPU: H100 (8x GPUs - NVLink)",
         "LeaderGPU: H100 (2x GPUs - Summer Promo)",
