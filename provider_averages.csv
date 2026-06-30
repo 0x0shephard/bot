@@ -2,10 +2,10 @@ Provider,AvgNormalizedPrice,VariantCount,StdDevNormalizedPrice,AvgPricePerGPU,Av
 AceCloud,0.0002,1,,0.0002,0.0244
 Replicate,0.0282,2,0.0377,0.0282,2.7458
 AtlasCloud,0.035,1,,0.035,3.5
-Vast.ai,1.561,2,0.4118,1.635,1.635
 Leaseweb,1.574,2,0.0,1.574,2.361
 Atlantic.net,1.5944,1,,1.67,1.67
 Latitude.sh,1.68,3,0.0,1.68,1.68
+Vast.ai,1.7407,3,0.2357,1.77,1.77
 DataCrunch,1.8917,4,1.2434,1.8918,1.8918
 HyperStack,2.0539,6,0.2686,2.0833,2.0833
 Nebius,2.15,1,,2.15,2.15
