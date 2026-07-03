@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-02 21:17:12",
+  "timestamp": "2026-07-03 03:53:46",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -11,20 +11,6 @@
       "H100NVL (4x GPUs)": "$15.765",
       "H100NVL (8x GPUs)": "$31.531",
       "H100NVL": "$2648.4"
-    },
-    "Civo": {
-      "H100 SXM (1x GPU) Standard": "$2.99",
-      "H100 SXM (1x GPU) Discounted": "$2.49",
-      "H100 SXM (8x GPUs) Standard": "$23.92",
-      "H100 SXM (8x GPUs) Discounted": "$19.92",
-      "H100 PCI (1x GPU) Standard": "$2.49",
-      "H100 PCI (1x GPU) Discounted": "$1.99",
-      "H100 PCI (2x GPUs) Standard": "$4.98",
-      "H100 PCI (2x GPUs) Discounted": "$3.98",
-      "H100 PCI (4x GPUs) Standard": "$9.96",
-      "H100 PCI (4x GPUs) Discounted": "$7.96",
-      "H100 PCI (8x GPUs) Standard": "$19.92",
-      "H100 PCI (8x GPUs) Discounted": "$15.92"
     },
     "OVHcloud": {
       "H100 (AI Training/Notebooks)": "\u20b9281.6"
@@ -101,17 +87,6 @@
     "Modal": {
       "H100": "$3.95"
     },
-    "E2E Networks": {
-      "1\u00d7H100 SXM (80GB) - Regular": "\u20b9450",
-      "2\u00d7H100 SXM (80GB) - Regular": "\u20b9816",
-      "4\u00d7H100 SXM (80GB) - Regular": "\u20b91,560",
-      "8\u00d7H100 SXM (80GB) - Regular": "\u20b93,040",
-      "1\u00d7H100 - Spot": "\u20b9175",
-      "2\u00d7H100 - Spot": "\u20b9350",
-      "4\u00d7H100 - Spot": "\u20b9700",
-      "8\u00d7H100 HGX": "\u20b93,152",
-      "4\u00d7H100 HGX": "\u20b91,576"
-    },
     "Seeweb": {
       "H100 SXM (80GB)": "\u20ac2.35"
     },
@@ -137,12 +112,11 @@
     }
   },
   "summary": {
-    "total_providers": 29,
-    "total_h100_variants": 76,
+    "total_providers": 27,
+    "total_h100_variants": 55,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
-      "Civo",
       "OVHcloud",
       "Gcore",
       "Koyeb",
@@ -162,7 +136,6 @@
       "Baseten",
       "Fal.AI",
       "Modal",
-      "E2E Networks",
       "Seeweb",
       "AtlasCloud",
       "Crusoe",
@@ -189,18 +162,6 @@
         "Atlantic.Net: H100NVL (4x GPUs)",
         "Atlantic.Net: H100NVL (8x GPUs)",
         "Atlantic.Net: H100NVL",
-        "Civo: H100 SXM (1x GPU) Standard",
-        "Civo: H100 SXM (1x GPU) Discounted",
-        "Civo: H100 SXM (8x GPUs) Standard",
-        "Civo: H100 SXM (8x GPUs) Discounted",
-        "Civo: H100 PCI (1x GPU) Standard",
-        "Civo: H100 PCI (1x GPU) Discounted",
-        "Civo: H100 PCI (2x GPUs) Standard",
-        "Civo: H100 PCI (2x GPUs) Discounted",
-        "Civo: H100 PCI (4x GPUs) Standard",
-        "Civo: H100 PCI (4x GPUs) Discounted",
-        "Civo: H100 PCI (8x GPUs) Standard",
-        "Civo: H100 PCI (8x GPUs) Discounted",
         "Koyeb: H100 (1x GPU)",
         "Koyeb: H100 (2x GPUs)",
         "Koyeb: H100 (4x GPUs)",
@@ -242,16 +203,7 @@
         "ShaktiCloud: H100 Kubernetes (per GPU)",
         "ShaktiCloud: H100 Serverless 80GB (per hour)",
         "ShaktiCloud: H100 Azure ML (per GPU)",
-        "AceCloud: H100 GPU",
-        "E2E Networks: 1\u00d7H100 SXM (80GB) - Regular",
-        "E2E Networks: 2\u00d7H100 SXM (80GB) - Regular",
-        "E2E Networks: 4\u00d7H100 SXM (80GB) - Regular",
-        "E2E Networks: 8\u00d7H100 SXM (80GB) - Regular",
-        "E2E Networks: 1\u00d7H100 - Spot",
-        "E2E Networks: 2\u00d7H100 - Spot",
-        "E2E Networks: 4\u00d7H100 - Spot",
-        "E2E Networks: 8\u00d7H100 HGX",
-        "E2E Networks: 4\u00d7H100 HGX"
+        "AceCloud: H100 GPU"
       ],
       "EUR": [
         "Gcore: H100 (8x GPUs - Inference)",
