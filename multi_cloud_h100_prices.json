@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-03 03:54:25",
+  "timestamp": "2026-07-03 07:31:16",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -28,8 +28,8 @@
     },
     "GPU-Mart": {
       "H100 (Monthly)": "$2.92/hr",
-      "H100 Dedicated Server": "$2.92/hr",
-      "H100 Plan": "$2.92/hr"
+      "H100 Dedicated Server": "$3.61/hr",
+      "H100 Plan": "$3.61/hr"
     },
     "JarvisLabs": {
       "H100": "$0.39/hr",
@@ -46,9 +46,9 @@
       "H100 Mega (A3 Mega, per GPU est.)": "$14.99/hr"
     },
     "Vast.ai": {
-      "H100 SXM (API)": "$2.94/hr",
-      "H200 (API)": "$12.11/hr",
-      "H100 NVL (API)": "$2.14/hr"
+      "H100 NVL (API)": "$1.00/hr",
+      "H100 SXM (API)": "$4.40/hr",
+      "H200 (API)": "$6.05/hr"
     },
     "Latitude.sh": {
       "H100 (Standard)": "$1.68/hr",
@@ -94,6 +94,6 @@
       "variant": "H100NVL",
       "price": "$2648.4/hr"
     },
-    "last_updated": "2026-07-03T03:54:40.569266"
+    "last_updated": "2026-07-03T07:31:33.300187"
   }
 }
