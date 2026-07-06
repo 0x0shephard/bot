@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-06 18:17:08",
+  "timestamp": "2026-07-06 21:42:43",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -32,10 +32,10 @@
       "H100 Plan": "$3.61/hr"
     },
     "JarvisLabs": {
-      "H100": "$0.39/hr",
-      "H200": "$0.39/hr",
+      "H100": "$2.69/hr",
+      "H200": "$10.0/hr",
       "H100 SXM": "$2.69/hr",
-      "H100 (Price First)": "$10.0/hr",
+      "H100 (Price First)": "$0.39/hr",
       "H200 (Price First)": "$2.69/hr",
       "H100 (Line Context)": "$0.39/hr"
     },
@@ -47,8 +47,9 @@
     },
     "Vast.ai": {
       "H100 SXM (API)": "$2.94/hr",
+      "H200 (API)": "$3.03/hr",
       "H100 NVL (API)": "$1.33/hr",
-      "H200 (API)": "$6.05/hr"
+      "H200 NVL (API)": "$1.67/hr"
     },
     "Latitude.sh": {
       "H100 (Standard)": "$1.68/hr",
@@ -72,7 +73,7 @@
   },
   "summary": {
     "total_providers": 12,
-    "total_h100_variants": 44,
+    "total_h100_variants": 45,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -86,7 +87,7 @@
     ],
     "cheapest": {
       "provider": "JarvisLabs",
-      "variant": "H100",
+      "variant": "H100 (Price First)",
       "price": "$0.39/hr"
     },
     "most_expensive": {
@@ -94,6 +95,6 @@
       "variant": "H100NVL",
       "price": "$2648.4/hr"
     },
-    "last_updated": "2026-07-06T18:17:24.911355"
+    "last_updated": "2026-07-06T21:43:03.825729"
   }
 }
