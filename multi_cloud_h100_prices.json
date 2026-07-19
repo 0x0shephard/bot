@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-19 06:37:15",
+  "timestamp": "2026-07-19 09:59:12",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -47,8 +47,8 @@
     },
     "Vast.ai": {
       "H100 NVL (API)": "$1.33/hr",
-      "H200 NVL (API)": "$1.94/hr",
-      "H100 SXM (API)": "$2.94/hr"
+      "H200 NVL (API)": "$3.88/hr",
+      "H100 SXM (API)": "$1.47/hr"
     },
     "Latitude.sh": {
       "H100 (Standard)": "$1.68/hr",
@@ -94,6 +94,6 @@
       "variant": "H100NVL",
       "price": "$2648.4/hr"
     },
-    "last_updated": "2026-07-19T06:37:32.920575"
+    "last_updated": "2026-07-19T09:59:29.546803"
   }
 }
