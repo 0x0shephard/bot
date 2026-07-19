@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-19 09:59:12",
+  "timestamp": "2026-07-19 13:40:05",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -94,6 +94,6 @@
       "variant": "H100NVL",
       "price": "$2648.4/hr"
     },
-    "last_updated": "2026-07-19T09:59:29.546803"
+    "last_updated": "2026-07-19T13:40:23.346329"
   }
 }
