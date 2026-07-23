@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-23 03:30:49",
+  "timestamp": "2026-07-23 06:53:52",
   "provider": "RunPod",
   "providers": {
     "RunPod": {
@@ -24,6 +24,13 @@
           "gpu_model": "H100",
           "gpu_memory": "80GB",
           "price_per_hour": 3.19,
+          "currency": "USD",
+          "availability": "on-demand"
+        },
+        "H100": {
+          "gpu_model": "H100",
+          "gpu_memory": "80GB",
+          "price_per_hour": 4.55,
           "currency": "USD",
           "availability": "on-demand"
         }
