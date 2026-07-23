@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-23 06:36:37",
+  "timestamp": "2026-07-23 10:30:36",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -60,6 +60,9 @@
     "Lambda Labs": {
       "H100": "$9.86",
       "H100 SXM": "$3.99"
+    },
+    "Qubrid": {
+      "H100 (80GB - 1x GPU)": "$2.73"
     },
     "EdgeVana": {
       "H100 Node": "$2.50"
@@ -134,8 +137,8 @@
     }
   },
   "summary": {
-    "total_providers": 28,
-    "total_h100_variants": 75,
+    "total_providers": 29,
+    "total_h100_variants": 76,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -149,6 +152,7 @@
       "ShaktiCloud",
       "GMICloud",
       "Lambda Labs",
+      "Qubrid",
       "EdgeVana",
       "Replicate",
       "AceCloud",
@@ -208,6 +212,7 @@
         "GMICloud: H100 (per GPU)",
         "Lambda Labs: H100",
         "Lambda Labs: H100 SXM",
+        "Qubrid: H100 (80GB - 1x GPU)",
         "EdgeVana: H100 Node",
         "Replicate: H100 GPU",
         "Replicate: H100",
