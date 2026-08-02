@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-02 17:09:26",
+  "timestamp": "2026-08-02 21:03:34",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -34,9 +34,11 @@
     "JarvisLabs": {
       "H100": "$10.0/hr",
       "H200": "$3.99/hr",
+      "H100 (NVIDIA)": "$2.69/hr",
+      "H200 (NVIDIA)": "$3.99/hr",
       "H100 SXM": "$2.69/hr",
       "H100 (Price First)": "$2.69/hr",
-      "H200 (Price First)": "$0.41/hr",
+      "H200 (Price First)": "$3.99/hr",
       "H100 (Line Context)": "$10./hr"
     },
     "Google Cloud": {
@@ -46,7 +48,7 @@
       "H100 Mega (A3 Mega, per GPU est.)": "$14.99/hr"
     },
     "Vast.ai": {
-      "H100 NVL (API)": "$1.94/hr",
+      "H100 NVL (API)": "$2.13/hr",
       "H100 SXM (API)": "$2.94/hr"
     },
     "Latitude.sh": {
@@ -71,7 +73,7 @@
   },
   "summary": {
     "total_providers": 12,
-    "total_h100_variants": 43,
+    "total_h100_variants": 45,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -84,15 +86,15 @@
       "Amazon Web Services"
     ],
     "cheapest": {
-      "provider": "JarvisLabs",
-      "variant": "H200 (Price First)",
-      "price": "$0.41/hr"
+      "provider": "Atlantic.net",
+      "variant": "H100 NVL (On-Demand)",
+      "price": "$1.67/hr"
     },
     "most_expensive": {
       "provider": "Atlantic.Net",
       "variant": "H100NVL",
       "price": "$2648.4/hr"
     },
-    "last_updated": "2026-08-02T17:09:42.147790"
+    "last_updated": "2026-08-02T21:03:52.421102"
   }
 }
