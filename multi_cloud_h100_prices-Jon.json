@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-01 21:02:55",
+  "timestamp": "2026-08-02 03:34:27",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -45,6 +45,9 @@
       "H100 SXM (4x GPUs)": "$11.20",
       "H100 SXM (8x GPUs)": "$22.40"
     },
+    "Neysa.ai": {
+      "H100 SXM (80GB)": "$4.39"
+    },
     "ShaktiCloud": {
       "H100 SLURM (per GPU)": "\u20b9386",
       "H100 Kubernetes (per GPU)": "\u20b9386",
@@ -74,12 +77,6 @@
     "Massed Compute": {
       "H100 SXM5": "$25.12",
       "H100 NVL": "$5.84"
-    },
-    "DataCrunch": {
-      "H100 SXM5 (Pay As You Go)": "$1.77",
-      "H100 SXM5 (Dynamic Pricing)": "$1.44",
-      "H100 SXM5 (Spot Price)": "$0.72",
-      "H100 SXM5 (Fixed Pricing)": "$3.637"
     },
     "LeaderGPU": {
       "H100 (8x GPUs - NVLink)": "\u20ac22.04",
@@ -131,7 +128,7 @@
   },
   "summary": {
     "total_providers": 27,
-    "total_h100_variants": 73,
+    "total_h100_variants": 70,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -141,6 +138,7 @@
       "Koyeb",
       "Nebius",
       "TaigaCloud",
+      "Neysa.ai",
       "ShaktiCloud",
       "GMICloud",
       "Lambda Labs",
@@ -149,7 +147,6 @@
       "Replicate",
       "AceCloud",
       "Massed Compute",
-      "DataCrunch",
       "LeaderGPU",
       "Baseten",
       "Modal",
@@ -199,6 +196,7 @@
         "TaigaCloud: H100 SXM (1x GPU)",
         "TaigaCloud: H100 SXM (4x GPUs)",
         "TaigaCloud: H100 SXM (8x GPUs)",
+        "Neysa.ai: H100 SXM (80GB)",
         "GMICloud: H100 (per GPU)",
         "Lambda Labs: H100",
         "Lambda Labs: H100 SXM",
@@ -208,10 +206,6 @@
         "Replicate: H100",
         "Massed Compute: H100 SXM5",
         "Massed Compute: H100 NVL",
-        "DataCrunch: H100 SXM5 (Pay As You Go)",
-        "DataCrunch: H100 SXM5 (Dynamic Pricing)",
-        "DataCrunch: H100 SXM5 (Spot Price)",
-        "DataCrunch: H100 SXM5 (Fixed Pricing)",
         "Baseten: H100 (80GB VRAM)",
         "Baseten: H100 MIG (40GB VRAM)",
         "Modal: H100",
