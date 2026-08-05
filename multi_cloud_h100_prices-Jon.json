@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-05 14:24:16",
+  "timestamp": "2026-08-05 17:47:48",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -91,6 +91,10 @@
       "H100 (80GB VRAM)": "$6.50",
       "H100 MIG (40GB VRAM)": "$3.75"
     },
+    "Fal.AI": {
+      "H100 (80GB)": "$1.89",
+      "H100": "$8.50"
+    },
     "Modal": {
       "H100": "$3.95"
     },
@@ -130,8 +134,8 @@
     }
   },
   "summary": {
-    "total_providers": 27,
-    "total_h100_variants": 73,
+    "total_providers": 28,
+    "total_h100_variants": 75,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -152,6 +156,7 @@
       "DataCrunch",
       "LeaderGPU",
       "Baseten",
+      "Fal.AI",
       "Modal",
       "E2E Networks",
       "Seeweb",
@@ -214,6 +219,8 @@
         "DataCrunch: H100 SXM5 (Fixed Pricing)",
         "Baseten: H100 (80GB VRAM)",
         "Baseten: H100 MIG (40GB VRAM)",
+        "Fal.AI: H100 (80GB)",
+        "Fal.AI: H100",
         "Modal: H100",
         "AtlasCloud: H100 GPU Instance",
         "Crusoe: H100 80GB SXM (On-Demand)",
