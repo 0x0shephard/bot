@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-07 16:59:20",
+  "timestamp": "2026-08-07 20:50:08",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -44,12 +44,6 @@
       "H100 SXM (1x GPU)": "$2.80",
       "H100 SXM (4x GPUs)": "$11.20",
       "H100 SXM (8x GPUs)": "$22.40"
-    },
-    "ShaktiCloud": {
-      "H100 SLURM (per GPU)": "\u20b9386",
-      "H100 Kubernetes (per GPU)": "\u20b9386",
-      "H100 Serverless 80GB (per hour)": "\u20b925668.00",
-      "H100 Azure ML (per GPU)": "\u20b9264"
     },
     "GMICloud": {
       "H100 (per GPU)": "$8.00"
@@ -134,8 +128,8 @@
     }
   },
   "summary": {
-    "total_providers": 28,
-    "total_h100_variants": 75,
+    "total_providers": 27,
+    "total_h100_variants": 71,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -145,7 +139,6 @@
       "Koyeb",
       "Nebius",
       "TaigaCloud",
-      "ShaktiCloud",
       "GMICloud",
       "Lambda Labs",
       "Qubrid",
@@ -233,10 +226,6 @@
       ],
       "INR": [
         "OVHcloud: H100 (AI Training/Notebooks)",
-        "ShaktiCloud: H100 SLURM (per GPU)",
-        "ShaktiCloud: H100 Kubernetes (per GPU)",
-        "ShaktiCloud: H100 Serverless 80GB (per hour)",
-        "ShaktiCloud: H100 Azure ML (per GPU)",
         "AceCloud: H100 GPU",
         "E2E Networks: 1\u00d7H100 SXM (80GB) - Regular",
         "E2E Networks: 2\u00d7H100 SXM (80GB) - Regular",
