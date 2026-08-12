@@ -185,7 +185,9 @@ class CuOraclePriceUpdater:
         balance_eth = self.w3.from_wei(self.w3.eth.get_balance(self.address), "ether")
         owner = self.contract.functions.owner().call()
         can_commit = self.address.lower() == owner.lower() or self.contract.functions.allowedRoles(self.address).call()
-        can_reveal = self.address.lower() == owner.lower()
+        # CuOracle permits both the owner and addresses in allowedRoles to
+        # execute the reveal/update step.
+        can_reveal = self.address.lower() == owner.lower() or self.contract.functions.allowedRoles(self.address).call()
 
         print("=" * 60)
         print("BYTESTRIKE CUORACLE PRICE UPDATER")
@@ -203,7 +205,7 @@ class CuOraclePriceUpdater:
         if not can_commit:
             raise PermissionError("Updater is not oracle owner and does not have allowedRoles commit permission")
         if not can_reveal:
-            raise PermissionError("CuOracle.updatePrices is owner-only; ORACLE_UPDATER_PRIVATE_KEY must be owner key")
+            raise PermissionError("Updater is neither the CuOracle owner nor an allowed publisher role")
 
     def _fee_fields(self) -> dict:
         priority_gwei = Decimal(os.getenv("ORACLE_MAX_PRIORITY_FEE_GWEI", "0.05"))
