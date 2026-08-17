@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-17 16:35:28",
+  "timestamp": "2026-08-17 20:34:01",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -130,11 +130,15 @@
     },
     "HydraHost": {
       "H100 (per card-hour)": "$2.30"
+    },
+    "VoltagePark": {
+      "H100 (On-Demand Ethernet)": "$1.99",
+      "H100 (On-Demand InfiniBand)": "$2.49"
     }
   },
   "summary": {
-    "total_providers": 28,
-    "total_h100_variants": 74,
+    "total_providers": 29,
+    "total_h100_variants": 76,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -163,7 +167,8 @@
       "AtlasCloud",
       "Crusoe",
       "Leaseweb",
-      "HydraHost"
+      "HydraHost",
+      "VoltagePark"
     ],
     "cheapest_usd": {
       "provider": "Replicate",
@@ -227,7 +232,9 @@
         "Crusoe: H100 80GB SXM (6-month reserved)",
         "Crusoe: H100 80GB SXM (1-year reserved)",
         "Crusoe: H100 80GB SXM (3-year reserved)",
-        "HydraHost: H100 (per card-hour)"
+        "HydraHost: H100 (per card-hour)",
+        "VoltagePark: H100 (On-Demand Ethernet)",
+        "VoltagePark: H100 (On-Demand InfiniBand)"
       ],
       "INR": [
         "OVHcloud: H100 (AI Training/Notebooks)",
