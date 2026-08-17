@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-17 08:52:43",
+  "timestamp": "2026-08-17 12:56:40",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -49,7 +49,7 @@
     },
     "Vast.ai": {
       "H100 SXM (API)": "$10.67/hr",
-      "H100 NVL (API)": "$1.33/hr"
+      "H100 NVL (API)": "$1.98/hr"
     },
     "Latitude.sh": {
       "H100 (Standard)": "$1.68/hr",
@@ -86,15 +86,15 @@
       "Amazon Web Services"
     ],
     "cheapest": {
-      "provider": "Vast.ai",
-      "variant": "H100 NVL (API)",
-      "price": "$1.33/hr"
+      "provider": "Atlantic.net",
+      "variant": "H100 NVL (On-Demand)",
+      "price": "$1.67/hr"
     },
     "most_expensive": {
       "provider": "Atlantic.Net",
       "variant": "H100NVL",
       "price": "$2648.4/hr"
     },
-    "last_updated": "2026-08-17T08:52:58.360253"
+    "last_updated": "2026-08-17T12:57:00.841527"
   }
 }
