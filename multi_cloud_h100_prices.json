@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-08-22 20:31:04",
+  "timestamp": "2026-08-23 01:48:19",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -49,7 +49,6 @@
     },
     "Vast.ai": {
       "H200 (API)": "$1.32/hr",
-      "H100 NVL (API)": "$1.33/hr",
       "H100 SXM (API)": "$2.94/hr"
     },
     "Latitude.sh": {
@@ -74,7 +73,7 @@
   },
   "summary": {
     "total_providers": 12,
-    "total_h100_variants": 46,
+    "total_h100_variants": 45,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -96,6 +95,6 @@
       "variant": "H100NVL",
       "price": "$2648.4/hr"
     },
-    "last_updated": "2026-08-22T20:31:20.319279"
+    "last_updated": "2026-08-23T01:48:47.290240"
   }
 }
