@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-06 22:04:03",
+  "timestamp": "2026-09-07 04:06:00",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -78,12 +78,6 @@
       "H100 SXM5": "$2.89",
       "H100 NVL": "$5.84"
     },
-    "LeaderGPU": {
-      "H100 (8x GPUs - NVLink)": "\u20ac22.04",
-      "H100 (2x GPUs - Summer Promo)": "\u20ac4.19",
-      "H100 (2x GPUs - Regular)": "\u20ac6.98",
-      "H100 (2x GPUs - per hour)": "\u20ac22.20"
-    },
     "Baseten": {
       "H100 (80GB VRAM)": "$6.50",
       "H100 MIG (40GB VRAM)": "$3.75"
@@ -131,8 +125,8 @@
     }
   },
   "summary": {
-    "total_providers": 28,
-    "total_h100_variants": 72,
+    "total_providers": 27,
+    "total_h100_variants": 68,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -151,7 +145,6 @@
       "Replicate",
       "AceCloud",
       "Massed Compute",
-      "LeaderGPU",
       "Baseten",
       "Fal.AI",
       "Modal",
@@ -244,10 +237,6 @@
       ],
       "EUR": [
         "Gcore: H100 (8x GPUs - Inference)",
-        "LeaderGPU: H100 (8x GPUs - NVLink)",
-        "LeaderGPU: H100 (2x GPUs - Summer Promo)",
-        "LeaderGPU: H100 (2x GPUs - Regular)",
-        "LeaderGPU: H100 (2x GPUs - per hour)",
         "Seeweb: H100 SXM (80GB)",
         "Leaseweb: H100 (2x GPUs - Dedicated Monthly)",
         "Leaseweb: H100 (Per GPU - Dedicated Monthly)"
