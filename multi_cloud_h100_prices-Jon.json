@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-08 12:48:07",
+  "timestamp": "2026-09-08 19:22:37",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -106,6 +106,9 @@
       "8\u00d7H100 HGX": "\u20b93,152",
       "4\u00d7H100 HGX": "\u20b91,576"
     },
+    "Seeweb": {
+      "H100 SXM (80GB)": "\u20ac2.35"
+    },
     "AtlasCloud": {
       "H100 GPU Instance": "$3.50"
     },
@@ -128,8 +131,8 @@
     }
   },
   "summary": {
-    "total_providers": 27,
-    "total_h100_variants": 71,
+    "total_providers": 28,
+    "total_h100_variants": 72,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -153,6 +156,7 @@
       "Fal.AI",
       "Modal",
       "E2E Networks",
+      "Seeweb",
       "AtlasCloud",
       "Crusoe",
       "Leaseweb",
@@ -244,6 +248,7 @@
         "LeaderGPU: H100 (2x GPUs - Summer Promo)",
         "LeaderGPU: H100 (2x GPUs - Regular)",
         "LeaderGPU: H100 (2x GPUs - per hour)",
+        "Seeweb: H100 SXM (80GB)",
         "Leaseweb: H100 (2x GPUs - Dedicated Monthly)",
         "Leaseweb: H100 (Per GPU - Dedicated Monthly)"
       ]
