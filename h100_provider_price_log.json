@@ -3614,5 +3614,45 @@
         "price_scaled": 2269200000000000000
       }
     ]
+  },
+  {
+    "timestamp": "2026-09-11T04:13:49.379025+00:00",
+    "network": "sepolia",
+    "contract_type": "CuOracle",
+    "cu_oracle": "0x97f557594bA32e51c0eA215B1886111F24E957af",
+    "updater_address": "0xCc624fFA5df1F3F4b30aa8abd30186a86254F406",
+    "commit_txs": [
+      "3f52c2d769b1ccc51fab9ce1c72cbcfdbf7f22e3bb1f455074fac642b3f24bf4",
+      "0420f489b87d0e749ca4aef520647a22096f5609c6d968706e4cbe389d887b6c",
+      "9c22f1d6d9da4e55c0ff8e2447e8c11e57bdbd4cd3d92afdac31482a3ba84ee9"
+    ],
+    "reveal_txs": [
+      "6cd1a0990b4867cb5e5907f673d749fd9d1eb78abd87cc4059f2718350fb7ea5",
+      "c8dd99d3cf0d98acf17ffb01688d2a7b54c6077a81dc34a66d7a6c414955dbe3",
+      "285ff4fec966e71d43d26e1301aab35e8e647b73d4b901dfb226388d6494b75d"
+    ],
+    "updates": [
+      {
+        "asset_name": "AWS_H100_HOURLY",
+        "market": "AWS-H100-PERP",
+        "asset_id": "0x33474ec291744718e5d36573b65c7b5cbf85740c766ba61ff1fdf324408de00c",
+        "price_usd": 3.8528,
+        "price_scaled": 3852800000000000000
+      },
+      {
+        "asset_name": "AZURE_H100_HOURLY",
+        "market": "AZURE-H100-PERP",
+        "asset_id": "0xe73f2cbece22cd622973b57c976d23b4d197f34245b506aad9296988be8312ed",
+        "price_usd": 2.114,
+        "price_scaled": 2114000000000000000
+      },
+      {
+        "asset_name": "GCP_H100_HOURLY",
+        "market": "GCP-H100-PERP",
+        "asset_id": "0x59af16e64573d8c27d6eb69ab1f1672f1826f2ea1bfd32b037ed2686dc8c3e4b",
+        "price_usd": 2.2692,
+        "price_scaled": 2269200000000000000
+      }
+    ]
   }
 ]
