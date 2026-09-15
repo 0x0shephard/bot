@@ -221,26 +221,65 @@ class CuOraclePriceUpdater:
         }
 
     def _send_transaction(self, func, gas_limit: int) -> Tuple[str, dict]:
-        if self._next_nonce is None:
-            self._next_nonce = self.w3.eth.get_transaction_count(self.address, "pending")
-
-        tx = func.build_transaction(
-            {
-                "from": self.address,
-                "nonce": self._next_nonce,
-                "gas": gas_limit,
-                "chainId": SEPOLIA_CHAIN_ID,
-                **self._fee_fields(),
-            }
+        max_attempts = max(1, int(os.getenv("ORACLE_TX_RETRY_ATTEMPTS", "20")))
+        retry_base_seconds = max(1, int(os.getenv("ORACLE_TX_RETRY_BASE_SECONDS", "15")))
+        retry_max_seconds = max(
+            retry_base_seconds,
+            int(os.getenv("ORACLE_TX_RETRY_MAX_SECONDS", "60")),
         )
-        self._next_nonce += 1
-        signed = self.account.sign_transaction(tx)
-        raw_tx = getattr(signed, "raw_transaction", getattr(signed, "rawTransaction", signed))
-        tx_hash = self.w3.eth.send_raw_transaction(raw_tx)
-        receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash, timeout=240)
-        if int(receipt.get("status", 0)) != 1:
-            raise RuntimeError(f"Transaction reverted: {tx_hash.hex()}")
-        return tx_hash.hex(), dict(receipt)
+        retry_jitter_seconds = max(0, int(os.getenv("ORACLE_TX_RETRY_JITTER_SECONDS", "5")))
+
+        for attempt in range(max_attempts):
+            pending_nonce = self.w3.eth.get_transaction_count(self.address, "pending")
+            if self._next_nonce is None or pending_nonce > self._next_nonce:
+                self._next_nonce = pending_nonce
+
+            tx_nonce = self._next_nonce
+            tx = func.build_transaction(
+                {
+                    "from": self.address,
+                    "nonce": tx_nonce,
+                    "gas": gas_limit,
+                    "chainId": SEPOLIA_CHAIN_ID,
+                    **self._fee_fields(),
+                }
+            )
+            signed = self.account.sign_transaction(tx)
+            raw_tx = getattr(signed, "raw_transaction", getattr(signed, "rawTransaction", signed))
+
+            try:
+                tx_hash = self.w3.eth.send_raw_transaction(raw_tx)
+            except Exception as exc:
+                message = str(exc).lower()
+                delegated_account_limit = (
+                    "in-flight transaction limit reached for delegated accounts" in message
+                )
+                if not delegated_account_limit or attempt + 1 >= max_attempts:
+                    raise
+
+                # Another price-bot workflow is using the same delegated updater.
+                # Drop the cached nonce so the next attempt reconciles against the
+                # node after the competing transaction has been mined.
+                self._next_nonce = None
+                delay_seconds = min(retry_max_seconds, retry_base_seconds * (2**attempt))
+                if retry_jitter_seconds:
+                    delay_seconds += secrets.randbelow(retry_jitter_seconds + 1)
+                print(
+                    "  Delegated updater has another transaction in flight; "
+                    f"waiting {delay_seconds}s before retry "
+                    f"{attempt + 2}/{max_attempts}..."
+                )
+                time.sleep(delay_seconds)
+                continue
+
+            # Advance the local nonce only after the RPC accepts the transaction.
+            self._next_nonce = tx_nonce + 1
+            receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash, timeout=240)
+            if int(receipt.get("status", 0)) != 1:
+                raise RuntimeError(f"Transaction reverted: {tx_hash.hex()}")
+            return tx_hash.hex(), dict(receipt)
+
+        raise RuntimeError("Oracle transaction retry loop exhausted")
 
     def get_latest_price(self, asset_id: str, block_identifier="latest") -> Tuple[int, int]:
         price, last_updated_at = self.contract.functions.getLatestPrice(asset_id).call(
