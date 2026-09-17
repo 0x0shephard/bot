@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-16 23:12:20",
+  "timestamp": "2026-09-17 05:10:06",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -8,9 +8,7 @@
     },
     "Atlantic.Net": {
       "H100NVL (1x GPU)": "$3.941",
-      "H100NVL (4x GPUs)": "$15.765",
-      "H100NVL (8x GPUs)": "$31.531",
-      "H100NVL": "$2648.4"
+      "H100NVL": "$3.941"
     },
     "Civo": {
       "H100 SXM (1x GPU) Standard": "$2.99",
@@ -45,9 +43,6 @@
       "H100 SXM (4x GPUs)": "$11.20",
       "H100 SXM (8x GPUs)": "$22.40"
     },
-    "Neysa.ai": {
-      "H100 SXM (80GB)": "$4.39"
-    },
     "ShaktiCloud": {
       "H100 SLURM (per GPU)": "\u20b9386",
       "H100 Kubernetes (per GPU)": "\u20b9386",
@@ -65,7 +60,7 @@
       "H100 (80GB - 1x GPU)": "$2.73"
     },
     "EdgeVana": {
-      "H100": "$2.18"
+      "H100": "$2.06"
     },
     "Replicate": {
       "H100 GPU": "$5.49",
@@ -131,8 +126,8 @@
     }
   },
   "summary": {
-    "total_providers": 28,
-    "total_h100_variants": 72,
+    "total_providers": 27,
+    "total_h100_variants": 69,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -142,7 +137,6 @@
       "Koyeb",
       "Nebius",
       "TaigaCloud",
-      "Neysa.ai",
       "ShaktiCloud",
       "GMICloud",
       "Lambda Labs",
@@ -169,9 +163,9 @@
       "price": "$0.001525"
     },
     "most_expensive_usd": {
-      "provider": "Atlantic.Net",
-      "variant": "H100NVL",
-      "price": "$2648.4"
+      "provider": "Civo",
+      "variant": "H100 SXM (8x GPUs) Standard",
+      "price": "$23.92"
     },
     "currencies": {
       "USD": [
@@ -179,8 +173,6 @@
         "HyperStack: H100 NVLink",
         "HyperStack: H100 (Standard)",
         "Atlantic.Net: H100NVL (1x GPU)",
-        "Atlantic.Net: H100NVL (4x GPUs)",
-        "Atlantic.Net: H100NVL (8x GPUs)",
         "Atlantic.Net: H100NVL",
         "Civo: H100 SXM (1x GPU) Standard",
         "Civo: H100 SXM (1x GPU) Discounted",
@@ -201,7 +193,6 @@
         "TaigaCloud: H100 SXM (1x GPU)",
         "TaigaCloud: H100 SXM (4x GPUs)",
         "TaigaCloud: H100 SXM (8x GPUs)",
-        "Neysa.ai: H100 SXM (80GB)",
         "GMICloud: H100 (per GPU)",
         "Lambda Labs: H100",
         "Lambda Labs: H100 SXM",

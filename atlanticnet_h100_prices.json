@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-16 23:13:13",
+  "timestamp": "2026-09-17 05:11:09",
   "provider": "Atlantic.net",
   "providers": {
     "Atlantic.net": {
@@ -9,7 +9,7 @@
         "H100 NVL": {
           "gpu_model": "H100",
           "gpu_memory": "80GB",
-          "price_per_hour": 1.67,
+          "price_per_hour": 3.94,
           "currency": "USD",
           "availability": "on-demand"
         }
