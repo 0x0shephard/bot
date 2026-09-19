@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-18 22:47:01",
+  "timestamp": "2026-09-19 04:56:11",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -46,9 +46,9 @@
       "H100 Mega (A3 Mega, per GPU est.)": "$6.99/hr"
     },
     "Vast.ai": {
-      "H100 SXM (API)": "$1.47/hr",
-      "H200 (API)": "$1.98/hr",
-      "H100 NVL (API)": "$1.98/hr"
+      "H100 SXM (API)": "$2.94/hr",
+      "H100 NVL (API)": "$2.07/hr",
+      "H200 (API)": "$1.98/hr"
     },
     "Latitude.sh": {
       "H100 (Standard)": "$1.68/hr",
@@ -85,15 +85,15 @@
       "Amazon Web Services"
     ],
     "cheapest": {
-      "provider": "Vast.ai",
-      "variant": "H100 SXM (API)",
-      "price": "$1.47/hr"
+      "provider": "Latitude.sh",
+      "variant": "H100 (Standard)",
+      "price": "$1.68/hr"
     },
     "most_expensive": {
       "provider": "Google Cloud",
       "variant": "H100 Mega (A3 Mega 8x, on-demand)",
       "price": "$55.89/hr"
     },
-    "last_updated": "2026-09-18T22:47:21.040857"
+    "last_updated": "2026-09-19T04:56:38.913681"
   }
 }
