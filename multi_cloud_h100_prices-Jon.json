@@ -1,14 +1,10 @@
 {
-  "timestamp": "2026-09-19 22:26:31",
+  "timestamp": "2026-09-20 05:16:14",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
       "H100 NVLink": "$2.60",
       "H100 (Standard)": "$2.50"
-    },
-    "Atlantic.Net": {
-      "H100NVL (1x GPU)": "$3.941",
-      "H100NVL": "$3.941"
     },
     "Civo": {
       "H100 SXM (1x GPU) Standard": "$2.99",
@@ -129,11 +125,10 @@
     }
   },
   "summary": {
-    "total_providers": 28,
-    "total_h100_variants": 70,
+    "total_providers": 27,
+    "total_h100_variants": 68,
     "providers_with_data": [
       "HyperStack",
-      "Atlantic.Net",
       "Civo",
       "OVHcloud",
       "Gcore",
@@ -176,8 +171,6 @@
         "HyperStack: H100 SXM",
         "HyperStack: H100 NVLink",
         "HyperStack: H100 (Standard)",
-        "Atlantic.Net: H100NVL (1x GPU)",
-        "Atlantic.Net: H100NVL",
         "Civo: H100 SXM (1x GPU) Standard",
         "Civo: H100 SXM (1x GPU) Discounted",
         "Civo: H100 SXM (8x GPUs) Standard",
