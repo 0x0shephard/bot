@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-27 23:19:15",
+  "timestamp": "2026-09-28 05:44:56",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -63,11 +63,7 @@
       "H100 (80GB - 1x GPU)": "$2.73"
     },
     "EdgeVana": {
-      "H100": "$1.99"
-    },
-    "Replicate": {
-      "H100 GPU": "$5.49",
-      "H100": "$0.001525"
+      "H100": "$3.14"
     },
     "AceCloud": {
       "H100 GPU": "\u20b92.31"
@@ -129,8 +125,8 @@
     }
   },
   "summary": {
-    "total_providers": 28,
-    "total_h100_variants": 70,
+    "total_providers": 27,
+    "total_h100_variants": 68,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -146,7 +142,6 @@
       "Lambda Labs",
       "Qubrid",
       "EdgeVana",
-      "Replicate",
       "AceCloud",
       "Massed Compute",
       "LeaderGPU",
@@ -162,9 +157,9 @@
       "VoltagePark"
     ],
     "cheapest_usd": {
-      "provider": "Replicate",
-      "variant": "H100",
-      "price": "$0.001525"
+      "provider": "Fal.AI",
+      "variant": "H100 (80GB)",
+      "price": "$1.89"
     },
     "most_expensive_usd": {
       "provider": "Civo",
@@ -203,8 +198,6 @@
         "Lambda Labs: H100 SXM",
         "Qubrid: H100 (80GB - 1x GPU)",
         "EdgeVana: H100",
-        "Replicate: H100 GPU",
-        "Replicate: H100",
         "Massed Compute: H100 SXM5",
         "Massed Compute: H100 NVL",
         "Baseten: H100 (80GB VRAM)",
