@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-29 15:00:44",
+  "timestamp": "2026-09-29 20:59:32",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -73,7 +73,7 @@
       "H100 GPU": "\u20b92.31"
     },
     "Massed Compute": {
-      "H100 SXM5": "$2.89",
+      "H100 SXM5": "$3.14",
       "H100 NVL": "$5.84"
     },
     "LeaderGPU": {
