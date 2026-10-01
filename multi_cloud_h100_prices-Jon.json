@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-01 15:37:02",
+  "timestamp": "2026-10-01 21:13:38",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -63,7 +63,7 @@
       "H100 (80GB - 1x GPU)": "$2.73"
     },
     "EdgeVana": {
-      "H100": "$3.48"
+      "H100 Node": "$2.50"
     },
     "Replicate": {
       "H100 GPU": "$5.49",
@@ -87,8 +87,8 @@
       "H100 MIG (40GB VRAM)": "$3.75"
     },
     "Fal.AI": {
-      "H100 (80GB)": "$1.89",
-      "H100": "$8.50"
+      "H100 (80GB)": "$2.49",
+      "H100": "$12.99"
     },
     "Modal": {
       "H100": "$3.95"
@@ -202,7 +202,7 @@
         "Lambda Labs: H100",
         "Lambda Labs: H100 SXM",
         "Qubrid: H100 (80GB - 1x GPU)",
-        "EdgeVana: H100",
+        "EdgeVana: H100 Node",
         "Replicate: H100 GPU",
         "Replicate: H100",
         "Massed Compute: H100 SXM5",
