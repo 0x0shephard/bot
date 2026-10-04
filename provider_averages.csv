@@ -1,7 +1,6 @@
 Provider,AvgNormalizedPrice,VariantCount,StdDevNormalizedPrice,AvgPricePerGPU,AvgOriginalPrice
 AceCloud,0.0002,1,,0.0002,0.024
 Replicate,0.0282,2,0.0377,0.0282,2.7458
-AtlasCloud,0.035,1,,0.035,3.5
 Gcore,0.1403,1,,0.1403,1.1225
 Leaseweb,1.5491,2,0.0,1.5491,2.3236
 Latitude.sh,1.68,3,0.0,1.68,1.68
