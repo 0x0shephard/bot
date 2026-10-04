@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-04 14:18:55",
+  "timestamp": "2026-10-04 19:47:14",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -31,12 +31,12 @@
     },
     "JarvisLabs": {
       "H100": "$10.0/hr",
-      "H200": "$3.99/hr",
-      "H100 (NVIDIA)": "$2.69/hr",
-      "H200 (NVIDIA)": "$3.99/hr",
-      "H100 SXM": "$2.69/hr",
-      "H100 (Price First)": "$2.69/hr",
-      "H200 (Price First)": "$3.99/hr",
+      "H200": "$4.59/hr",
+      "H100 (NVIDIA)": "$3.49/hr",
+      "H200 (NVIDIA)": "$4.59/hr",
+      "H100 SXM": "$3.49/hr",
+      "H100 (Price First)": "$3.49/hr",
+      "H200 (Price First)": "$4.59/hr",
       "H100 (Line Context)": "$10./hr"
     },
     "Google Cloud": {
@@ -47,7 +47,8 @@
     },
     "Vast.ai": {
       "H100 NVL (API)": "$2.27/hr",
-      "H200 (API)": "$2.63/hr"
+      "H200 (API)": "$2.63/hr",
+      "H100 SXM (API)": "$4.27/hr"
     },
     "Latitude.sh": {
       "H100 (Standard)": "$1.68/hr",
@@ -71,7 +72,7 @@
   },
   "summary": {
     "total_providers": 12,
-    "total_h100_variants": 43,
+    "total_h100_variants": 44,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -93,6 +94,6 @@
       "variant": "H100 Mega (A3 Mega 8x, on-demand)",
       "price": "$55.89/hr"
     },
-    "last_updated": "2026-10-04T14:19:26.452949"
+    "last_updated": "2026-10-04T19:47:31.764697"
   }
 }
