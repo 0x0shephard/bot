@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-04 23:30:35",
+  "timestamp": "2026-10-05 06:05:37",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -63,7 +63,7 @@
       "H100 (80GB - 1x GPU)": "$2.73"
     },
     "EdgeVana": {
-      "H100": "$2.24"
+      "H100": "$3.48"
     },
     "Replicate": {
       "H100 GPU": "$5.49",
@@ -107,6 +107,9 @@
     "Seeweb": {
       "H100 SXM (80GB)": "\u20ac2.35"
     },
+    "AtlasCloud": {
+      "H100 GPU Instance": "$3.50"
+    },
     "Crusoe": {
       "H100 80GB SXM (On-Demand)": "$3.90",
       "H100 80GB SXM (6-month reserved)": "$3.12",
@@ -126,8 +129,8 @@
     }
   },
   "summary": {
-    "total_providers": 27,
-    "total_h100_variants": 69,
+    "total_providers": 28,
+    "total_h100_variants": 70,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -152,6 +155,7 @@
       "Modal",
       "E2E Networks",
       "Seeweb",
+      "AtlasCloud",
       "Crusoe",
       "Leaseweb",
       "HydraHost",
@@ -208,6 +212,7 @@
         "Fal.AI: H100 (80GB)",
         "Fal.AI: H100",
         "Modal: H100",
+        "AtlasCloud: H100 GPU Instance",
         "Crusoe: H100 80GB SXM (On-Demand)",
         "Crusoe: H100 80GB SXM (6-month reserved)",
         "Crusoe: H100 80GB SXM (1-year reserved)",
