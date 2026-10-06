@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-06 01:24:45",
+  "timestamp": "2026-10-06 11:28:15",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -93,6 +93,6 @@
       "variant": "H100 Mega (A3 Mega 8x, on-demand)",
       "price": "$53.1/hr"
     },
-    "last_updated": "2026-10-06T01:25:10.935309"
+    "last_updated": "2026-10-06T11:28:33.620904"
   }
 }
