@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-08 21:27:51",
+  "timestamp": "2026-10-09 06:33:49",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -62,7 +62,7 @@
     },
     "RunPod": {
       "H100 PCIe": "USD 2.89/hr",
-      "H100 SXM": "USD 3.49/hr",
+      "H100 SXM": "USD 3.99/hr",
       "H100 NVL": "USD 3.19/hr"
     },
     "Atlantic.net": {
@@ -93,6 +93,6 @@
       "variant": "H100 Mega (A3 Mega 8x, on-demand)",
       "price": "$53.1/hr"
     },
-    "last_updated": "2026-10-08T21:28:13.062182"
+    "last_updated": "2026-10-09T06:34:49.656819"
   }
 }
