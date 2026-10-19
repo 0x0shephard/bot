@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-19 15:49:54",
+  "timestamp": "2026-10-19 21:12:42",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -44,8 +44,7 @@
       "H100 SXM (8x GPUs)": "$22.40"
     },
     "Neysa.ai": {
-      "H100 SXM (80GB)": "$4.59",
-      "H100 SXM (Monthly Commitment)": "$2.55"
+      "H100 SXM (80GB)": "$4.39"
     },
     "ShaktiCloud": {
       "H100 SLURM (per GPU)": "\u20b9386",
@@ -64,7 +63,7 @@
       "H100 (80GB - 1x GPU)": "$2.73"
     },
     "EdgeVana": {
-      "H100": "$2.44"
+      "H100": "$1.99"
     },
     "Replicate": {
       "H100 GPU": "$5.49",
@@ -131,7 +130,7 @@
   },
   "summary": {
     "total_providers": 28,
-    "total_h100_variants": 71,
+    "total_h100_variants": 70,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -199,7 +198,6 @@
         "TaigaCloud: H100 SXM (4x GPUs)",
         "TaigaCloud: H100 SXM (8x GPUs)",
         "Neysa.ai: H100 SXM (80GB)",
-        "Neysa.ai: H100 SXM (Monthly Commitment)",
         "GMICloud: H100 (per GPU)",
         "Lambda Labs: H100",
         "Lambda Labs: H100 SXM",
