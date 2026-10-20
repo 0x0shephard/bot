@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-20 05:09:40",
+  "timestamp": "2026-10-20 13:47:54",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -36,7 +36,7 @@
       "H100 (4x GPUs)": "$10.0"
     },
     "Nebius": {
-      "HGX H100 (On-Demand)": "$4.50"
+      "HGX H100 (On-Demand)": "$0.79"
     },
     "TaigaCloud": {
       "H100 SXM (1x GPU)": "$2.80",
@@ -63,7 +63,7 @@
       "H100 (80GB - 1x GPU)": "$2.73"
     },
     "EdgeVana": {
-      "H100": "$2.30"
+      "H100": "$2.06"
     },
     "Replicate": {
       "H100 GPU": "$5.49",
