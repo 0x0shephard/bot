@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-21 05:11:56",
+  "timestamp": "2026-10-21 14:04:25",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -46,7 +46,7 @@
       "H100 Mega (A3 Mega, per GPU est.)": "$11.68/hr"
     },
     "Vast.ai": {
-      "H100 NVL (API)": "$2.27/hr"
+      "H100 NVL (API)": "$2.47/hr"
     },
     "Latitude.sh": {
       "H100 (Standard)": "$1.68/hr",
@@ -92,6 +92,6 @@
       "variant": "H100 Mega (A3 Mega 8x, on-demand)",
       "price": "$93.4/hr"
     },
-    "last_updated": "2026-10-21T05:12:26.294135"
+    "last_updated": "2026-10-21T14:05:08.863383"
   }
 }
