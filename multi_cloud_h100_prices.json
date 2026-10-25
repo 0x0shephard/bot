@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-25 05:09:04",
+  "timestamp": "2026-10-25 13:20:27",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -30,14 +30,14 @@
       "H100 Plan": "$2.92/hr"
     },
     "JarvisLabs": {
-      "H100": "$10.0/hr",
+      "H100": "$25.0/hr",
       "H200": "$4.59/hr",
       "H100 (NVIDIA)": "$3.49/hr",
       "H200 (NVIDIA)": "$4.59/hr",
       "H100 SXM": "$3.49/hr",
       "H100 (Price First)": "$3.49/hr",
       "H200 (Price First)": "$4.59/hr",
-      "H100 (Line Context)": "$10./hr"
+      "H100 (Line Context)": "$25/hr"
     },
     "Google Cloud": {
       "H100 (A3 High 8x, on-demand)": "$50.19/hr",
@@ -92,6 +92,6 @@
       "variant": "H100 Mega (A3 Mega 8x, on-demand)",
       "price": "$93.4/hr"
     },
-    "last_updated": "2026-10-25T05:09:39.823628"
+    "last_updated": "2026-10-25T13:20:51.622309"
   }
 }
