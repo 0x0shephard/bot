@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-26 05:11:38",
+  "timestamp": "2026-10-26 15:24:44",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -40,8 +40,8 @@
       "H100 (Line Context)": "$25/hr"
     },
     "Google Cloud": {
-      "H100 (A3 High 8x, on-demand)": "$50.19/hr",
-      "H100 (A3 High, per GPU est.)": "$6.27/hr",
+      "H100 (A3 High 8x, on-demand)": "$52.70/hr",
+      "H100 (A3 High, per GPU est.)": "$6.59/hr",
       "H100 Mega (A3 Mega 8x, on-demand)": "$93.40/hr",
       "H100 Mega (A3 Mega, per GPU est.)": "$11.68/hr"
     },
@@ -92,6 +92,6 @@
       "variant": "H100 Mega (A3 Mega 8x, on-demand)",
       "price": "$93.4/hr"
     },
-    "last_updated": "2026-10-26T05:12:10.411337"
+    "last_updated": "2026-10-26T15:25:03.251152"
   }
 }
