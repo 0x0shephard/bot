@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-29 21:21:23",
+  "timestamp": "2026-10-30 06:18:13",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -63,7 +63,7 @@
       "H100 (80GB - 1x GPU)": "$2.73"
     },
     "EdgeVana": {
-      "H100": "$3.45"
+      "H100": "$2.00"
     },
     "Replicate": {
       "H100 GPU": "$5.49",
@@ -119,17 +119,14 @@
       "H100 (2x GPUs - Dedicated Monthly)": "\u20ac2.76",
       "H100 (Per GPU - Dedicated Monthly)": "\u20ac1.38"
     },
-    "HydraHost": {
-      "H100 (per card-hour)": "$2.30"
-    },
     "VoltagePark": {
       "H100 (On-Demand Ethernet)": "$1.99",
       "H100 (On-Demand InfiniBand)": "$2.49"
     }
   },
   "summary": {
-    "total_providers": 28,
-    "total_h100_variants": 69,
+    "total_providers": 27,
+    "total_h100_variants": 68,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -157,7 +154,6 @@
       "AtlasCloud",
       "Crusoe",
       "Leaseweb",
-      "HydraHost",
       "VoltagePark"
     ],
     "cheapest_usd": {
@@ -215,7 +211,6 @@
         "Crusoe: H100 80GB SXM (6-month reserved)",
         "Crusoe: H100 80GB SXM (1-year reserved)",
         "Crusoe: H100 80GB SXM (3-year reserved)",
-        "HydraHost: H100 (per card-hour)",
         "VoltagePark: H100 (On-Demand Ethernet)",
         "VoltagePark: H100 (On-Demand InfiniBand)"
       ],
