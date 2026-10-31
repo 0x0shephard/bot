@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-31 06:09:16",
+  "timestamp": "2026-10-31 14:41:31",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -63,7 +63,7 @@
       "H100 (80GB - 1x GPU)": "$2.73"
     },
     "EdgeVana": {
-      "H100": "$2.46"
+      "H100": "$2.92"
     },
     "Replicate": {
       "H100 GPU": "$5.49",
@@ -125,11 +125,14 @@
     "VoltagePark": {
       "H100 (On-Demand Ethernet)": "$1.99",
       "H100 (On-Demand InfiniBand)": "$2.49"
+    },
+    "SharonAI": {
+      "H100 NVL": "$2.29"
     }
   },
   "summary": {
-    "total_providers": 28,
-    "total_h100_variants": 69,
+    "total_providers": 29,
+    "total_h100_variants": 70,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -158,7 +161,8 @@
       "Crusoe",
       "Leaseweb",
       "HydraHost",
-      "VoltagePark"
+      "VoltagePark",
+      "SharonAI"
     ],
     "cheapest_usd": {
       "provider": "Replicate",
@@ -217,7 +221,8 @@
         "Crusoe: H100 80GB SXM (3-year reserved)",
         "HydraHost: H100 (per card-hour)",
         "VoltagePark: H100 (On-Demand Ethernet)",
-        "VoltagePark: H100 (On-Demand InfiniBand)"
+        "VoltagePark: H100 (On-Demand InfiniBand)",
+        "SharonAI: H100 NVL"
       ],
       "INR": [
         "OVHcloud: H100 (AI Training/Notebooks)",
