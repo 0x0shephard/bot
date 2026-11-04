@@ -1,29 +1,22 @@
 {
-  "timestamp": "2026-11-04 12:27:12",
+  "timestamp": "2026-11-04 19:59:52",
   "provider": "RunPod",
   "providers": {
     "RunPod": {
       "name": "RunPod",
       "url": "https://www.runpod.io",
       "variants": {
-        "H100 PCIe": {
+        "H100 SXM": {
           "gpu_model": "H100",
           "gpu_memory": "80GB",
           "price_per_hour": 2.89,
           "currency": "USD",
           "availability": "on-demand"
         },
-        "H100 SXM": {
+        "H100 PCIe": {
           "gpu_model": "H100",
           "gpu_memory": "80GB",
-          "price_per_hour": 3.99,
-          "currency": "USD",
-          "availability": "on-demand"
-        },
-        "H100 NVL": {
-          "gpu_model": "H100",
-          "gpu_memory": "80GB",
-          "price_per_hour": 3.19,
+          "price_per_hour": 2.89,
           "currency": "USD",
           "availability": "on-demand"
         }

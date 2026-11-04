@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-11-04 12:26:55",
+  "timestamp": "2026-11-04 19:59:37",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -46,8 +46,8 @@
       "H100 Mega (A3 Mega, per GPU est.)": "$11.68/hr"
     },
     "Vast.ai": {
-      "H100 NVL (API)": "$2.34/hr",
-      "H200 (API)": "$11.05/hr"
+      "H200 (API)": "$1.32/hr",
+      "H100 NVL (API)": "$2.47/hr"
     },
     "Latitude.sh": {
       "H100 (Standard)": "$1.68/hr",
@@ -61,17 +61,16 @@
       "H100 (ND96isr - 8x GPUs)": "$6.04/hr"
     },
     "RunPod": {
-      "H100 PCIe": "USD 2.89/hr",
-      "H100 SXM": "USD 3.99/hr",
-      "H100 NVL": "USD 3.19/hr"
+      "H100 SXM": "USD 2.89/hr",
+      "H100 PCIe": "USD 2.89/hr"
     },
     "Atlantic.net": {
-      "H100 NVL (On-Demand)": "$3.94/hr"
+      "H100 NVL (On-Demand)": "$1.26/hr"
     }
   },
   "summary": {
     "total_providers": 12,
-    "total_h100_variants": 43,
+    "total_h100_variants": 42,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -84,15 +83,15 @@
       "Amazon Web Services"
     ],
     "cheapest": {
-      "provider": "Latitude.sh",
-      "variant": "H100 (Standard)",
-      "price": "$1.68/hr"
+      "provider": "Atlantic.net",
+      "variant": "H100 NVL (On-Demand)",
+      "price": "$1.26/hr"
     },
     "most_expensive": {
       "provider": "Google Cloud",
       "variant": "H100 Mega (A3 Mega 8x, on-demand)",
       "price": "$93.4/hr"
     },
-    "last_updated": "2026-11-04T12:27:22.822088"
+    "last_updated": "2026-11-04T20:00:01.868844"
   }
 }
