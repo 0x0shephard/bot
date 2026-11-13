@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-11-05 01:01:13",
+  "timestamp": "2026-11-13 15:01:40",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -26,8 +26,8 @@
     },
     "GPU-Mart": {
       "H100 (Monthly)": "$2.92/hr",
-      "H100 Dedicated Server": "$2.92/hr",
-      "H100 Plan": "$2.92/hr"
+      "H100 Dedicated Server": "$3.61/hr",
+      "H100 Plan": "$3.61/hr"
     },
     "JarvisLabs": {
       "H100": "$25.0/hr",
@@ -40,15 +40,13 @@
       "H100 (Line Context)": "$25/hr"
     },
     "Google Cloud": {
-      "H100 (A3 High 8x, on-demand)": "$52.70/hr",
-      "H100 (A3 High, per GPU est.)": "$6.59/hr",
-      "H100 Mega (A3 Mega 8x, on-demand)": "$93.40/hr",
-      "H100 Mega (A3 Mega, per GPU est.)": "$11.68/hr"
+      "Error": "Unable to fetch live pricing from Google Cloud"
     },
     "Vast.ai": {
-      "H100 NVL (API)": "$2.47/hr",
-      "H200 (API)": "$11.05/hr",
-      "H100 SXM (API)": "$3.58/hr"
+      "H100 SXM": "$1.87/hr (FALLBACK)",
+      "H100 NVL": "$2.23/hr (FALLBACK)",
+      "H200": "$2.82/hr (FALLBACK)",
+      "H200 NVL": "$2.22/hr (FALLBACK)"
     },
     "Latitude.sh": {
       "H100 (Standard)": "$1.68/hr",
@@ -71,7 +69,7 @@
   },
   "summary": {
     "total_providers": 12,
-    "total_h100_variants": 43,
+    "total_h100_variants": 41,
     "providers_with_data": [
       "HyperStack",
       "Atlantic.Net",
@@ -89,10 +87,10 @@
       "price": "$1.26/hr"
     },
     "most_expensive": {
-      "provider": "Google Cloud",
-      "variant": "H100 Mega (A3 Mega 8x, on-demand)",
-      "price": "$93.4/hr"
+      "provider": "JarvisLabs",
+      "variant": "H100",
+      "price": "$25.0/hr"
     },
-    "last_updated": "2026-11-05T01:01:41.032692"
+    "last_updated": "2026-11-13T15:02:31.388892"
   }
 }
