@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-11-25 14:49:53",
+  "timestamp": "2026-11-26 00:36:22",
   "providers": {
     "HyperStack": {
       "H100 SXM": "$3.20",
@@ -63,7 +63,7 @@
       "H100 (80GB - 1x GPU)": "$2.73"
     },
     "EdgeVana": {
-      "H100": "$1.99"
+      "H100 Node": "$2.50"
     },
     "Replicate": {
       "H100 GPU": "$5.49",
@@ -73,8 +73,8 @@
       "H100 GPU": "\u20b92.31"
     },
     "Massed Compute": {
-      "H100 SXM5": "$3.14",
-      "H100 NVL": "$3.11"
+      "H100 SXM5": "$3.43",
+      "H100 NVL": "$6.56"
     },
     "LeaderGPU": {
       "H100 (8x GPUs - NVLink)": "\u20ac22.04",
@@ -205,7 +205,7 @@
         "Lambda Labs: H100",
         "Lambda Labs: H100 SXM",
         "Qubrid: H100 (80GB - 1x GPU)",
-        "EdgeVana: H100",
+        "EdgeVana: H100 Node",
         "Replicate: H100 GPU",
         "Replicate: H100",
         "Massed Compute: H100 SXM5",
